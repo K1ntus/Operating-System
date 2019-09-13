@@ -21,6 +21,7 @@
 
 #ifdef USER_PROGRAM
 #include "progtest.h"
+#include "synchconsole.h"
 #endif
 
 
@@ -28,7 +29,7 @@
 
 extern void ThreadTest (void), Copy (char *unixFile, char *nachosFile);
 extern void Print (char *file), PerformanceTest (void);
-extern void MailTest (int networkID);
+extern void MailTest (int networkID), SynchConsoleTest (const char * in, const char * out);
 
 //----------------------------------------------------------------------
 // main
@@ -79,6 +80,7 @@ main (int argc, char **argv)
 "-s causes user programs to be executed in single-step mode\n"
 "-x runs a user program\n"
 "-c tests the console\n"
+"-sc tests the synch console\n"
 #endif
 #ifdef FILESYS
 "FILESYS\n"
@@ -113,23 +115,23 @@ main (int argc, char **argv)
 	  if (!strcmp (*argv, "-z"))	// print copyright
 	      printf ("%s", copyright);
 #ifdef USER_PROGRAM
-	  if (!strcmp (*argv, "-x"))
-	    {			// run a user program
+	if (!strcmp (*argv, "-x")) {			// run a user program
 		ASSERT (argc > 1);
 		StartProcess (*(argv + 1));
 		argCount = 2;
-	    }
-	  else if (!strcmp (*argv, "-c"))
-	    {			// test the console
-		if (argc == 1)
-		    ConsoleTest (NULL, NULL);
-		else
-		  {
-		      ASSERT (argc > 2);
-		      ConsoleTest (*(argv + 1), *(argv + 2));
-		      argCount = 3;
-		  }
-	    }
+	} else if (!strcmp (*argv, "-c"))  {			// test the console
+		if (argc == 1) {
+	    	ConsoleTest (NULL, NULL);
+		} else  {
+	      	ASSERT (argc > 2);
+	      	ConsoleTest (*(argv + 1), *(argv + 2));
+	      	argCount = 3;
+	  	}
+	} else if (!strcmp (*argv, "-sc"))   {			// test the console
+	    ASSERT (argc > 2);
+	    SynchConsoleTest (*(argv + 1), *(argv + 2));
+	    argCount = 3;
+	}
 #endif // USER_PROGRAM
 #ifdef FILESYS
 	  if (!strcmp (*argv, "-cp"))

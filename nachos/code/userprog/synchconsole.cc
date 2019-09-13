@@ -8,7 +8,6 @@
 
 static Semaphore *readAvail;
 static Semaphore *writeDone;
-#define BUFFER_SIZE 1024
 
 
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
@@ -73,19 +72,15 @@ void SynchConsole::SynchGetString(char *s, int n) {
     s[0] = '\0';
     int pos_in_buffer = 0;
 
-    while(--n > 0) {
-        
+    while(--n > 0) {        
         int char_readed = SynchConsole::SynchGetChar();
-
         if(char_readed == EOF || char_readed == '\n') {
             break;
         } else {
             s[pos_in_buffer] = char_readed;
             s[pos_in_buffer+1] = '\0';
         }
-
-    }
-    
+    }    
 }
 
 void SynchConsoleTest (const char * in, const char * out) {
