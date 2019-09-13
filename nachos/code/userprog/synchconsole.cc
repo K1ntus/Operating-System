@@ -8,7 +8,7 @@
 
 static Semaphore *readAvail;
 static Semaphore *writeDone;
-static int BUFFER_SIZE = 1024;
+#define BUFFER_SIZE 1024
 
 
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
@@ -31,6 +31,16 @@ SynchConsole::~SynchConsole() {
 
 
 int SynchConsole::SynchGetChar() {
+    int ch;
+
+	readAvail->P ();	// wait for character to arrive
+	ch = console->GetChar ();
+
+    if(ch == EOF) {
+        return EOF;
+    }
+
+    return ch;
 /*
 //ASYNC
    int ch = incoming;
@@ -39,35 +49,11 @@ int SynchConsole::SynchGetChar() {
    return ch;
 */
 // ...
-
-    return 1;
 }
 
 void SynchConsole::SynchPutChar(int ch) {
-/*
-//ASYNC
-
-    unsigned char c;
-    ASSERT(putBusy == FALSE);
-    if (ch < 0x80 || strcmp(nl_langinfo(CODESET),"UTF-8")) {
-	// Not UTF-8 or ASCII, assume 8bit locale 
-	c = ch;
-        WriteFile(writeFileNo, &c, sizeof(c));
-    } else if (ch < 0x100) {
-	// Non-ASCII UTF-8, thus two bytes 
-	c = ((ch & 0xc0) >> 6) | 0xc0;
-        WriteFile(writeFileNo, &c, sizeof(c));
-	c = (ch & 0x3f) | 0x80;
-        WriteFile(writeFileNo, &c, sizeof(c));
-    } // Else not latin1, drop 
-    putBusy = TRUE;
-    interrupt->Schedule(ConsoleWriteDone, this, ConsoleTime,
-					ConsoleWriteInt);
-*/
-
-
-// ...
-
+    console->PutChar (ch);	    // echo it!
+    writeDone->P ();	        // wait for write to finish
 }
 
 void SynchConsole::SynchPutString(const char s[]) {
@@ -102,14 +88,12 @@ void SynchConsole::SynchGetString(char *s, int n) {
     
 }
 
-
-
-
-//----------------------------------------------------------------------
-// ConsoleTest
-//      Test the console by echoing characters typed at the input onto
-//      the output.  Stop when the user types a 'q'.
-//----------------------------------------------------------------------
-
+void SynchConsoleTest (const char * in, const char * out) {
+    char ch;
+    SynchConsole * test_synchconsole = new SynchConsole(in, out);
+    while ((ch = test_synchconsole->SynchGetChar()) != EOF)
+        test_synchconsole->SynchPutChar(ch);
+    fprintf(stderr, "EOF detected in SynchConsole!\n");
+}
 
 #endif // CHANGED
