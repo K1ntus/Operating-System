@@ -100,6 +100,8 @@ void SynchConsoleTest (const char * in, const char * out) {
         }
     }
     fprintf(stderr, "EOF detected in SynchConsole!\n");
+
+    delete test_synchconsole;
 }
 
 #endif // CHANGED
