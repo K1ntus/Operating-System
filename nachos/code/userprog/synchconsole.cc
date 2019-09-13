@@ -24,9 +24,23 @@ SynchConsole::SynchConsole(const char *readFile, const char *writeFile)
 }
 
 SynchConsole::~SynchConsole() {
-    delete &console;
-    delete &writeDone;
-    delete &readAvail;
+    delete console;
+    delete writeDone;
+    delete readAvail;
+}
+
+
+int SynchConsole::SynchGetChar() {
+/*
+//ASYNC
+   int ch = incoming;
+
+   incoming = EOF;
+   return ch;
+*/
+// ...
+
+    return 1;
 }
 
 void SynchConsole::SynchPutChar(int ch) {
@@ -56,25 +70,12 @@ void SynchConsole::SynchPutChar(int ch) {
 
 }
 
-int SynchConsole::SynchGetChar() {
-/*
-//ASYNC
-   int ch = incoming;
-
-   incoming = EOF;
-   return ch;
-*/
-// ...
-
-    return 1;
-}
-
 void SynchConsole::SynchPutString(const char s[]) {
     size_t size_string = strlen(s);
+
     for(size_t i = 0; i < size_string; i++){
         SynchConsole::SynchPutChar(s[i]);
     }
-// ...
 }
 
 void SynchConsole::SynchGetString(char *s, int n) {
@@ -85,7 +86,6 @@ void SynchConsole::SynchGetString(char *s, int n) {
 
     s[0] = '\0';
     int pos_in_buffer = 0;
-
 
     while(--n > 0) {
         
