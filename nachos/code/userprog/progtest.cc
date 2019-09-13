@@ -95,31 +95,33 @@ ConsoleTest (const char *in, const char *out)
 	  readAvail->P ();	// wait for character to arrive
 	  ch = console->GetChar ();
 
-    //printf("Code: %d", ch);
-	  
+    printf("Code: %d", ch);
+/*	  
 	  if(ch != 10) {    //END-LINE CODE
-	  console->PutChar ('<');	// echo it!
-	  writeDone->P ();	// wait for write to finish
-      console->PutChar (ch);	// echo it!
-	  writeDone->P ();	// wait for write to finish
-	  console->PutChar ('>');	// echo it!
-	  writeDone->P ();	// wait for write to finish
-	  console->PutChar ('\n');	// echo it!
-	  writeDone->P ();	// wait for write to finish
-	  
-      //console->PutChar ('>');	// echo it!
-	  //writeDone->P ();	// wait for write to finish
 
-      } else {
-    	  writeDone->P ();	// wait for write to finish
+*/
+        console->PutChar ('<');	    // echo it!
+        writeDone->P ();	        // wait for write to finish
+        console->PutChar (ch);  	// echo it!
+        writeDone->P ();	        // wait for write to finish
+        console->PutChar ('>');	    // echo it!
+        writeDone->P ();        	// wait for write to finish
 
-      }
+        console->PutChar ('\n');	// echo it!
+        writeDone->P ();	        // wait for write to finish
+
+/*
+      } else {  //It is the end-line char, no need to print the < and > char or echo it
+    	  writeDone->P ();	        // wait for write to finish
+      }*/
       
-      if (ch == 'q') {
+      if (ch == 'q' || ch == -1) {
 	      printf ("\nAu revoir!\n");
 	      break;		// if q, quit
 	  }
-      }
+    
+    }
+    
     delete console;
     delete readAvail;
     delete writeDone;
