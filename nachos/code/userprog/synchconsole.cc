@@ -3,14 +3,17 @@
 #include "system.h"
 #include "synchconsole.h"
 #include "synch.h"
+#include "machine.h"
 
+
+#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+
+// External functions used by this file
+extern bool ReadMem(int addr, int size, int* value);
 
 
 static Semaphore *readAvail;
 static Semaphore *writeDone;
-
-#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
-
 
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
@@ -100,6 +103,27 @@ void SynchConsoleTest (const char * in, const char * out) {
         }
     }
     fprintf(stderr, "EOF detected in SynchConsole!\n");
+}
+
+
+int copyStringFromMachine(int from, char *to, unsigned size) {
+    /*
+    unsigned int number_character_written = 0;
+
+    int* character;
+
+    //bool ReadMem(int addr, int size, int* value); //machine.h
+    while(ReadMem(from, sizeof(char), character)){
+        if(character[number_character_written] == '\0'){
+            to[number_character_written+1] = '\0';
+            break;
+        }
+        to[number_character_written] = character[number_character_written];
+        number_character_written += 1;
+    }
+    
+    free(character);
+    */
 }
 
 #endif // CHANGED
