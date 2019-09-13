@@ -91,12 +91,30 @@ ConsoleTest (const char *in, const char *out)
 
     for (;;)
       {
+      
 	  readAvail->P ();	// wait for character to arrive
 	  ch = console->GetChar ();
-	  console->PutChar (ch);	// echo it!
+
+    printf("Code: %d", ch);
+	  
+	  if(ch != 10) {    //END-LINE CODE
+	  console->PutChar ('<');	// echo it!
 	  writeDone->P ();	// wait for write to finish
-	  if (ch == 'q') {
-	      printf ("Nothing more, bye!\n");
+      console->PutChar (ch);	// echo it!
+	  writeDone->P ();	// wait for write to finish
+	  console->PutChar ('>');	// echo it!
+	  writeDone->P ();	// wait for write to finish
+	  console->PutChar ('\n');	// echo it!
+	  writeDone->P ();	// wait for write to finish
+	  
+      //console->PutChar ('>');	// echo it!
+	  //writeDone->P ();	// wait for write to finish
+
+
+      }
+      
+      if (ch == 'q') {
+	      printf ("\nAu revoir!\n");
 	      break;		// if q, quit
 	  }
       }
