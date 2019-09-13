@@ -95,7 +95,7 @@ ConsoleTest (const char *in, const char *out)
 	  readAvail->P ();	// wait for character to arrive
 	  ch = console->GetChar ();
 
-    printf("Code: %d", ch);
+//    printf("Code: %d", ch);
 /*	  
 	  if(ch != 10) {    //END-LINE CODE
 
