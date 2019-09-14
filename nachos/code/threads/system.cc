@@ -39,6 +39,11 @@ Machine *machine;		// user program memory and registers
 PostOffice *postOffice;
 #endif
 
+#ifdef CHANGED
+#ifdef USER_PROGRAM
+SynchConsole * synchconsole;
+#endif
+#endif
 
 // External definition, to allow us to take a pointer to this function
 extern void Cleanup ();
@@ -191,6 +196,10 @@ Initialize (int argc, char **argv)
 #ifdef NETWORK
     postOffice = new PostOffice (netname, rely, 10);
 #endif
+
+#ifdef USER_PROGRAM		// requires either FILESYS or FILESYS_STUB
+    machine = new Machine(true);
+#endif
 }
 
 //----------------------------------------------------------------------
@@ -224,6 +233,11 @@ Cleanup ()
 #ifdef FILESYS
     delete synchDisk;
     synchDisk = NULL;
+#endif
+
+#ifdef USER_PROGRAM		// requires either FILESYS or FILESYS_STUB
+    delete machine;
+    machine = NULL;
 #endif
 
     delete timer;

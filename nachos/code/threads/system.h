@@ -15,6 +15,9 @@
 #include "interrupt.h"
 #include "stats.h"
 #include "timer.h"
+#ifdef USER_PROGRAM
+#include "synchconsole.h"
+#endif
 
 // Initialization and cleanup routines
 extern void Initialize (int argc, char **argv);	// Initialization,

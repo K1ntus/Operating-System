@@ -45,14 +45,12 @@ extern void MailTest (int networkID), SynchConsoleTest (const char * in, const c
 //              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
 //----------------------------------------------------------------------
 
-int
-main (int argc, char **argv)
-{
+int main (int argc, char **argv) {
     int argCount;		// the number of arguments 
     // for a particular command
 
-    if (argc > 1 && !strcmp (argv[1], "-h")) // print help
-      {
+	if (argc > 1 && !strcmp (argv[1], "-h")) { // print help
+     
 //  NOTE -- flags are ignored until the relevant assignment.
 //  Some of the flags are interpreted here; some in system.cc.
 //
@@ -117,6 +115,9 @@ main (int argc, char **argv)
 #ifdef USER_PROGRAM
 	if (!strcmp (*argv, "-x")) {			// run a user program
 		ASSERT (argc > 1);
+
+		
+
 		StartProcess (*(argv + 1));
 		argCount = 2;
 	} else if (!strcmp (*argv, "-c"))  {			// test the console
