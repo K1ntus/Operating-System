@@ -29,9 +29,7 @@
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
 //----------------------------------------------------------------------
-static void
-UpdatePC ()
-{
+static void UpdatePC () {
     int pc = machine->ReadRegister (PCReg);
     machine->WriteRegister (PrevPCReg, pc);
     pc = machine->ReadRegister (NextPCReg);
@@ -64,47 +62,66 @@ UpdatePC ()
 //      are in machine.h.
 //----------------------------------------------------------------------
 
-void
-ExceptionHandler (ExceptionType which)
-{
+void ExceptionHandler (ExceptionType which) {
     int type = machine->ReadRegister (2);
 
-    switch (which)
-      {
-	case SyscallException:
-          {
-	    switch (type)
-	      {
-		case SC_Halt:
-		  {
-		    DEBUG ('s', "Shutdown, initiated by user program.\n");
-		    interrupt->Halt ();
-		    break;
-		  }
+
+//	FLAGS:
+//      '+' -- turn on all debug messages
+//      't' -- thread system
+//      's' -- semaphores, locks, and conditions
+//      'i' -- interrupt emulation
+//      'm' -- machine emulation (USER_PROGRAM)
+//      'd' -- disk emulation (FILESYS)
+//      'f' -- file system (FILESYS)
+//      'a' -- address spaces (USER_PROGRAM)
+//      'n' -- network emulation (NETWORK)
+//
+
+    switch (which) {
+		case SyscallException:
+			{
+				switch (type) {
+					case SC_Halt:
+					{
+						DEBUG ('s', "Shutdown, initiated by user program.\n");
+						interrupt->Halt();
+						break;
+					}
+
+					#ifdef CHANGED
+					case SC_PutChar:
+					{
+						DEBUG ('+', "Putchar, initiated by user program.\n");
+						interrupt->Halt();
+						break;
+					}
+					#endif
+
+					default:
+					{
+						printf("Unimplemented system call %d\n", type);
+						ASSERT(FALSE);
+					}
+				}
+
+				// Do not forget to increment the pc before returning!
+				UpdatePC ();
+				break;
+		}
+
+		case PageFaultException:
+			if (!type) {
+				printf("NULL dereference at PC %x!\n", machine->registers[PCReg]);
+				ASSERT (FALSE);
+			} else {
+				printf ("Page Fault at address %x at PC %x\n", type, machine->registers[PCReg]);
+				ASSERT (FALSE);	// For now
+			}
+			break;
+
 		default:
-		  {
-		    printf("Unimplemented system call %d\n", type);
-		    ASSERT(FALSE);
-		  }
-	      }
-
-	    // Do not forget to increment the pc before returning!
-	    UpdatePC ();
-	    break;
-	  }
-
-	case PageFaultException:
-	  if (!type) {
-	    printf("NULL dereference at PC %x!\n", machine->registers[PCReg]);
-	    ASSERT (FALSE);
-	  } else {
-	    printf ("Page Fault at address %x at PC %x\n", type, machine->registers[PCReg]);
-	    ASSERT (FALSE);	// For now
-	  }
-	  break;
-
-	default:
-	  printf ("Unexpected user mode exception %d %d at PC %x\n", which, type, machine->registers[PCReg]);
-	  ASSERT (FALSE);
-      }
+			printf ("Unexpected user mode exception %d %d at PC %x\n", which, type, machine->registers[PCReg]);
+			ASSERT (FALSE);
+    }
 }
