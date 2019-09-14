@@ -3,7 +3,6 @@
 #include "system.h"
 #include "synchconsole.h"
 #include "synch.h"
-#include "machine.h"
 
 
 #define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
@@ -107,23 +106,24 @@ void SynchConsoleTest (const char * in, const char * out) {
 
 
 int copyStringFromMachine(int from, char *to, unsigned size) {
-    /*
+    
     unsigned int number_character_written = 0;
 
-    int* character;
+    int* character = (int *) malloc(sizeof(int) * size);
 
     //bool ReadMem(int addr, int size, int* value); //machine.h
-    while(ReadMem(from, sizeof(char), character)){
+   /* while(ReadMem(from, sizeof(char), (character+number_character_written)) && number_character_written < size){
         if(character[number_character_written] == '\0'){
             to[number_character_written+1] = '\0';
             break;
         }
         to[number_character_written] = character[number_character_written];
         number_character_written += 1;
-    }
+    }*/
     
     free(character);
-    */
+    return number_character_written;
+    
 }
 
 #endif // CHANGED

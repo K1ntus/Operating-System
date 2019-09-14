@@ -5,6 +5,8 @@
 #include "copyright.h"
 #include "utility.h"
 #include "console.h"
+#include "machine.h"
+#include "translate.h"
 
 class SynchConsole:dontcopythis {
     public:

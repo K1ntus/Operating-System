@@ -130,6 +130,7 @@ main (int argc, char **argv)
 	} else if (!strcmp (*argv, "-sc"))   {			// test the console
 	    ASSERT (argc > 2);
 	    SynchConsoleTest (*(argv + 1), *(argv + 2));
+		
 	    argCount = 3;
 	}
 #endif // USER_PROGRAM
