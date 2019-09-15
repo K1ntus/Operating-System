@@ -18,9 +18,7 @@ static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 
 
-SynchConsole::SynchConsole(const char *readFile, const char *writeFile)
-
-{
+SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
     readAvail = new Semaphore ("read avail", 0);
     writeDone = new Semaphore ("write done", 0);
     console = new Console (readFile, writeFile, ReadAvailHandler, WriteDoneHandler, 0);
@@ -96,7 +94,6 @@ void SynchConsoleTest (const char * in, const char * out) {
     fprintf(stderr, "EOF detected in SynchConsole!\n");
 
     delete test_synchconsole;
-    test_synchconsole = NULL;
 }
 
 
