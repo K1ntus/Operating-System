@@ -42,14 +42,6 @@ int SynchConsole::SynchGetChar() {
     }
 
     return ch;
-/*
-//ASYNC
-   int ch = incoming;
-
-   incoming = EOF;
-   return ch;
-*/
-// ...
 }
 
 void SynchConsole::SynchPutChar(int ch) {
@@ -102,6 +94,7 @@ void SynchConsoleTest (const char * in, const char * out) {
     fprintf(stderr, "EOF detected in SynchConsole!\n");
 
     delete test_synchconsole;
+    test_synchconsole = NULL;
 }
 
 #endif // CHANGED
