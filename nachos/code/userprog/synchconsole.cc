@@ -101,9 +101,6 @@ int copyStringFromMachine(int from, char *to, unsigned size) {
     
     free(character);
     return number_character_written;
-    
-    test_synchconsole = NULL;
-    return true;
 
 }
 
@@ -139,6 +136,9 @@ bool SynchConsoleTestChar_01(const char * in, const char * out){
 
 
     delete test_synchconsole;
+    
+    test_synchconsole = NULL;
+    return true;
 }
 
 bool SynchConsoleTestString_01(const char * in, const char * out){
