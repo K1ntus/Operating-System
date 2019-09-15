@@ -19,9 +19,10 @@ class SynchConsole:dontcopythis {
         void SynchGetString(char *s, int n);     // Unix fgets(3S)
 
         void SynchConsoleTest (const char * in, const char * out);
-    
     private:
         Console *console;
+        bool SynchConsoleTestChar_01 (const char * in, const char * out);
+        bool SynchConsoleTestString_01 (const char * in, const char * out);
 };
 
 

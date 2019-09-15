@@ -4,25 +4,25 @@
 #include "synchconsole.h"
 #include "synch.h"
 
-
+using namespace std;
 
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
-#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define TEST_STRING_BUFFER_SIZE 1023
 
 
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 
-
-SynchConsole::SynchConsole(const char *readFile, const char *writeFile)
-
-{
+SynchConsole::SynchConsole(const char *readFile, const char *writeFile){
     readAvail = new Semaphore ("read avail", 0);
     writeDone = new Semaphore ("write done", 0);
     console = new Console (readFile, writeFile, ReadAvailHandler, WriteDoneHandler, 0);
 }
+
+
 
 SynchConsole::~SynchConsole() {
     delete console;
@@ -49,15 +49,16 @@ void SynchConsole::SynchPutChar(int ch) {
     writeDone->P ();	        // wait for write to finish
 }
 
+
 void SynchConsole::SynchPutString(const char s[]) {
     size_t size_string = strlen(s);
 
     for(size_t i = 0; i < size_string; i++){
-        SynchConsole::SynchPutChar(s[i]);
+        SynchPutChar(s[i]);
     }
 }
 
-void SynchConsole::SynchGetString(char *s, int n) {
+void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     if(n <= 0){
         //ERROR
         return;
@@ -77,7 +78,19 @@ void SynchConsole::SynchGetString(char *s, int n) {
     }    
 }
 
-void SynchConsoleTest (const char * in, const char * out) {
+
+
+
+
+
+
+
+
+
+
+/*  TESTS   */
+
+bool SynchConsoleTestChar_01(const char * in, const char * out){
     char ch;
     SynchConsole * test_synchconsole = new SynchConsole(in, out);
     while ((ch = test_synchconsole->SynchGetChar()) != EOF){
@@ -91,10 +104,68 @@ void SynchConsoleTest (const char * in, const char * out) {
 
         }
     }
-    fprintf(stderr, "EOF detected in SynchConsole!\n");
+    
+    if(DEBUG_MODE){
+        fprintf(stderr, "EOF detected in SynchConsoleTestChar using Char to Char analysis!\n");
+    }
+
 
     delete test_synchconsole;
     test_synchconsole = NULL;
+    return true;
+
+}
+
+bool SynchConsoleTestString_01(const char * in, const char * out){
+    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
+    SynchConsole * test_synchconsole = new SynchConsole(in, out);
+
+    //Test if first line is already EOF
+    test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
+    fprintf(stderr, "char: %s\n", char_buffer);
+
+
+    while(char_buffer[0] != '\0'){
+        char_buffer[0] = '\0';
+        test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
+        fprintf(stderr, "char: %s\n", char_buffer);
+    }
+
+
+    free(char_buffer);
+    delete(test_synchconsole);
+    test_synchconsole = NULL;
+
+    return true;
+}
+
+
+
+
+
+void SynchConsoleTest (const char * in, const char * out) {
+    int number_test = 2;
+    int number_test_success = 0;
+    fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
+
+    /* Test 1 */
+    if(SynchConsoleTestChar_01(in,out)){
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test success\n");
+        number_test_success += 1;
+    } else {
+        fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleTestChar_01 test failure\n");
+    }
+
+    /* Test 2 */
+    if(SynchConsoleTestString_01(in,out)){
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test success\n");
+        number_test_success += 1;
+    } else {
+        fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleTestString_01 test failure\n");
+    }
+
+    fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, number_test);
 }
 
 #endif // CHANGED
+
