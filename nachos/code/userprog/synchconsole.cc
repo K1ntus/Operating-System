@@ -112,14 +112,14 @@ int copyStringFromMachine(int from, char *to, unsigned size) {
     int* character = (int *) malloc(sizeof(int) * size);
 
     //bool ReadMem(int addr, int size, int* value); //machine.h
-   /* while(ReadMem(from, sizeof(char), (character+number_character_written)) && number_character_written < size){
+    while(machine->ReadMem(from, sizeof(char), (character+number_character_written)) && number_character_written < size){
         if(character[number_character_written] == '\0'){
             to[number_character_written+1] = '\0';
             break;
         }
         to[number_character_written] = character[number_character_written];
         number_character_written += 1;
-    }*/
+    }
     
     free(character);
     return number_character_written;
