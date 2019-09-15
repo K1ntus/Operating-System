@@ -25,6 +25,8 @@ class SynchConsole:dontcopythis {
     
     private:
         Console *console;
+        bool SynchConsoleTestChar_01 (const char * in, const char * out);
+        bool SynchConsoleTestString_01 (const char * in, const char * out);
 };
 
 
