@@ -6,12 +6,10 @@
 
 
 #define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define TEST_STRING_BUFFER_SIZE 1023
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
-
-#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
-#define TEST_STRING_BUFFER_SIZE 1023
 
 static Semaphore *readAvail;
 static Semaphore *writeDone;
@@ -131,7 +129,7 @@ bool SynchConsoleTestChar_01(const char * in, const char * out){
     }
     
     if(DEBUG_MODE){
-        fprintf(stderr, "EOF detected in SynchConsoleTestChar using Char to Char analysis!\n");
+        fprintf(stderr, "[DEBUG@SynchConsoleTestChar_01] EOF detected in SynchConsoleTestChar!\n");
     }
 
 
@@ -141,19 +139,21 @@ bool SynchConsoleTestChar_01(const char * in, const char * out){
     return true;
 }
 
-bool SynchConsoleTestString_01(const char * in, const char * out){
+bool SynchConsoleTestString_01(const char * in, const char * out) {
     char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
     SynchConsole * test_synchconsole = new SynchConsole(in, out);
 
     //Test if first line is already EOF
     test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-    fprintf(stderr, "char: %s\n", char_buffer);
+        if(DEBUG_MODE)
+            fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
 
 
-    while(char_buffer[0] != '\0'){
+    while(char_buffer[0] != '\0') {
         char_buffer[0] = '\0';
         test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-        fprintf(stderr, "char: %s\n", char_buffer);
+        if(DEBUG_MODE)
+            fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
     }
 
 
@@ -174,7 +174,7 @@ void SynchConsoleTest (const char * in, const char * out) {
     fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
 
     /* Test 1 */
-    if(SynchConsoleTestChar_01(in,out)){
+    if(SynchConsoleTestChar_01(in, out)) {
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test success\n");
         number_test_success += 1;
     } else {
@@ -182,7 +182,7 @@ void SynchConsoleTest (const char * in, const char * out) {
     }
 
     /* Test 2 */
-    if(SynchConsoleTestString_01(in,out)){
+    if(SynchConsoleTestString_01(in,out)) {
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test success\n");
         number_test_success += 1;
     } else {
