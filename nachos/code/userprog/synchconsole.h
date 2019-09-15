@@ -5,7 +5,8 @@
 #include "copyright.h"
 #include "utility.h"
 #include "console.h"
-
+#include "machine.h"
+#include "translate.h"
 
 class SynchConsole:dontcopythis {
     public:
@@ -19,6 +20,8 @@ class SynchConsole:dontcopythis {
         void SynchGetString(char *s, int n);     // Unix fgets(3S)
 
         void SynchConsoleTest (const char * in, const char * out);
+
+        int copyStringFromMachine(int from, char *to, unsigned size);
     
     private:
         Console *console;
