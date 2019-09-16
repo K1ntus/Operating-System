@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 #define TEST_STRING_BUFFER_SIZE 1023
 
 // External functions used by this file
@@ -71,10 +71,15 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     while(--n > 0) {        
         int char_readed = SynchConsole::SynchGetChar();
         if(char_readed == EOF || char_readed == '\n') {
+            if(DEBUG_MODE)
+                fprintf(stderr, "[DEBUG@SynchGetString] OEF/NewLine\n");
             break;
         } else {
             s[pos_in_buffer] = char_readed;
             s[pos_in_buffer+1] = '\0';
+            if(DEBUG_MODE)
+                fprintf(stderr, "[DEBUG@SynchGetString] Char:%c\n", s[pos_in_buffer]);
+            pos_in_buffer+=1;
         }
     }    
 }
@@ -145,8 +150,8 @@ bool SynchConsoleTestString_01(const char * in, const char * out) {
 
     //Test if first line is already EOF
     test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-        if(DEBUG_MODE)
-            fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
+    if(DEBUG_MODE)
+        fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
 
 
     while(char_buffer[0] != '\0') {
@@ -169,7 +174,7 @@ bool SynchConsoleTestString_01(const char * in, const char * out) {
 
 /* Main Test Handler*/
 void SynchConsoleTest (const char * in, const char * out) {
-    int number_test = 2;
+    const int NUMBER_TEST = 2;
     int number_test_success = 0;
     fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
 
@@ -189,7 +194,7 @@ void SynchConsoleTest (const char * in, const char * out) {
         fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleTestString_01 test failure\n");
     }
 
-    fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, number_test);
+    fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, NUMBER_TEST);
 }
 
 #endif // CHANGED
