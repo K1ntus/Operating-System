@@ -72,7 +72,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
         int char_readed = SynchConsole::SynchGetChar();
         if(char_readed == EOF || char_readed == '\n') {
             if(DEBUG_MODE)
-                fprintf(stderr, "[DEBUG@SynchGetString] OEF/NewLine\n");
+                fprintf(stderr, "[DEBUG@SynchGetString] EOF/NewLine\n");
             break;
         } else {
             s[pos_in_buffer] = char_readed;
@@ -170,11 +170,28 @@ bool SynchConsoleTestString_01(const char * in, const char * out) {
 }
 
 
+bool SynchConsoleCopyString_01(const char * in, const char * out) {
+    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
+    SynchConsole * test_synchconsole = new SynchConsole(in, out);
+
+    test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
+
+
+    //TODO
+
+    free(char_buffer);
+    delete(test_synchconsole);
+    test_synchconsole = NULL;
+
+    return true;
+}
+
+
 
 
 /* Main Test Handler*/
 void SynchConsoleTest (const char * in, const char * out) {
-    const int NUMBER_TEST = 2;
+    const int NUMBER_TEST = 3;
     int number_test_success = 0;
     fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
 
@@ -192,6 +209,14 @@ void SynchConsoleTest (const char * in, const char * out) {
         number_test_success += 1;
     } else {
         fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleTestString_01 test failure\n");
+    }
+
+    /* Test 2 */
+    if(SynchConsoleCopyString_01(in,out)) {
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleCopyString_01 test success\n");
+        number_test_success += 1;
+    } else {
+        fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleCopyString_01 test failure\n");
     }
 
     fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, NUMBER_TEST);

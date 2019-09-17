@@ -60,6 +60,9 @@ class Console:dontcopythis {
     				// "readDone" is called whenever there is 
 				// a char to be gotten
 
+
+	void PutString(int *c);
+
 // internal emulation routines -- DO NOT call these. 
     void WriteDone();	 	// internal routines to signal I/O completion
     void CheckCharAvail();
