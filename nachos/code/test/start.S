@@ -162,6 +162,14 @@ GetChar:
 	j	$31
 	.end GetChar
 
+	.global GetChar
+	.ent	GetChar
+PutString:
+	addiu $2,$0,SC_PutString
+	syscall
+	j	$31
+	.end PutString
+
 
 /* dummy function to keep gcc happy */
         .globl  __main

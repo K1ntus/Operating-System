@@ -92,11 +92,23 @@ void ExceptionHandler (ExceptionType which) {
 					#ifdef CHANGED
 					case SC_PutChar:
 					{
-						DEBUG ('+', "Putchar, initiated by user program.\n");
+						DEBUG ('s', "Putchar, initiated by user program.\n");
 						interrupt->Halt();
 						break;
 					}
-					#endif
+					case SC_GetChar:
+					{
+						DEBUG ('s', "GetChar, initiated by user program.\n");
+						interrupt->Halt();
+						break;
+					}
+					case SC_PutString:
+					{
+						DEBUG ('s', "PutString, initiated by user program.\n");
+						interrupt->Halt();
+						break;
+					}
+					#endif	//CHANGED
 
 					default:
 					{
