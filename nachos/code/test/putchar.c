@@ -3,7 +3,7 @@
 
 void print(char c, int n) {
     int i;
-    #if 1
+    #if 0
     for (i = 0; i < n; i++) {
         //Console::PutChar(c + i);
     }

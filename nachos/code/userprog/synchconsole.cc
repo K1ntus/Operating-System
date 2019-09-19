@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 #define TEST_STRING_BUFFER_SIZE 1023
 
 // External functions used by this file
@@ -92,20 +92,40 @@ int copyStringFromMachine(int from, char *to, unsigned size) {
 
     int* character = (int *) malloc(sizeof(int) * size);
 
+    //ExceptionType Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
+    int * phys_adress = NULL;
+    ExceptionType err = machine->Translate(from, phys_adress, sizeof(int), false);
+
+    int offset = 0;
     //bool ReadMem(int addr, int size, int* value); //machine.h
-    while(machine->ReadMem(from, sizeof(char), (character+number_character_written)) && number_character_written < size){
-        if(character[number_character_written] == '\0'){
-            to[number_character_written+1] = '\0';
-            break;
-        }
-        to[number_character_written] = character[number_character_written];
-        number_character_written += 1;
+    while(machine->ReadMem(*(phys_adress + offset), sizeof(int), (character+number_character_written)) && number_character_written < size){/* while avec la taille du buffer */
+        console->GetChar ();
+        offset += sizeof(int); /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
     }
     
     free(character);
     return number_character_written;
 
 }
+
+
+bool SynchConsoleCopyString_01(const char * in, const char * out) {
+    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
+    SynchConsole * test_synchconsole = new SynchConsole(in, out);
+
+    test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
+
+
+    //TODO
+
+    free(char_buffer);
+    delete(test_synchconsole);
+    test_synchconsole = NULL;
+
+    return true;
+}
+
+
 
 
 
@@ -168,25 +188,6 @@ bool SynchConsoleTestString_01(const char * in, const char * out) {
 
     return true;
 }
-
-
-bool SynchConsoleCopyString_01(const char * in, const char * out) {
-    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
-    SynchConsole * test_synchconsole = new SynchConsole(in, out);
-
-    test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-
-
-    //TODO
-
-    free(char_buffer);
-    delete(test_synchconsole);
-    test_synchconsole = NULL;
-
-    return true;
-}
-
-
 
 
 /* Main Test Handler*/

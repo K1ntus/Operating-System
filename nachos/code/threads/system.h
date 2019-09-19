@@ -15,9 +15,6 @@
 #include "interrupt.h"
 #include "stats.h"
 #include "timer.h"
-#ifdef USER_PROGRAM
-#include "synchconsole.h"
-#endif
 
 #define MAX_STRING_SIZE 1024
 
@@ -53,5 +50,11 @@ extern SynchDisk *synchDisk;
 #include "post.h"
 extern PostOffice *postOffice;
 #endif
+
+#ifdef USER_PROGRAM
+#include "synchconsole.h"
+extern SynchConsole * synchconsole;
+#endif
+
 
 #endif // SYSTEM_H
