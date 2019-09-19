@@ -187,12 +187,20 @@ ExceptionType Machine::Translate(int virtAddr, int* physAddr, int size, bool wri
     unsigned int pageFrame;
 
     DEBUG('a', "\tTranslate 0x%x, %s: ", virtAddr, writing ? "write" : "read");
+    fprintf(stderr,"\tTranslate 0x%x (=%d), %s: ", virtAddr, virtAddr, writing ? "write" : "read");
+
+    fprintf(stderr, "toto1: %p\n", &virtAddr);
 
 // check for alignment errors
+// Bitwise-and:   x = a&b;   Corresponding bits are and'ed (e.g. 0&1 -> 0)
     if (((size == 4) && (virtAddr & 0x3)) || ((size == 2) && (virtAddr & 0x1))){
+        
+        fprintf(stderr, "TOTO PAS CONTENT : %d\n", virtAddr & 0x3);
+        fprintf(stderr, "alignment problem at %d, size %d!\n", virtAddr, size);
         DEBUG('a', "alignment problem at %d, size %d!\n", virtAddr, size);
         return AddressErrorException;
     }
+    fprintf(stderr, "toto2\n");
     
     // we must have either a TLB or a page table, but not both!
     ASSERT(tlb == NULL || pageTable == NULL);	
@@ -203,6 +211,7 @@ ExceptionType Machine::Translate(int virtAddr, int* physAddr, int size, bool wri
     vpn = (unsigned) virtAddr / PageSize;
     offset = (unsigned) virtAddr % PageSize;
     
+    fprintf(stderr, "toto3\n");
     if (tlb == NULL) {		// => page table => vpn is index into table
         if (vpn >= pageTableSize) {
             DEBUG('a', "virtual page # %d too large for page table size %d!\n", 

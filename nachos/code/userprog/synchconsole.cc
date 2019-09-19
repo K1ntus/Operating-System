@@ -88,16 +88,22 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 
 int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     
-    unsigned int number_character_written = 0;
-    int offset = 0;
+    int number_character_written = 0;
     int * character;
     int * phys_adress = NULL;
 
+    from +=1;
+
+    fprintf(stderr, " * from&0x3: %d\n * from: %d\n * val_from:%c\n", from & 0x3, from, (char) from);
+    fprintf(stderr, " * from: %p\n * phys_adress: %p\n * val:%c\n", &from, phys_adress, (char) from);
     //ExceptionType Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
-    ExceptionType exception = machine->Translate(from, phys_adress, sizeof(int), false);
+   
+   
+    ExceptionType exception = machine->Translate(from, phys_adress, sizeof(int), false);    //Syscall exception
     if (exception != NoException) {
+        fprintf(stderr, "DEBUG@Exception raised in SynchConsole::copyStringFromMachine\n");
+        fprintf(stderr, "from: %d\n phys_adress: %p\n\n", from, phys_adress);
         machine->RaiseException(exception, from);
-        fprintf(stderr, "DEBUG@Exception raised in SynchConsole::copyStringFromMachine");
         return -1;
     }
 
@@ -105,9 +111,9 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     //bool ReadMem(int addr, int size, int* value); //machine.h
     while(number_character_written < size){/* while avec la taille du buffer */
         fprintf(stderr, "Iteration@%d\n", number_character_written);
-        machine->ReadMem(*(phys_adress + offset), sizeof(int), (character));
+        machine->ReadMem(*(phys_adress + number_character_written), sizeof(int), (character));
         console->GetChar ();
-        offset += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+        number_character_written += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
     }
     
     return number_character_written;
@@ -204,6 +210,8 @@ bool SynchConsoleTestCopyString_01(const char * in, const char * out) {
     for(int i = 0; i < 13; i++){
         int_name[i] = name[i];
     }
+
+
     int res = test_synchconsole->copyStringFromMachine(int_name[0], NULL, 1);
 
 
