@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 #define TEST_STRING_BUFFER_SIZE 1023
 
 // External functions used by this file
@@ -86,24 +86,30 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 
 
 
-int copyStringFromMachine(int from, char *to, unsigned size) {
+int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     
     unsigned int number_character_written = 0;
-
-    int* character = (int *) malloc(sizeof(int) * size);
+    int offset = 0;
+    int * character;
+    int * phys_adress = NULL;
 
     //ExceptionType Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
-    int * phys_adress = NULL;
-    ExceptionType err = machine->Translate(from, phys_adress, sizeof(int), false);
+    ExceptionType exception = machine->Translate(from, phys_adress, sizeof(int), false);
+    if (exception != NoException) {
+        machine->RaiseException(exception, from);
+        fprintf(stderr, "DEBUG@Exception raised in SynchConsole::copyStringFromMachine");
+        return -1;
+    }
 
-    int offset = 0;
+
     //bool ReadMem(int addr, int size, int* value); //machine.h
-    while(machine->ReadMem(*(phys_adress + offset), sizeof(int), (character+number_character_written)) && number_character_written < size){/* while avec la taille du buffer */
+    while(number_character_written < size){/* while avec la taille du buffer */
+        fprintf(stderr, "Iteration@%d\n", number_character_written);
+        machine->ReadMem(*(phys_adress + offset), sizeof(int), (character));
         console->GetChar ();
-        offset += sizeof(int); /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+        offset += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
     }
     
-    free(character);
     return number_character_written;
 
 }
@@ -189,6 +195,31 @@ bool SynchConsoleTestString_01(const char * in, const char * out) {
     return true;
 }
 
+bool SynchConsoleTestCopyString_01(const char * in, const char * out) {
+    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
+    SynchConsole * test_synchconsole = new SynchConsole(in, out);
+
+    char name[13] = "StudyTonight";       // valid character array initialization
+    int  int_name[13];
+    for(int i = 0; i < 13; i++){
+        int_name[i] = name[i];
+    }
+    int res = test_synchconsole->copyStringFromMachine(int_name[0], NULL, 1);
+
+
+
+
+
+
+
+
+    free(char_buffer);
+    delete(test_synchconsole);
+    test_synchconsole = NULL;
+
+    return true;
+}
+
 
 /* Main Test Handler*/
 void SynchConsoleTest (const char * in, const char * out) {
@@ -197,27 +228,30 @@ void SynchConsoleTest (const char * in, const char * out) {
     fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
 
     /* Test 1 */
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test :\n");
     if(SynchConsoleTestChar_01(in, out)) {
-        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test success\n");
+        fprintf(stderr, "\t * success\n");
         number_test_success += 1;
     } else {
-        fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleTestChar_01 test failure\n");
+        fprintf(stderr, "\t * FAILURE\n");
     }
 
     /* Test 2 */
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test :\n");
     if(SynchConsoleTestString_01(in,out)) {
-        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test success\n");
+        fprintf(stderr, "\t * success\n");
         number_test_success += 1;
     } else {
-        fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleTestString_01 test failure\n");
+        fprintf(stderr, "\t * FAILURE\n");
     }
 
     /* Test 2 */
-    if(SynchConsoleCopyString_01(in,out)) {
-        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleCopyString_01 test success\n");
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestCopyString_01 test :\n");
+    if(SynchConsoleTestCopyString_01(in,out)) {
+        fprintf(stderr, "\t * success\n");
         number_test_success += 1;
     } else {
-        fprintf(stderr, "[ERROR] SynchConsole::SynchConsoleCopyString_01 test failure\n");
+        fprintf(stderr, "\t * FAILURE\n");
     }
 
     fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, NUMBER_TEST);
