@@ -22,10 +22,11 @@ class SynchConsole:dontcopythis {
         int copyStringFromMachine(int from, char *to, unsigned size);
 
 
-
+        /*
         bool SynchConsoleTestChar_01 ();
         bool SynchConsoleTestString_01 ();
         bool SynchConsoleTestCopyString_01 ();
+        */
     
     private:
         Console *console;

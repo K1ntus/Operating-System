@@ -31,7 +31,7 @@ void CheckEndian()
         char charword[4];
         unsigned int intword;
     } check;
-	
+
     check.charword[0] = 1;
     check.charword[1] = 2;
     check.charword[2] = 3;

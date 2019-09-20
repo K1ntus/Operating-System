@@ -1,0 +1,21 @@
+#include "syscall.h"
+
+
+
+void PutString(char * c){
+
+    return 'a';
+}
+
+int main() {
+
+
+    
+    PutString("Chaine1.\n");
+    PutString("Voici la seconde chaine.\n");
+    PutString("Finalement, nous devons tester cet appel systeme avec une chaine de caracteres conséquentes.\n \t * La voici.\n");
+
+
+
+    return 0;
+}

@@ -141,6 +141,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 
 /*  TESTS   */
 
+/*
 bool SynchConsole::SynchConsoleTestChar_01(){
     char ch;
     while ((ch = SynchGetChar()) != EOF){
@@ -188,12 +189,13 @@ bool SynchConsole::SynchConsoleTestString_01() {
 bool SynchConsole::SynchConsoleTestCopyString_01() {
     char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
 
-    /*
-    char name[13] = "StudyTonight";       // valid character array initialization
-    int  int_name[13];
-    for(int i = 0; i < 13; i++){
-        int_name[i] = name[i];
-    }*/
+
+    
+    // char name[13] = "StudyTonight";       // valid character array initialization
+    // int  int_name[13];
+    // for(int i = 0; i < 13; i++){
+    //     int_name[i] = name[i];
+    // }
 
     int int_name2[13] = {83, 116, 117, 100, 121, 84, 111, 110, 105, 103, 104, 116};
     int res = copyStringFromMachine(int_name2[0], char_buffer, 120);
@@ -212,6 +214,7 @@ bool SynchConsole::SynchConsoleTestCopyString_01() {
     return true;
 }
 
+*/
 
 #endif // CHANGED
 

@@ -14,6 +14,7 @@
 #include "addrspace.h"
 #include "synch.h"
 
+
 //----------------------------------------------------------------------
 // StartProcess
 //      Run a user program.  Open the executable, load it into
@@ -25,6 +26,11 @@ StartProcess (char *filename)
 {
     OpenFile *executable = fileSystem->Open (filename);
     AddrSpace *space;
+    if(executable == NULL){
+        fprintf(stderr, "Unable to find the file: %s \n", filename);
+    } else {
+        fprintf(stdout, "File: %s well opened\n", filename);
+    }
 
     if (executable == NULL)
       {
@@ -37,11 +43,19 @@ StartProcess (char *filename)
     space = new AddrSpace (executable);
     currentThread->space = space;
 
-    delete executable;		// close file
+    //delete executable;		// close file
 
     space->InitRegisters ();	// set the initial register values
     space->RestoreState ();	// load page table register
 
+    if(space == NULL){
+        fprintf(stderr, "Unable to find space3: %s \n", filename);
+    } else {
+        fprintf(stdout, "space3: %s well allocated\n", filename);
+    }
+    //machine->DumpMem ("memory.svg");
+    machine->Run ();		// jump to the user progam
+    ASSERT (FALSE);		// machine->Run never returns;
     // the address space exits
     // by doing the syscall "exit"
 }
@@ -77,9 +91,7 @@ WriteDoneHandler (void *arg)
 //      the output.  Stop when the user types a 'q'.
 //----------------------------------------------------------------------
 
-void
-ConsoleTest (const char *in, const char *out)
-{
+void ConsoleTest (const char *in, const char *out) {
     char ch;
 
     readAvail = new Semaphore ("read avail", 0);
@@ -113,7 +125,7 @@ ConsoleTest (const char *in, const char *out)
       }*/
       
       if (ch == 'q' || ch == -1) {
-	      printf ("\nAu revoir!\n");
+            fprintf (stderr, "[INFO] ConsoleTest: Exit\n\n");
 	      break;		// if q, quit
 	  }
     
@@ -134,67 +146,28 @@ ConsoleTest (const char *in, const char *out)
 void SynchConsoleTest (const char * in, const char * out) {
     SynchConsole * test_synch_console = new SynchConsole(in, out);
 
+    if(in == NULL && out == NULL)
+        fprintf(stderr,"[INFO] SynchConsoleTest: Interactive test using '<'output'>'\n");
+    else
+        fprintf(stderr,"[INFO] SynchConsoleTest: Reading Test from file %s to %s\n", in, out);
 
-    if(in != NULL && out != NULL){  //TO COMPLETE
-        const int NUMBER_TEST = 2;
-        int number_test_success = 0;
-        fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
-
-        /* Test 1 */
-        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test :\n");
-        if(test_synch_console->SynchConsoleTestChar_01()) {
-            fprintf(stderr, "\t * success\n");
-            number_test_success += 1;
+    char ch;
+    for (;;) {
+        ch = test_synch_console->SynchGetChar();
+        if(ch == '\n'){
+            test_synch_console->SynchPutChar(ch);
         } else {
-            fprintf(stderr, "\t * FAILURE\n");
-        }
-
-        /* Test 2 */
-        
-        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test :\n");
-        if(test_synch_console->SynchConsoleTestString_01()) {
-            fprintf(stderr, "\t * success\n");
-            number_test_success += 1;
-        } else {
-            fprintf(stderr, "\t * FAILURE\n");
+            test_synch_console->SynchPutChar('<');
+            test_synch_console->SynchPutChar(ch);
+            test_synch_console->SynchPutChar('>');
+            test_synch_console->SynchPutChar('\n');
         }
         
-
-        /* Test 3 */
-        /*
-        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestCopyString_01 test :\n");
-        if(test_synch_console->SynchConsoleTestCopyString_01()) {
-            fprintf(stderr, "\t * success\n");
-            number_test_success += 1;
-        } else {
-            fprintf(stderr, "\t * FAILURE\n");
+        if (ch == 'q' || ch == -1) {
+            fprintf (stderr, "[INFO] SynchConsoleTest: Exit\n\n");
+            break;		// if q, quit
         }
-        */
-
-        fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, NUMBER_TEST);
-    } else {
-
-        fprintf(stderr,"[INFO] SynchConsole: Interactive test using '<'output'>'\n");
-
-
-        char ch;
-        for (;;) {
-            ch = test_synch_console->SynchGetChar();
-            if(ch == '\n'){
-                test_synch_console->SynchPutChar(ch);
-            } else {
-                test_synch_console->SynchPutChar('<');
-                test_synch_console->SynchPutChar(ch);
-                test_synch_console->SynchPutChar('>');
-                test_synch_console->SynchPutChar('\n');
-            }
         
-            if (ch == 'q' || ch == -1) {
-                fprintf (stderr, "\nAu revoir!\n");
-                break;		// if q, quit
-            }
-        
-        }
     }
     delete test_synch_console;
     delete readAvail;
