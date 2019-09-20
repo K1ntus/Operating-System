@@ -113,6 +113,12 @@ void ExceptionHandler (ExceptionType which) {
 						synchconsole->SynchPutString(buffer);
 						break;
 					}
+					case SC_GetString:
+					{
+						DEBUG ('s', "PutString, initiated by user program.\n");
+						//TODO
+						break;
+					}
 					#endif	//CHANGED
 
 					default:

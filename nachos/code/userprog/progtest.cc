@@ -26,11 +26,6 @@ StartProcess (char *filename)
 {
     OpenFile *executable = fileSystem->Open (filename);
     AddrSpace *space;
-    if(executable == NULL){
-        fprintf(stderr, "Unable to find the file: %s \n", filename);
-    } else {
-        fprintf(stdout, "File: %s well opened\n", filename);
-    }
 
     if (executable == NULL)
       {
@@ -43,17 +38,12 @@ StartProcess (char *filename)
     space = new AddrSpace (executable);
     currentThread->space = space;
 
-    //delete executable;		// close file
+    delete executable;		// close file
 
     space->InitRegisters ();	// set the initial register values
     space->RestoreState ();	// load page table register
 
-    if(space == NULL){
-        fprintf(stderr, "Unable to find space3: %s \n", filename);
-    } else {
-        fprintf(stdout, "space3: %s well allocated\n", filename);
-    }
-    //machine->DumpMem ("memory.svg");
+    machine->DumpMem ("memory.svg");
     machine->Run ();		// jump to the user progam
     ASSERT (FALSE);		// machine->Run never returns;
     // the address space exits

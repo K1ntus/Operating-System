@@ -2,10 +2,6 @@
 
 
 
-void PutString(char * c){
-
-    return 'a';
-}
 
 int main() {
 
