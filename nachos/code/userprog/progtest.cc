@@ -132,7 +132,7 @@ ConsoleTest (const char *in, const char *out)
 //      Also test the synchconsole using a few methods predefined
 //----------------------------------------------------------------------
 void SynchConsoleTest (const char * in, const char * out) {
-    SynchConsole * synchconsole = new SynchConsole(in, out);
+    SynchConsole * test_synch_console = new SynchConsole(in, out);
 
 
     if(in != NULL && out != NULL){  //TO COMPLETE
@@ -142,7 +142,7 @@ void SynchConsoleTest (const char * in, const char * out) {
 
         /* Test 1 */
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test :\n");
-        if(synchconsole->SynchConsoleTestChar_01(in, out)) {
+        if(test_synch_console->SynchConsoleTestChar_01(in, out)) {
             fprintf(stderr, "\t * success\n");
             number_test_success += 1;
         } else {
@@ -151,7 +151,7 @@ void SynchConsoleTest (const char * in, const char * out) {
 
         /* Test 2 */
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test :\n");
-        if(synchconsole->SynchConsoleTestString_01(in,out)) {
+        if(test_synch_console->SynchConsoleTestString_01(in,out)) {
             fprintf(stderr, "\t * success\n");
             number_test_success += 1;
         } else {
@@ -161,7 +161,7 @@ void SynchConsoleTest (const char * in, const char * out) {
         /* Test 3 */
         /*
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestCopyString_01 test :\n");
-        if(synchconsole->SynchConsoleTestCopyString_01(in,out)) {
+        if(test_synch_console->SynchConsoleTestCopyString_01(in,out)) {
             fprintf(stderr, "\t * success\n");
             number_test_success += 1;
         } else {
@@ -177,14 +177,14 @@ void SynchConsoleTest (const char * in, const char * out) {
 
     char ch;
     for (;;) {
-        ch = synchconsole->SynchGetChar();
+        ch = test_synch_console->SynchGetChar();
         if(ch == '\n'){
-            synchconsole->SynchPutChar(ch);
+            test_synch_console->SynchPutChar(ch);
         } else {
-            synchconsole->SynchPutChar('<');
-            synchconsole->SynchPutChar(ch);
-            synchconsole->SynchPutChar('>');
-            synchconsole->SynchPutChar('\n');
+            test_synch_console->SynchPutChar('<');
+            test_synch_console->SynchPutChar(ch);
+            test_synch_console->SynchPutChar('>');
+            test_synch_console->SynchPutChar('\n');
         }
       
         if (ch == 'q' || ch == -1) {
@@ -194,7 +194,7 @@ void SynchConsoleTest (const char * in, const char * out) {
     
     }
 
-    delete synchconsole;
+    delete test_synch_console;
     delete readAvail;
     delete writeDone;
 
