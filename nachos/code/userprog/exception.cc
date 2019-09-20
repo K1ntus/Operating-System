@@ -93,21 +93,20 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
-						interrupt->Halt();
-						//machine->synchconsole->
+						synchconsole->SynchPutChar(machine->ReadRegister(4));
 						break;
 					}
 					case SC_GetChar:
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
-						interrupt->Halt();
+						
 						//TODO
 						break;
 					}
 					case SC_PutString:
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
-						interrupt->Halt();
+						
 						//TODO
 						break;
 					}
