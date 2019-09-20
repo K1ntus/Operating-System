@@ -99,15 +99,18 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_GetChar:
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
-						
-						//TODO
+						machine->WriteRegister(2, synchconsole->SynchGetChar());
 						break;
 					}
 					case SC_PutString:
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
-						
-						//TODO
+						char buffer[MAX_STRING_SIZE];
+						int address = machine->ReadRegister(4);
+
+						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
+						synchconsole->copyStringFromMachine(address, buffer, MAX_STRING_SIZE);
+						synchconsole->SynchPutString(buffer);
 						break;
 					}
 					#endif	//CHANGED

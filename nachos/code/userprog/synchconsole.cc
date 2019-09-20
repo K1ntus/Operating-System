@@ -61,31 +61,6 @@ void SynchConsole::SynchPutString(const char s[]) {
     }
 }
 
-void SynchConsole::SynchGetString(char *s, int n) { //Fgets
-    if(n <= 0){
-        //ERROR
-        return;
-    }
-
-    s[0] = '\0';
-    int pos_in_buffer = 0;
-
-    while(--n > 0) {        
-        int char_readed = SynchConsole::SynchGetChar();
-        if(char_readed == EOF || char_readed == '\n') {
-            if(DEBUG_MODE)
-                fprintf(stderr, "[DEBUG@SynchGetString] EOF/NewLine\n");
-            break;
-        } else {
-            s[pos_in_buffer] = char_readed;
-            s[pos_in_buffer+1] = '\0';
-            if(DEBUG_MODE)
-                fprintf(stderr, "[DEBUG@SynchGetString] Char:%c\n", s[pos_in_buffer]);
-            pos_in_buffer+=1;
-        }
-    }    
-}
-
 
 
 int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
@@ -133,26 +108,30 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 }
 
 
+void SynchConsole::SynchGetString(char *s, int n) { //Fgets
+    if(n <= 0){
+        //ERROR
+        return;
+    }
 
+    s[0] = '\0';
+    int pos_in_buffer = 0;
 
-/*
-bool SynchConsoleCopyString_01(const char * in, const char * out) {
-    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
-    SynchConsole * test_synchconsole = new SynchConsole(in, out);
-
-    test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-
-
-    //TODO
-
-    free(char_buffer);
-    delete(test_synchconsole);
-    test_synchconsole = NULL;
-
-    return true;
+    while(--n > 0) {        
+        int char_readed = SynchConsole::SynchGetChar();
+        if(char_readed == EOF || char_readed == '\n') {
+            if(DEBUG_MODE)
+                fprintf(stderr, "[DEBUG@SynchGetString] EOF/NewLine\n");
+            break;
+        } else {
+            s[pos_in_buffer] = char_readed;
+            s[pos_in_buffer+1] = '\0';
+            if(DEBUG_MODE)
+                fprintf(stderr, "[DEBUG@SynchGetString] Char:%c\n", s[pos_in_buffer]);
+            pos_in_buffer+=1;
+        }
+    }    
 }
-*/
-
 
 
 
@@ -162,7 +141,7 @@ bool SynchConsoleCopyString_01(const char * in, const char * out) {
 
 /*  TESTS   */
 
-bool SynchConsole::SynchConsoleTestChar_01(const char * in, const char * out){
+bool SynchConsole::SynchConsoleTestChar_01(){
     char ch;
     while ((ch = SynchGetChar()) != EOF){
         if(DEBUG_MODE){
@@ -184,7 +163,7 @@ bool SynchConsole::SynchConsoleTestChar_01(const char * in, const char * out){
     return true;
 }
 
-bool SynchConsole::SynchConsoleTestString_01(const char * in, const char * out) {
+bool SynchConsole::SynchConsoleTestString_01() {
     char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
 
     //Test if first line is already EOF
@@ -206,7 +185,7 @@ bool SynchConsole::SynchConsoleTestString_01(const char * in, const char * out) 
     return true;
 }
 
-bool SynchConsole::SynchConsoleTestCopyString_01(const char * in, const char * out) {
+bool SynchConsole::SynchConsoleTestCopyString_01() {
     char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
 
     /*

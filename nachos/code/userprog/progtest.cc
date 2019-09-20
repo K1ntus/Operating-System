@@ -142,7 +142,7 @@ void SynchConsoleTest (const char * in, const char * out) {
 
         /* Test 1 */
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test :\n");
-        if(test_synch_console->SynchConsoleTestChar_01(in, out)) {
+        if(test_synch_console->SynchConsoleTestChar_01()) {
             fprintf(stderr, "\t * success\n");
             number_test_success += 1;
         } else {
@@ -152,7 +152,7 @@ void SynchConsoleTest (const char * in, const char * out) {
         /* Test 2 */
         
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test :\n");
-        if(test_synch_console->SynchConsoleTestString_01(in,out)) {
+        if(test_synch_console->SynchConsoleTestString_01()) {
             fprintf(stderr, "\t * success\n");
             number_test_success += 1;
         } else {
@@ -163,7 +163,7 @@ void SynchConsoleTest (const char * in, const char * out) {
         /* Test 3 */
         /*
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestCopyString_01 test :\n");
-        if(test_synch_console->SynchConsoleTestCopyString_01(in,out)) {
+        if(test_synch_console->SynchConsoleTestCopyString_01()) {
             fprintf(stderr, "\t * success\n");
             number_test_success += 1;
         } else {
