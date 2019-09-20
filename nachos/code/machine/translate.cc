@@ -230,7 +230,7 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 
             }
     	    if ( (tlb[i].virtualPage == vpn)) {
-    fprintf(stderr, "COOL1\n");
+    fprintf(stderr, "COOL1: %d\n", i);
 
             }
 

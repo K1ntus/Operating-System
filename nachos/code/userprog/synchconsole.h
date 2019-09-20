@@ -19,15 +19,16 @@ class SynchConsole:dontcopythis {
         void SynchPutString(const char *s);      // Unix fputs(3S)
         void SynchGetString(char *s, int n);     // Unix fgets(3S)
 
-        void SynchConsoleTest (const char * in, const char * out);
-
         int copyStringFromMachine(int from, char *to, unsigned size);
+
+
+
+        bool SynchConsoleTestChar_01 (const char * in, const char * out);
+        bool SynchConsoleTestString_01 (const char * in, const char * out);
+        bool SynchConsoleTestCopyString_01 (const char * in, const char * out);
     
     private:
         Console *console;
-        bool SynchConsoleTestChar_01 (const char * in, const char * out);
-        bool SynchConsoleTestString_01 (const char * in, const char * out);
-        bool SynchConsoleCopyString_01 (const char * in, const char * out);
 };
 
 

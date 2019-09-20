@@ -42,9 +42,6 @@ StartProcess (char *filename)
     space->InitRegisters ();	// set the initial register values
     space->RestoreState ();	// load page table register
 
-    machine->DumpMem ("memory.svg");
-    machine->Run ();		// jump to the user progam
-    ASSERT (FALSE);		// machine->Run never returns;
     // the address space exits
     // by doing the syscall "exit"
 }
@@ -126,3 +123,80 @@ ConsoleTest (const char *in, const char *out)
     delete readAvail;
     delete writeDone;
 }
+
+
+//----------------------------------------------------------------------
+// SynchConsoleTest
+//      Test the synchconsole by echoing characters typed at the input onto
+//      the output.  Stop when the user types a 'q'.
+//      Also test the synchconsole using a few methods predefined
+//----------------------------------------------------------------------
+void SynchConsoleTest (const char * in, const char * out) {
+    SynchConsole * synchconsole = new SynchConsole(in, out);
+
+
+    if(in != NULL && out != NULL){  //TO COMPLETE
+        const int NUMBER_TEST = 3;
+        int number_test_success = 0;
+        fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
+
+        /* Test 1 */
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestChar_01 test :\n");
+        if(synchconsole->SynchConsoleTestChar_01(in, out)) {
+            fprintf(stderr, "\t * success\n");
+            number_test_success += 1;
+        } else {
+            fprintf(stderr, "\t * FAILURE\n");
+        }
+
+        /* Test 2 */
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test :\n");
+        if(synchconsole->SynchConsoleTestString_01(in,out)) {
+            fprintf(stderr, "\t * success\n");
+            number_test_success += 1;
+        } else {
+            fprintf(stderr, "\t * FAILURE\n");
+        }
+
+        /* Test 3 */
+        /*
+        fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestCopyString_01 test :\n");
+        if(synchconsole->SynchConsoleTestCopyString_01(in,out)) {
+            fprintf(stderr, "\t * success\n");
+            number_test_success += 1;
+        } else {
+            fprintf(stderr, "\t * FAILURE\n");
+        }
+        */
+
+        fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, NUMBER_TEST);
+    }
+
+    fprintf(stderr,"[INFO] SynchConsole: Interactive test using '<'output'>'\n");
+
+
+    char ch;
+    for (;;) {
+        ch = synchconsole->SynchGetChar();
+        if(ch == '\n'){
+            synchconsole->SynchPutChar(ch);
+        } else {
+            synchconsole->SynchPutChar('<');
+            synchconsole->SynchPutChar(ch);
+            synchconsole->SynchPutChar('>');
+            synchconsole->SynchPutChar('\n');
+        }
+      
+        if (ch == 'q' || ch == -1) {
+	        fprintf (stderr, "\nAu revoir!\n");
+	        break;		// if q, quit
+	    }
+    
+    }
+
+    delete synchconsole;
+    delete readAvail;
+    delete writeDone;
+
+}
+

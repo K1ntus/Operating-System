@@ -129,10 +129,14 @@ int main (int argc, char **argv) {
 	      	argCount = 3;
 	  	}
 	} else if (!strcmp (*argv, "-sc"))   {			// test the console
-	    ASSERT (argc > 2);
-	    SynchConsoleTest (*(argv + 1), *(argv + 2));
-		
-	    argCount = 3;
+		if(argc == 1){
+			SynchConsoleTest(NULL, NULL);
+		} else {
+			ASSERT (argc > 2);
+			SynchConsoleTest (*(argv + 1), *(argv + 2));
+			
+			argCount = 3;
+		}
 	}
 #endif // USER_PROGRAM
 #ifdef FILESYS

@@ -8,11 +8,15 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include "synchconsole.h"
+
 #ifndef PROGTEST_H
 #define PROGTEST_H
 
 extern void StartProcess (char *filename);
 
 extern void ConsoleTest (const char *in, const char *out);
+
+extern void SynchConsoleTest (const char * in, const char * out);
 
 #endif // PROGTEST_H
