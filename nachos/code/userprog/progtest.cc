@@ -21,9 +21,7 @@
 //      memory, and jump to it.
 //----------------------------------------------------------------------
 
-void
-StartProcess (char *filename)
-{
+void StartProcess (char *filename) {
     OpenFile *executable = fileSystem->Open (filename);
     AddrSpace *space;
 
@@ -31,19 +29,22 @@ StartProcess (char *filename)
       {
 	  SetColor (stdout, ColorRed);
 	  SetBold (stdout);
-	  printf ("Unable to open file %s\n", filename);
+	  fprintf (stderr, "Unable to open file %s\n", filename);
 	  ClearColor (stdout);
 	  return;
+      } else {
+
+	  fprintf (stderr, "File %s opened\n", filename);
       }
     space = new AddrSpace (executable);
     currentThread->space = space;
 
-    delete executable;		// close file
+    delete executable;		    // close file
 
     space->InitRegisters ();	// set the initial register values
-    space->RestoreState ();	// load page table register
+    space->RestoreState ();	    // load page table register
 
-    machine->DumpMem ("memory.svg");
+    //machine->DumpMem ("memory.svg");
     machine->Run ();		// jump to the user progam
     ASSERT (FALSE);		// machine->Run never returns;
     // the address space exits
