@@ -94,21 +94,21 @@ WriteDoneHandler (void *arg)
 void ConsoleTest (const char *in, const char *out) {
     char ch;
 
+    if(in == NULL && out == NULL)
+        fprintf(stderr,"[INFO] ConsoleTest: Interactive test using '<'output'>'\n");
+    else
+        fprintf(stderr,"[INFO] ConsoleTest: Reading Test from file %s to %s\n", in, out);
+
+
     readAvail = new Semaphore ("read avail", 0);
     writeDone = new Semaphore ("write done", 0);
     console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, 0);
 
-    for (;;)
-      {
+    for (;;) {
       
-	  readAvail->P ();	// wait for character to arrive
-	  ch = console->GetChar ();
+	    readAvail->P ();	// wait for character to arrive
+	    ch = console->GetChar ();
 
-//    printf("Code: %d", ch);
-/*	  
-	  if(ch != 10) {    //END-LINE CODE
-
-*/
         console->PutChar ('<');	    // echo it!
         writeDone->P ();	        // wait for write to finish
         console->PutChar (ch);  	// echo it!
@@ -119,11 +119,6 @@ void ConsoleTest (const char *in, const char *out) {
         console->PutChar ('\n');	// echo it!
         writeDone->P ();	        // wait for write to finish
 
-/*
-      } else {  //It is the end-line char, no need to print the < and > char or echo it
-    	  writeDone->P ();	        // wait for write to finish
-      }*/
-      
       if (ch == 'q' || ch == -1) {
             fprintf (stderr, "[INFO] ConsoleTest: Exit\n\n");
 	      break;		// if q, quit
