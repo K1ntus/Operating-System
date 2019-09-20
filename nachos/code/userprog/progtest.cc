@@ -136,7 +136,7 @@ void SynchConsoleTest (const char * in, const char * out) {
 
 
     if(in != NULL && out != NULL){  //TO COMPLETE
-        const int NUMBER_TEST = 3;
+        const int NUMBER_TEST = 2;
         int number_test_success = 0;
         fprintf(stderr, "\n[INFO] SynchConsole::SynchConsoleTest launching tests\n");
 
@@ -150,6 +150,7 @@ void SynchConsoleTest (const char * in, const char * out) {
         }
 
         /* Test 2 */
+        
         fprintf(stderr, "[INFO] SynchConsole::SynchConsoleTestString_01 test :\n");
         if(test_synch_console->SynchConsoleTestString_01(in,out)) {
             fprintf(stderr, "\t * success\n");
@@ -157,6 +158,7 @@ void SynchConsoleTest (const char * in, const char * out) {
         } else {
             fprintf(stderr, "\t * FAILURE\n");
         }
+        
 
         /* Test 3 */
         /*
@@ -170,30 +172,30 @@ void SynchConsoleTest (const char * in, const char * out) {
         */
 
         fprintf(stderr,"[INFO] Test success: %d over %d\n", number_test_success, NUMBER_TEST);
-    }
+    } else {
 
-    fprintf(stderr,"[INFO] SynchConsole: Interactive test using '<'output'>'\n");
+        fprintf(stderr,"[INFO] SynchConsole: Interactive test using '<'output'>'\n");
 
 
-    char ch;
-    for (;;) {
-        ch = test_synch_console->SynchGetChar();
-        if(ch == '\n'){
-            test_synch_console->SynchPutChar(ch);
-        } else {
-            test_synch_console->SynchPutChar('<');
-            test_synch_console->SynchPutChar(ch);
-            test_synch_console->SynchPutChar('>');
-            test_synch_console->SynchPutChar('\n');
+        char ch;
+        for (;;) {
+            ch = test_synch_console->SynchGetChar();
+            if(ch == '\n'){
+                test_synch_console->SynchPutChar(ch);
+            } else {
+                test_synch_console->SynchPutChar('<');
+                test_synch_console->SynchPutChar(ch);
+                test_synch_console->SynchPutChar('>');
+                test_synch_console->SynchPutChar('\n');
+            }
+        
+            if (ch == 'q' || ch == -1) {
+                fprintf (stderr, "\nAu revoir!\n");
+                break;		// if q, quit
+            }
+        
         }
-      
-        if (ch == 'q' || ch == -1) {
-	        fprintf (stderr, "\nAu revoir!\n");
-	        break;		// if q, quit
-	    }
-    
     }
-
     delete test_synch_console;
     delete readAvail;
     delete writeDone;

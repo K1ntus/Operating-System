@@ -164,15 +164,14 @@ bool SynchConsoleCopyString_01(const char * in, const char * out) {
 
 bool SynchConsole::SynchConsoleTestChar_01(const char * in, const char * out){
     char ch;
-    SynchConsole * test_synchconsole = new SynchConsole(in, out);
-    while ((ch = test_synchconsole->SynchGetChar()) != EOF){
+    while ((ch = SynchGetChar()) != EOF){
         if(DEBUG_MODE){
-            test_synchconsole->SynchPutChar('<');
-            test_synchconsole->SynchPutChar(ch);
-            test_synchconsole->SynchPutChar('>');
-            test_synchconsole->SynchPutChar('\n');
+            SynchPutChar('<');
+            SynchPutChar(ch);
+            SynchPutChar('>');
+            SynchPutChar('\n');
         } else {
-            test_synchconsole->SynchPutChar(ch);
+            SynchPutChar(ch);
 
         }
     }
@@ -182,40 +181,33 @@ bool SynchConsole::SynchConsoleTestChar_01(const char * in, const char * out){
     }
 
 
-    delete test_synchconsole;
-    
-    test_synchconsole = NULL;
     return true;
 }
 
 bool SynchConsole::SynchConsoleTestString_01(const char * in, const char * out) {
     char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
-    SynchConsole * test_synchconsole = new SynchConsole(in, out);
 
     //Test if first line is already EOF
-    test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
+    SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
     if(DEBUG_MODE)
         fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
 
 
     while(char_buffer[0] != '\0') {
         char_buffer[0] = '\0';
-        test_synchconsole->SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
+        SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
         if(DEBUG_MODE)
             fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
     }
 
 
     free(char_buffer);
-    delete(test_synchconsole);
-    test_synchconsole = NULL;
 
     return true;
 }
 
 bool SynchConsole::SynchConsoleTestCopyString_01(const char * in, const char * out) {
     char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
-    SynchConsole * test_synchconsole = new SynchConsole(in, out);
 
     /*
     char name[13] = "StudyTonight";       // valid character array initialization
@@ -225,12 +217,10 @@ bool SynchConsole::SynchConsoleTestCopyString_01(const char * in, const char * o
     }*/
 
     int int_name2[13] = {83, 116, 117, 100, 121, 84, 111, 110, 105, 103, 104, 116};
-    int res = test_synchconsole->copyStringFromMachine(int_name2[0], char_buffer, 120);
+    int res = copyStringFromMachine(int_name2[0], char_buffer, 120);
     
     if (res != 14){
         free(char_buffer);
-        delete(test_synchconsole);
-        test_synchconsole = NULL;
 
         return false;
     }
@@ -239,8 +229,6 @@ bool SynchConsole::SynchConsoleTestCopyString_01(const char * in, const char * o
 
 
     free(char_buffer);
-    delete(test_synchconsole);
-    test_synchconsole = NULL;
 
     return true;
 }
