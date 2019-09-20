@@ -193,7 +193,6 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 
     DEBUG('a', "\tTranslate 0x%x, %s: ", virtAddr, writing ? "write" : "read");
 
-    fprintf(stderr, "here01\n");
 // check for alignment errors
     if (((size == 4) && (virtAddr & 0x3)) || ((size == 2) && (virtAddr & 0x1))){
 	DEBUG('a', "alignment problem at %d, size %d!\n", virtAddr, size);
@@ -208,7 +207,6 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 // from the virtual address
     vpn = (unsigned) virtAddr / PageSize;
     offset = (unsigned) virtAddr % PageSize;
-    fprintf(stderr, "here02\n");
     
     if (tlb == NULL) {		// => page table => vpn is index into table
 	if (vpn >= pageTableSize) {
@@ -222,22 +220,11 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 	}
 	entry = &pageTable[vpn];
     } else {
-    fprintf(stderr, "here03\n");
         for (entry = NULL, i = 0; i < TLBSize; i++){
-
-    	    if (tlb[i].valid) {
-    fprintf(stderr, "COOL0\n");
-
-            }
-    	    if ( (tlb[i].virtualPage == vpn)) {
-    fprintf(stderr, "COOL1: %d\n", i);
-
-            }
-
     	    if (tlb[i].valid && (tlb[i].virtualPage == vpn)) {
-		entry = &tlb[i];			// FOUND!
-		break;
-	    }
+                entry = &tlb[i];			// FOUND!
+                break;
+            }
         }
 	if (entry == NULL) {				// not found
     	    DEBUG('a', "*** no valid TLB entry found for this virtual page!\n");
