@@ -126,8 +126,8 @@ void ExceptionHandler (ExceptionType which) {
 						//TO TEST
 
 						//int copyStringToMachine(int to, char *from, unsigned size);
-						synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
 						synchconsole->SynchGetString(buffer,MAX_STRING_SIZE);
+						synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
 
 						break;
 					}
