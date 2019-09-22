@@ -100,6 +100,7 @@ void SynchConsole::SynchPutChar(int ch) {
 
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutString(const char s[]) {
+    
     if(s == NULL){
         //ERROR CASE
         return;        
