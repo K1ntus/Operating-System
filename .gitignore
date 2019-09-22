@@ -1,3 +1,17 @@
+#Test Executable
+nachos/code/test/putstring
+nachos/code/test/putchar
+nachos/code/test/putchar_nohalt
+nachos/code/test/halt
+nachos/code/test/matmult
+nachos/code/test/shell
+nachos/code/test/sort
+
+#Userprog
+nachos/code/userprog/nachos
+nachos/code/userprog/memory.svg
+nachos/code/userprog.abort.svg
+
 # Hidden folder
 hidden/
 
