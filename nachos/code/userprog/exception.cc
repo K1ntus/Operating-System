@@ -119,8 +119,16 @@ void ExceptionHandler (ExceptionType which) {
 					}
 					case SC_GetString:
 					{
-						DEBUG ('s', "PutString, initiated by user program.\n");
-						//TODO
+						DEBUG ('s', "GetString, initiated by user program.\n");
+						char buffer[MAX_STRING_SIZE];
+						int address = machine->ReadRegister(4);
+
+						//TO TEST
+
+						//int copyStringToMachine(int to, char *from, unsigned size);
+						synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
+						synchconsole->SynchGetString(buffer,MAX_STRING_SIZE);
+
 						break;
 					}
 					#endif	//CHANGED

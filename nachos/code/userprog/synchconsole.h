@@ -20,6 +20,7 @@ class SynchConsole:dontcopythis {
         void SynchGetString(char *s, int n);     // Unix fgets(3S)
 
         int copyStringFromMachine(int from, char *to, unsigned size);
+        int copyStringToMachine(int to, char *from, unsigned size);
 
 
         /*

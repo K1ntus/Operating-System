@@ -1,3 +1,6 @@
+# Dunno but useless
+*.coff*
+
 #Test Executable
 nachos/code/test/putstring
 nachos/code/test/putchar

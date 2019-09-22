@@ -198,6 +198,47 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 }
 
 
+//----------------------------------------------------------------------
+// Initialize
+//      Initialize Nachos global data structures.  Interpret command
+//      line arguments in order to determine flags for the initialization.  
+// 
+//      "argc" is the number of command line arguments (including the name
+//              of the command) -- ex: "nachos -d +" -> argc = 3 
+//      "argv" is an array of strings, one for each command line argument
+//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
+
+
+// TODO
+
+
+
+//----------------------------------------------------------------------
+int SynchConsole::copyStringToMachine(int to, char *from, unsigned size) {
+    
+    unsigned int number_character_read = 0;
+    int character = 1;
+
+
+    // while(number_character_read < size){/* while avec la taille du buffer */
+
+    //     machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+    //     //console->GetChar ();
+    //     if((char) character == '\0') {
+    //         to[number_character_read] ='\0';
+    //         number_character_read+=1;
+    //         break;
+    //     }
+    //     to[number_character_read] = (char) character;
+    //     number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+    // }
+    
+
+    return number_character_read;
+
+}
+
+
 
 
 
