@@ -15,42 +15,6 @@
 #include "synch.h"
 
 
-//----------------------------------------------------------------------
-// StartProcess
-//      Run a user program.  Open the executable, load it into
-//      memory, and jump to it.
-//----------------------------------------------------------------------
-
-void StartProcess (char *filename) {
-    OpenFile *executable = fileSystem->Open (filename);
-    AddrSpace *space;
-
-    if (executable == NULL)
-      {
-	  SetColor (stdout, ColorRed);
-	  SetBold (stdout);
-	  fprintf (stderr, "Unable to open file %s\n", filename);
-	  ClearColor (stdout);
-	  return;
-      } else {
-
-	  fprintf (stderr, "File %s opened\n", filename);
-      }
-    space = new AddrSpace (executable);
-    currentThread->space = space;
-
-    delete executable;		    // close file
-
-    space->InitRegisters ();	// set the initial register values
-    space->RestoreState ();	    // load page table register
-
-    //machine->DumpMem ("memory.svg");
-    machine->Run ();		// jump to the user progam
-    ASSERT (FALSE);		// machine->Run never returns;
-    // the address space exits
-    // by doing the syscall "exit"
-}
-
 // Data structures needed for the console test.  Threads making
 // I/O requests wait on a Semaphore to delay until the I/O completes.
 
@@ -74,6 +38,40 @@ WriteDoneHandler (void *arg)
 {
     (void) arg;
     writeDone->V ();
+}
+
+//----------------------------------------------------------------------
+// StartProcess
+//      Run a user program.  Open the executable, load it into
+//      memory, and jump to it.
+//----------------------------------------------------------------------
+
+void StartProcess (char *filename) {
+
+    OpenFile *executable = fileSystem->Open (filename);
+    AddrSpace *space;
+
+    if (executable == NULL)
+      {
+	  SetColor (stdout, ColorRed);
+	  SetBold (stdout);
+	  printf ("Unable to open file %s\n", filename);
+	  ClearColor (stdout);
+	  return;
+      }
+    space = new AddrSpace (executable);
+    currentThread->space = space;
+
+    delete executable;		// close file
+
+    space->InitRegisters ();	// set the initial register values
+    space->RestoreState ();	// load page table register
+
+    machine->DumpMem ("memory.svg");
+    machine->Run ();		// jump to the user progam
+    ASSERT (FALSE);		// machine->Run never returns;
+    // the address space exits
+    // by doing the syscall "exit"
 }
 
 //----------------------------------------------------------------------

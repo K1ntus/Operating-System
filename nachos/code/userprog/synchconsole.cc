@@ -6,7 +6,6 @@
 
 
 #define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
-#define TEST_STRING_BUFFER_SIZE 1023
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
@@ -40,24 +39,38 @@ int SynchConsole::SynchGetChar() {
 	readAvail->P ();	// wait for character to arrive
 	ch = console->GetChar ();
 
+    /* //Useless statement
     if(ch == EOF) {
         return EOF;
     }
+    */
 
     return ch;
 }
 
 void SynchConsole::SynchPutChar(int ch) {
+
+
     console->PutChar (ch);	    // echo it!
     writeDone->P ();	        // wait for write to finish
 }
 
 
 void SynchConsole::SynchPutString(const char s[]) {
-    size_t size_string = strlen(s);
+    if(s == NULL){
+        //ERROR CASE
+        return;        
+    }
 
-    for(size_t i = 0; i < size_string; i++){
-        SynchPutChar(s[i]);
+    int i = 0;
+
+
+    while(i < MAX_STRING_SIZE){
+        if(s[i] == '\0')
+            break;
+
+        this->SynchPutChar((int) s[i]);
+        i++;
     }
 }
 
@@ -91,7 +104,7 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //    fprintf(stderr, "READMEM: %d, %p\n", from + number_character_read, &character);
 
 
-        machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation
+        machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
         //console->GetChar ();
         if((char) character == '\0') {
             to[number_character_read] ='\0';

@@ -93,7 +93,9 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
+						fprintf(stderr, "Baah tiens: %d->%c !\n", machine->ReadRegister(4), (char)machine->ReadRegister(4));
 						synchconsole->SynchPutChar(machine->ReadRegister(4));
+						fprintf(stderr, "Baah tiens2 !\n");
 						break;
 					}
 					case SC_GetChar:
