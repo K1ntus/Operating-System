@@ -1,142 +1,690 @@
-// exception.cc 
-//      Entry point into the Nachos kernel from user programs.
-//      There are two kinds of things that can cause control to
-//      transfer back to here from user code:
-//
-//      syscall -- The user code explicitly requests to call a procedure
-//      in the Nachos kernel.  Right now, the only function we support is
-//      "Halt".
-//
-//      exceptions -- The user code does something that the CPU can't handle.
-//      For instance, accessing memory that doesn't exist, arithmetic errors,
-//      etc.  
-//
-//      Interrupts (which can also cause control to transfer from user
-//      code into the Nachos kernel) are handled elsewhere.
-//
-// For now, this only handles the Halt() system call.
-// Everything else core dumps.
-//
-// Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
-// of liability and disclaimer of warranty provisions.
-
-#include "copyright.h"
-#include "system.h"
-#include "syscall.h"
-
-//----------------------------------------------------------------------
-// UpdatePC : Increments the Program Counter register in order to resume
-// the user program immediately after the "syscall" instruction.
-//----------------------------------------------------------------------
-static void UpdatePC () {
-    int pc = machine->ReadRegister (PCReg);
-    machine->WriteRegister (PrevPCReg, pc);
-    pc = machine->ReadRegister (NextPCReg);
-    machine->WriteRegister (PCReg, pc);
-    pc += 4;
-    machine->WriteRegister (NextPCReg, pc);
-}
-
-
-//----------------------------------------------------------------------
-// ExceptionHandler
-//      Entry point into the Nachos kernel.  Called when a user program
-//      is executing, and either does a syscall, or generates an addressing
-//      or arithmetic exception.
-//
-//      For system calls, the following is the calling convention:
-//
-//      system call code -- r2
-//              arg1 -- r4
-//              arg2 -- r5
-//              arg3 -- r6
-//              arg4 -- r7
-//
-//      The result of the system call, if any, must be put back into r2. 
-//
-// And don't forget to increment the pc before returning. (Or else you'll
-// loop making the same system call forever!
-//
-//      "which" is the kind of exception.  The list of possible exceptions 
-//      are in machine.h.
-//----------------------------------------------------------------------
-
-void ExceptionHandler (ExceptionType which) {
-    int type = machine->ReadRegister (2);
-
-
-//	FLAGS:
-//      '+' -- turn on all debug messages
-//      't' -- thread system
-//      's' -- semaphores, locks, and conditions
-//      'i' -- interrupt emulation
-//      'm' -- machine emulation (USER_PROGRAM)
-//      'd' -- disk emulation (FILESYS)
-//      'f' -- file system (FILESYS)
-//      'a' -- address spaces (USER_PROGRAM)
-//      'n' -- network emulation (NETWORK)
-//
-
-    switch (which) {
-		case SyscallException:
-			{
-				switch (type) {
-					case SC_Halt:
-					{
-						DEBUG ('s', "Shutdown, initiated by user program.\n");
-						interrupt->Halt();
-						break;
-					}
-
-					#ifdef CHANGED
-					case SC_PutChar:
-					{
-						DEBUG ('s', "Putchar, initiated by user program.\n");
-						interrupt->Halt();
-						//machine->synchconsole->
-						break;
-					}
-					case SC_GetChar:
-					{
-						DEBUG ('s', "GetChar, initiated by user program.\n");
-						interrupt->Halt();
-						//TODO
-						break;
-					}
-					case SC_PutString:
-					{
-						DEBUG ('s', "PutString, initiated by user program.\n");
-						interrupt->Halt();
-						//TODO
-						break;
-					}
-					#endif	//CHANGED
-
-					default:
-					{
-						printf("Unimplemented system call %d\n", type);
-						ASSERT(FALSE);
-					}
-				}
-
-				// Do not forget to increment the pc before returning!
-				UpdatePC ();
-				break;
-		}
-
-		case PageFaultException:
-			if (!type) {
-				printf("NULL dereference at PC %x!\n", machine->registers[PCReg]);
-				ASSERT (FALSE);
-			} else {
-				printf ("Page Fault at address %x at PC %x\n", type, machine->registers[PCReg]);
-				ASSERT (FALSE);	// For now
-			}
-			break;
-
-		default:
-			printf ("Unexpected user mode exception %d %d at PC %x\n", which, type, machine->registers[PCReg]);
-			ASSERT (FALSE);
-    }
-}
+</>
+</>
+< >
+<p>
+<r>
+<o>
+<g>
+<t>
+<e>
+<s>
+<t>
+<.>
+<h>
+<
+>
+</>
+</>
+< >
+< >
+< >
+< >
+< >
+< >
+<D>
+<e>
+<c>
+<l>
+<a>
+<r>
+<a>
+<t>
+<i>
+<o>
+<n>
+<s>
+< >
+<f>
+<o>
+<r>
+< >
+<t>
+<e>
+<s>
+<t>
+< >
+<r>
+<o>
+<u>
+<t>
+<i>
+<n>
+<e>
+<s>
+< >
+<f>
+<o>
+<r>
+< >
+<d>
+<e>
+<m>
+<o>
+<n>
+<s>
+<t>
+<r>
+<a>
+<t>
+<i>
+<n>
+<g>
+< >
+<t>
+<h>
+<a>
+<t>
+< >
+<N>
+<a>
+<c>
+<h>
+<o>
+<s>
+< >
+<c>
+<a>
+<n>
+< >
+<l>
+<o>
+<a>
+<d>
+< >
+<a>
+<
+>
+</>
+</>
+< >
+< >
+< >
+< >
+< >
+< >
+<u>
+<s>
+<e>
+<r>
+< >
+<p>
+<r>
+<o>
+<g>
+<r>
+<a>
+<m>
+< >
+<a>
+<n>
+<d>
+< >
+<e>
+<x>
+<e>
+<c>
+<u>
+<t>
+<e>
+< >
+<i>
+<t>
+<.>
+< >
+< >
+<
+>
+</>
+</>
+<
+>
+</>
+</>
+< >
+< >
+< >
+< >
+< >
+< >
+<A>
+<l>
+<s>
+<o>
+<,>
+< >
+<r>
+<o>
+<u>
+<t>
+<i>
+<n>
+<e>
+<s>
+< >
+<f>
+<o>
+<r>
+< >
+<t>
+<e>
+<s>
+<t>
+<i>
+<n>
+<g>
+< >
+<t>
+<h>
+<e>
+< >
+<C>
+<o>
+<n>
+<s>
+<o>
+<l>
+<e>
+< >
+<h>
+<a>
+<r>
+<d>
+<w>
+<a>
+<r>
+<e>
+< >
+<d>
+<e>
+<v>
+<i>
+<c>
+<e>
+<.>
+<
+>
+</>
+</>
+<
+>
+</>
+</>
+< >
+<C>
+<o>
+<p>
+<y>
+<r>
+<i>
+<g>
+<h>
+<t>
+< >
+<(>
+<c>
+<)>
+< >
+<1>
+<9>
+<9>
+<2>
+<->
+<1>
+<9>
+<9>
+<3>
+< >
+<T>
+<h>
+<e>
+< >
+<R>
+<e>
+<g>
+<e>
+<n>
+<t>
+<s>
+< >
+<o>
+<f>
+< >
+<t>
+<h>
+<e>
+< >
+<U>
+<n>
+<i>
+<v>
+<e>
+<r>
+<s>
+<i>
+<t>
+<y>
+< >
+<o>
+<f>
+< >
+<C>
+<a>
+<l>
+<i>
+<f>
+<o>
+<r>
+<n>
+<i>
+<a>
+<.>
+<
+>
+</>
+</>
+< >
+<A>
+<l>
+<l>
+< >
+<r>
+<i>
+<g>
+<h>
+<t>
+<s>
+< >
+<r>
+<e>
+<s>
+<e>
+<r>
+<v>
+<e>
+<d>
+<.>
+< >
+< >
+<S>
+<e>
+<e>
+< >
+<c>
+<o>
+<p>
+<y>
+<r>
+<i>
+<g>
+<h>
+<t>
+<.>
+<h>
+< >
+<f>
+<o>
+<r>
+< >
+<c>
+<o>
+<p>
+<y>
+<r>
+<i>
+<g>
+<h>
+<t>
+< >
+<n>
+<o>
+<t>
+<i>
+<c>
+<e>
+< >
+<a>
+<n>
+<d>
+< >
+<l>
+<i>
+<m>
+<i>
+<t>
+<a>
+<t>
+<i>
+<o>
+<n>
+< >
+<
+>
+</>
+</>
+< >
+<o>
+<f>
+< >
+<l>
+<i>
+<a>
+<b>
+<i>
+<l>
+<i>
+<t>
+<y>
+< >
+<a>
+<n>
+<d>
+< >
+<d>
+<i>
+<s>
+<c>
+<l>
+<a>
+<i>
+<m>
+<e>
+<r>
+< >
+<o>
+<f>
+< >
+<w>
+<a>
+<r>
+<r>
+<a>
+<n>
+<t>
+<y>
+< >
+<p>
+<r>
+<o>
+<v>
+<i>
+<s>
+<i>
+<o>
+<n>
+<s>
+<.>
+<
+>
+<
+>
+<#>
+<i>
+<n>
+<c>
+<l>
+<u>
+<d>
+<e>
+< >
+<">
+<s>
+<y>
+<n>
+<c>
+<h>
+<c>
+<o>
+<n>
+<s>
+<o>
+<l>
+<e>
+<.>
+<h>
+<">
+<
+>
+<
+>
+<#>
+<i>
+<f>
+<n>
+<d>
+<e>
+<f>
+< >
+<P>
+<R>
+<O>
+<G>
+<T>
+<E>
+<S>
+<T>
+<_>
+<H>
+<
+>
+<#>
+<d>
+<e>
+<f>
+<i>
+<n>
+<e>
+< >
+<P>
+<R>
+<O>
+<G>
+<T>
+<E>
+<S>
+<T>
+<_>
+<H>
+<
+>
+<
+>
+<e>
+<x>
+<t>
+<e>
+<r>
+<n>
+< >
+<v>
+<o>
+<i>
+<d>
+< >
+<S>
+<t>
+<a>
+<r>
+<t>
+<P>
+<r>
+<o>
+<c>
+<e>
+<s>
+<s>
+< >
+<(>
+<c>
+<h>
+<a>
+<r>
+< >
+<*>
+<f>
+<i>
+<l>
+<e>
+<n>
+<a>
+<m>
+<e>
+<)>
+<;>
+<
+>
+<
+>
+<e>
+<x>
+<t>
+<e>
+<r>
+<n>
+< >
+<v>
+<o>
+<i>
+<d>
+< >
+<C>
+<o>
+<n>
+<s>
+<o>
+<l>
+<e>
+<T>
+<e>
+<s>
+<t>
+< >
+<(>
+<c>
+<o>
+<n>
+<s>
+<t>
+< >
+<c>
+<h>
+<a>
+<r>
+< >
+<*>
+<i>
+<n>
+<,>
+< >
+<c>
+<o>
+<n>
+<s>
+<t>
+< >
+<c>
+<h>
+<a>
+<r>
+< >
+<*>
+<o>
+<u>
+<t>
+<)>
+<;>
+<
+>
+<
+>
+<e>
+<x>
+<t>
+<e>
+<r>
+<n>
+< >
+<v>
+<o>
+<i>
+<d>
+< >
+<S>
+<y>
+<n>
+<c>
+<h>
+<C>
+<o>
+<n>
+<s>
+<o>
+<l>
+<e>
+<T>
+<e>
+<s>
+<t>
+< >
+<(>
+<c>
+<o>
+<n>
+<s>
+<t>
+< >
+<c>
+<h>
+<a>
+<r>
+< >
+<*>
+< >
+<i>
+<n>
+<,>
+< >
+<c>
+<o>
+<n>
+<s>
+<t>
+< >
+<c>
+<h>
+<a>
+<r>
+< >
+<*>
+< >
+<o>
+<u>
+<t>
+<)>
+<;>
+<
+>
+<
+>
+<#>
+<e>
+<n>
+<d>
+<i>
+<f>
+< >
+</>
+</>
+< >
+<P>
+<R>
+<O>
+<G>
+<T>
+<E>
+<S>
+<T>
+<_>
+<H>
+<
+>
+<ÿ>

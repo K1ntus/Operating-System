@@ -19,5 +19,6 @@ Putchar(char c){
 
 int main() {
     print('a',4);
-    Halt();
+    //Halt();
+    return 1;
 }

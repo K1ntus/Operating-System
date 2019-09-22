@@ -93,21 +93,33 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
-						interrupt->Halt();
-						//machine->synchconsole->
+						fprintf(stderr, "Baah tiens: %d->%c !\n", machine->ReadRegister(4), (char)machine->ReadRegister(4));
+						synchconsole->SynchPutChar(machine->ReadRegister(4));
+						fprintf(stderr, "Baah tiens2 !\n");
 						break;
 					}
 					case SC_GetChar:
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
-						interrupt->Halt();
-						//TODO
+						machine->WriteRegister(2, synchconsole->SynchGetChar());
+
+						//If char == EOF, alors interrupt-<Halt() ?
 						break;
 					}
 					case SC_PutString:
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
-						interrupt->Halt();
+						char buffer[MAX_STRING_SIZE];
+						int address = machine->ReadRegister(4);
+
+						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size);
+						synchconsole->copyStringFromMachine(address, buffer, MAX_STRING_SIZE);
+						synchconsole->SynchPutString(buffer);
+						break;
+					}
+					case SC_GetString:
+					{
+						DEBUG ('s', "PutString, initiated by user program.\n");
 						//TODO
 						break;
 					}

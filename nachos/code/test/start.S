@@ -162,13 +162,22 @@ GetChar:
 	j	$31
 	.end GetChar
 
-	.global GetChar
-	.ent	GetChar
+	.global PutString
+	.ent	PutString
 PutString:
 	addiu $2,$0,SC_PutString
 	syscall
 	j	$31
 	.end PutString
+
+	.global GetString
+	.ent	GetString
+GetString:
+	addiu $2,$0,SC_GetString
+	syscall
+	j	$31
+	.end GetString
+
 
 
 /* dummy function to keep gcc happy */

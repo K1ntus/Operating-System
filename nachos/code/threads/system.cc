@@ -200,6 +200,14 @@ Initialize (int argc, char **argv)
 #ifdef USER_PROGRAM		// requires either FILESYS or FILESYS_STUB
     machine = new Machine(true);
 #endif
+
+/*
+#ifdef CHANGED
+#ifdef USER_PROGRAM
+    synchconsole = new SynchConsole(NULL, NULL);
+#endif
+#endif
+*/
 }
 
 //----------------------------------------------------------------------

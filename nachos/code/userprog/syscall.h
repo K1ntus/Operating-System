@@ -34,6 +34,7 @@
 #define SC_PutChar      11
 #define SC_GetChar      12
 #define SC_PutString    13  
+#define SC_GetString    14
 
 #ifdef IN_USER_MODE
 
@@ -134,7 +135,8 @@ void Fork (void (*func) ());
 void Yield ();
 
 
-void PutChar(char c); //Defined into console.h ?
+void PutChar(char c);
+void PutString(char * c);
 
 #endif // IN_USER_MODE
 
