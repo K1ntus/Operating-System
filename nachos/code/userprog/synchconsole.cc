@@ -16,9 +16,22 @@ static Semaphore *writeDone;
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 
+
+
+
+//----------------------------------------------------------------------
+// SynchConsole::SynchConsole
+// 	Initialize the simulation of a hardware console device using a synchronisation feature.
+//
+//	"readFile" -- UNIX file simulating the keyboard (NULL -> use stdin)
+//	"writeFile" -- UNIX file simulating the display (NULL -> use stdout)
+// 	"readAvailHandler" is the interrupt handler called when a character arrives
+//		from the keyboard
+// 	"writeDoneHandler" is the interrupt handler called when a character has
+//		been output, so that it is ok to request the next char be
+//		output
+//----------------------------------------------------------------------
 SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
-
-
     readAvail = new Semaphore ("read avail", 0);
     writeDone = new Semaphore ("write done", 0);
     console = new Console (readFile, writeFile, ReadAvailHandler, WriteDoneHandler, 0);
@@ -26,6 +39,10 @@ SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
 
 
 
+//----------------------------------------------------------------------
+// SynchConsole::~SynchConsole
+// 	Clean up synchronisation console emulation
+//----------------------------------------------------------------------
 SynchConsole::~SynchConsole() {
     delete console;
     delete writeDone;
@@ -33,6 +50,12 @@ SynchConsole::~SynchConsole() {
 }
 
 
+//----------------------------------------------------------------------
+// SynchConsole::SynchGetChar()
+// 	Read a character from the input buffer, if there is any there.
+//	Either return the character, or EOF if none buffered or the end of the
+//	input file was reached.
+//----------------------------------------------------------------------
 int SynchConsole::SynchGetChar() {
     int ch;
 
@@ -40,7 +63,7 @@ int SynchConsole::SynchGetChar() {
 	ch = console->GetChar ();
 
     /* //Useless statement
-    if(ch == EOF) {
+    if(ch == EOF) { //Mb not that much, make it halt the prog if EOF ?
         return EOF;
     }
     */
@@ -48,14 +71,34 @@ int SynchConsole::SynchGetChar() {
     return ch;
 }
 
+
+//----------------------------------------------------------------------
+// SynchConsole::SynchPutChar(int ch)
+// 	Write a character to the simulated display, schedule an interrupt 
+//	to occur in the future, and return.
+//----------------------------------------------------------------------
 void SynchConsole::SynchPutChar(int ch) {
-
-
     console->PutChar (ch);	    // echo it!
     writeDone->P ();	        // wait for write to finish
 }
 
 
+//----------------------------------------------------------------------
+// Initialize
+//      Initialize Nachos global data structures.  Interpret command
+//      line arguments in order to determine flags for the initialization.  
+// 
+//      "argc" is the number of command line arguments (including the name
+//              of the command) -- ex: "nachos -d +" -> argc = 3 
+//      "argv" is an array of strings, one for each command line argument
+//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
+
+
+// TODO
+
+
+
+//----------------------------------------------------------------------
 void SynchConsole::SynchPutString(const char s[]) {
     if(s == NULL){
         //ERROR CASE
@@ -63,8 +106,6 @@ void SynchConsole::SynchPutString(const char s[]) {
     }
 
     int i = 0;
-
-
     while(i < MAX_STRING_SIZE){
         if(s[i] == '\0')
             break;
@@ -76,33 +117,27 @@ void SynchConsole::SynchPutString(const char s[]) {
 
 
 
+//----------------------------------------------------------------------
+// Initialize
+//      Initialize Nachos global data structures.  Interpret command
+//      line arguments in order to determine flags for the initialization.  
+// 
+//      "argc" is the number of command line arguments (including the name
+//              of the command) -- ex: "nachos -d +" -> argc = 3 
+//      "argv" is an array of strings, one for each command line argument
+//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
+
+
+// TODO
+
+
+
+//----------------------------------------------------------------------
 int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     
     unsigned int number_character_read = 0;
     int character = 1;
-    //int * phys_adress = NULL;
-
-
-    //fprintf(stderr, " * from&0x3: %d\n * from: %d\n * val_from:%c\n", from & 0x3, from, (char) from);
-    //fprintf(stderr, " * from: %p\n * phys_adress: %p\n * val:%c\n", &from, phys_adress, (char) from);
-    //ExceptionType Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
-   
-   /*
-    ExceptionType exception = machine->Translate(from, phys_adress, sizeof(int), false);    //Syscall exception
-    if (exception != NoException) {
-        fprintf(stderr, "DEBUG@Exception raised in SynchConsole::copyStringFromMachine\n");
-        fprintf(stderr, "from: %d\n phys_adress: %p\n\n", from, phys_adress);
-        machine->RaiseException(exception, from);
-        return -1;
-    }*/
-
-
-    //bool ReadMem(int addr, int size, int* value); //machine.h
     while(number_character_read < size){/* while avec la taille du buffer */
-        //fprintf(stderr, "Iteration@%d\n", number_character_read);
-
-//    fprintf(stderr, "READMEM: %d, %p\n", from + number_character_read, &character);
-
 
         machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
         //console->GetChar ();
@@ -121,6 +156,22 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 }
 
 
+//----------------------------------------------------------------------
+// Initialize
+//      Initialize Nachos global data structures.  Interpret command
+//      line arguments in order to determine flags for the initialization.  
+// 
+//      "argc" is the number of command line arguments (including the name
+//              of the command) -- ex: "nachos -d +" -> argc = 3 
+//      "argv" is an array of strings, one for each command line argument
+//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
+
+
+// TODO
+
+
+
+//----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     if(n <= 0){
         //ERROR
@@ -153,8 +204,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 
 
 /*  TESTS   */
-
-/*
+#if 0
 bool SynchConsole::SynchConsoleTestChar_01(){
     char ch;
     while ((ch = SynchGetChar()) != EOF){
@@ -226,8 +276,7 @@ bool SynchConsole::SynchConsoleTestCopyString_01() {
 
     return true;
 }
-
-*/
+#endif  // Test (deprecated)
 
 #endif // CHANGED
 

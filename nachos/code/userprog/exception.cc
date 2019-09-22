@@ -102,6 +102,8 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
 						machine->WriteRegister(2, synchconsole->SynchGetChar());
+
+						//If char == EOF, alors interrupt-<Halt() ?
 						break;
 					}
 					case SC_PutString:
@@ -110,7 +112,7 @@ void ExceptionHandler (ExceptionType which) {
 						char buffer[MAX_STRING_SIZE];
 						int address = machine->ReadRegister(4);
 
-						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
+						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size);
 						synchconsole->copyStringFromMachine(address, buffer, MAX_STRING_SIZE);
 						synchconsole->SynchPutString(buffer);
 						break;
