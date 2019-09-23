@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
@@ -139,7 +139,7 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     int character = 1;
     while(number_character_read < size){/* while avec la taille du buffer */
 
-        machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+        machine->ReadMem(from + number_character_read*sizeof(int), sizeof(int), &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
         //console->GetChar ();
         if((char) character == '\0') {
             to[number_character_read] ='\0';
@@ -214,22 +214,27 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 
 
 //----------------------------------------------------------------------
-int SynchConsole::copyStringToMachine(int to, char *from, unsigned size) {
+int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
+
+    fprintf(stderr,"Entry String:%s\n", from);
     
     unsigned int number_character_read = 0;
-    int character = 1;
 
 
     while(number_character_read < size){/* while avec la taille du buffer */
+        if(DEBUG_MODE) {
+            fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
+        }
 
-        machine->WriteMem(*(from + number_character_read), 1, to);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
-            if(DEBUG_MODE)
-                fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c into mem: %d\n", *(from + number_character_read), to);
+        machine->WriteMem(to + number_character_read*sizeof(int), sizeof(int), from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+
+
         //console->GetChar ();
-        if((char) character == '\0') {
+        if((char) from[number_character_read] == '\0' || (char) from[number_character_read] == '\n') {
             break;
         }
         number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+
     }
     
 

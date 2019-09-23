@@ -121,13 +121,15 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "GetString, initiated by user program.\n");
 						char buffer[MAX_STRING_SIZE];
-						int address = machine->ReadRegister(4);
+
+						int address = machine->ReadRegister(4);	// Get the first argument (ie. the address) 
+						int size = machine->ReadRegister(5);	// Get the second argument (ie. the size) 
 
 						//TO TEST
 
 						//int copyStringToMachine(int to, char *from, unsigned size);
-						synchconsole->SynchGetString(buffer,MAX_STRING_SIZE);
-						synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
+						synchconsole->SynchGetString(buffer,size);
+						synchconsole->copyStringToMachine(address, buffer, size);
 
 						break;
 					}
