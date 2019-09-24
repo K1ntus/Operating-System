@@ -61,6 +61,9 @@ int SynchConsole::SynchGetChar() {
 
 	readAvail->P ();	// wait for character to arrive
 	ch = console->GetChar ();
+    if(DEBUG_MODE) {
+        fprintf(stderr, "[DEBUG@SynchPutChar] GetChar:%c\n", ch);
+    }
 
     /* //Useless statement
     if(ch == EOF) { //Mb not that much, make it halt the prog if EOF ?
@@ -78,6 +81,9 @@ int SynchConsole::SynchGetChar() {
 //	to occur in the future, and return.
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutChar(int ch) {
+    if(DEBUG_MODE) {
+        fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:%c\n", ch);
+    }
     console->PutChar (ch);	    // echo it!
     writeDone->P ();	        // wait for write to finish
 }
@@ -215,9 +221,10 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 
 //----------------------------------------------------------------------
 int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
-
-    fprintf(stderr,"Entry String:%s\n", from);
-    
+  
+    if(DEBUG_MODE) {
+        fprintf(stderr,"Entry String:%s\n", from);
+    }
     unsigned int number_character_read = 0;
 
 
@@ -226,11 +233,15 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
             fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
         }
 
-        machine->WriteMem(to + number_character_read*sizeof(int), sizeof(int), from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+        machine->WriteMem(to + number_character_read, sizeof(int), from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
         //console->GetChar ();
-        if((char) from[number_character_read] == '\0' || (char) from[number_character_read] == '\n') {
+        if(from[number_character_read] == '\0' || from[number_character_read] == '\n') {
+            
+            if(DEBUG_MODE) {
+                fprintf(stderr, "[DEBUG@copyStringToMachine] Read a \\n at position:%d\n", number_character_read);
+            }
             break;
         }
         number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
@@ -242,6 +253,25 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
 
 }
 
+
+void SynchConsole::PutInt (int n) {
+    char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
+
+    int size = snprintf(buffer, MAX_STRING_SIZE, "%d", n);
+    if(size >1){
+        this->SynchPutString(buffer);
+    } else {
+        this->SynchPutChar(buffer[0]);
+    }
+
+    free(buffer);
+    
+}
+
+void SynchConsole::GetInt (int * n) {
+
+
+}
 
 
 

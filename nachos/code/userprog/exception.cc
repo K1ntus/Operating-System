@@ -89,13 +89,12 @@ void ExceptionHandler (ExceptionType which) {
 						break;
 					}
 
+
 					#ifdef CHANGED
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
-						fprintf(stderr, "Baah tiens: %d->%c !\n", machine->ReadRegister(4), (char)machine->ReadRegister(4));
 						synchconsole->SynchPutChar(machine->ReadRegister(4));
-						fprintf(stderr, "Baah tiens2 !\n");
 						break;
 					}
 					case SC_GetChar:
@@ -106,6 +105,26 @@ void ExceptionHandler (ExceptionType which) {
 						//If char == EOF, alors interrupt-<Halt() ?
 						break;
 					}
+
+
+					case SC_PutInt:
+					{
+						DEBUG ('s', "PutInt, initiated by user program.\n");
+						synchconsole->PutInt(machine->ReadRegister(4));
+						break;
+					}
+					case SC_GetInt:
+					{
+						DEBUG ('s', "GetInt, initiated by user program.\n");
+						// int value = synchconsole->GetInt();
+
+						// machine->WriteRegister(2, value);
+
+						//If char == EOF, alors interrupt-<Halt() ?
+						break;
+					}
+
+
 					case SC_PutString:
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");

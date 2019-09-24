@@ -131,14 +131,14 @@ int main (int argc, char **argv) {
 	  	}
 		  
 	} else if (!strcmp (*argv, "-sc"))   {			// test the console
-		/*if(argc == 1){
+		if(argc == 1){
 			SynchConsoleTest(NULL, NULL);
-		} else {*/
+		} else {
 			ASSERT (argc > 2);
 			SynchConsoleTest (*(argv + 1), *(argv + 2));
 			
 			argCount = 3;
-		//}
+		}
 	}
 #endif // USER_PROGRAM
 #ifdef FILESYS

@@ -23,6 +23,8 @@ class SynchConsole:dontcopythis {
         int copyStringToMachine(int to, char *from, unsigned size);
 
 
+        void PutInt (int n);
+        void GetInt (int * n);
         /*
         bool SynchConsoleTestChar_01 ();
         bool SynchConsoleTestString_01 ();

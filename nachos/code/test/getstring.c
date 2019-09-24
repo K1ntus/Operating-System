@@ -1,16 +1,22 @@
 #include "syscall.h"
 
-#define SIZE 11
+#define SIZE_1 11
+#define SIZE_2 6
+#define SIZE_3 11
+#define SIZE_3 11
 
 int
 main() {
-    char s[SIZE] = "Hello W0rld\0";
+    char s1[SIZE_1] = "Hello W0rld\0";
+    char s2[SIZE_2] = "W0rld\0";
 
-    PutString(s);
+    PutString(s1);
+    GetString(s1, SIZE_1);
 
-    GetString(s, SIZE);
+    PutString(s2);
+    GetString(s2, SIZE_2);
 
     PutChar('\n');
 
-    return 0;
+    Halt();
 }
