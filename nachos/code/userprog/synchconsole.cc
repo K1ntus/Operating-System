@@ -59,6 +59,7 @@ SynchConsole::~SynchConsole() {
 int SynchConsole::SynchGetChar() {
     int ch;
 
+    //readAvail->V ();	        // wait for write to finish
 	readAvail->P ();	// wait for character to arrive
 	ch = console->GetChar ();
     if(DEBUG_MODE) {
@@ -145,7 +146,7 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     int character = 1;
     while(number_character_read < size){/* while avec la taille du buffer */
 
-        machine->ReadMem(from + number_character_read*sizeof(int), sizeof(int), &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+        machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
         //console->GetChar ();
         if((char) character == '\0') {
             to[number_character_read] ='\0';
@@ -180,7 +181,7 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     if(n <= 0){
-        //ERROR
+                fprintf(stderr, "[DEBUG@SynchGetString] n <= 0/NewLine\n");
         return;
     }
 
@@ -233,7 +234,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
             fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
         }
 
-        machine->WriteMem(to + number_character_read, sizeof(int), from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+        machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
         //console->GetChar ();
@@ -270,7 +271,18 @@ void SynchConsole::PutInt (int n) {
 
 void SynchConsole::GetInt (int * n) {
 
+    char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
 
+    size_t size = sscanf(buffer, "%d", n);
+    
+    if(size > 0){
+        this->SynchGetString(buffer, size);
+    } else {
+        fprintf(stderr, "Error using get int for n=%d at adress:%p",*n ,n);
+    }
+
+
+    free(buffer);
 }
 
 

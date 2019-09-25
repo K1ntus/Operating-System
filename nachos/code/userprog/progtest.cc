@@ -70,6 +70,9 @@ void StartProcess (char *filename) {
     machine->DumpMem ("memory.svg");
     machine->Run ();		// jump to the user progam
     ASSERT (FALSE);		// machine->Run never returns;
+    
+
+    interrupt->Halt();
     // the address space exits
     // by doing the syscall "exit"
 }

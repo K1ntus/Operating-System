@@ -14,5 +14,8 @@ void print(int n) {
 
 int main() {
     print(4);
+
+
+    PutInt(1234567890);
     Halt();
 }

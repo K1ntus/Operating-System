@@ -61,6 +61,11 @@ static void UpdatePC () {
 //      "which" is the kind of exception.  The list of possible exceptions 
 //      are in machine.h.
 //----------------------------------------------------------------------
+#define CALL_CODE 2
+#define ARG1 4
+#define ARG2 5
+#define ARG3 6
+#define ARG4 7
 
 void ExceptionHandler (ExceptionType which) {
     int type = machine->ReadRegister (2);
@@ -94,13 +99,13 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
-						synchconsole->SynchPutChar(machine->ReadRegister(4));
+						synchconsole->SynchPutChar(machine->ReadRegister(ARG1));
 						break;
 					}
 					case SC_GetChar:
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
-						machine->WriteRegister(2, synchconsole->SynchGetChar());
+						machine->WriteRegister(CALL_CODE, synchconsole->SynchGetChar());
 
 						//If char == EOF, alors interrupt-<Halt() ?
 						break;
@@ -110,12 +115,15 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutInt:
 					{
 						DEBUG ('s', "PutInt, initiated by user program.\n");
-						synchconsole->PutInt(machine->ReadRegister(4));
+						synchconsole->PutInt(machine->ReadRegister(ARG1));
 						break;
 					}
 					case SC_GetInt:
 					{
 						DEBUG ('s', "GetInt, initiated by user program.\n");
+						int *adress = (int*) malloc(sizeof(int));
+						*adress = machine->ReadRegister(ARG1);
+						synchconsole->GetInt(adress);
 						// int value = synchconsole->GetInt();
 
 						// machine->WriteRegister(2, value);
@@ -129,10 +137,12 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
 						char buffer[MAX_STRING_SIZE];
-						int address = machine->ReadRegister(4);
+						int address = machine->ReadRegister(ARG1);
 
 						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size);
 						synchconsole->copyStringFromMachine(address, buffer, MAX_STRING_SIZE);
+
+						fprintf(stderr, "PUTSTRING@Buffer  =  %s\n", buffer);
 						synchconsole->SynchPutString(buffer);
 						break;
 					}
@@ -141,8 +151,8 @@ void ExceptionHandler (ExceptionType which) {
 						DEBUG ('s', "GetString, initiated by user program.\n");
 						char buffer[MAX_STRING_SIZE];
 
-						int address = machine->ReadRegister(4);	// Get the first argument (ie. the address) 
-						int size = machine->ReadRegister(5);	// Get the second argument (ie. the size) 
+						int address = machine->ReadRegister(ARG1);	// Get the first argument (ie. the address) 
+						int size = machine->ReadRegister(ARG2);	// Get the second argument (ie. the size) 
 
 						//TO TEST
 
