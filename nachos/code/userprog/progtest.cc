@@ -99,17 +99,20 @@ void ConsoleTest (const char *in, const char *out) {
     for (;;) {
       
 	    readAvail->P ();	// wait for character to arrive
-	    ch = console->GetChar ();
-
-        console->PutChar ('<');	    // echo it!
-        writeDone->P ();	        // wait for write to finish
-        console->PutChar (ch);  	// echo it!
-        writeDone->P ();	        // wait for write to finish
-        console->PutChar ('>');	    // echo it!
-        writeDone->P ();        	// wait for write to finish
+	    
+        ch = console->GetChar ();
+        if (ch!='\n'){
+            console->PutChar ('<');	    // echo it!
+            writeDone->P ();	        // wait for write to finish
+            console->PutChar (ch);  	// echo it!
+            writeDone->P ();	        // wait for write to finish
+            console->PutChar ('>');	    // echo it!
+            writeDone->P ();        	// wait for write to finish
 
         console->PutChar ('\n');	// echo it!
         writeDone->P ();	        // wait for write to finish
+        }
+        
 
       if (ch == 'q' || ch == -1) {
             fprintf (stderr, "[INFO] ConsoleTest: Exit\n\n");
