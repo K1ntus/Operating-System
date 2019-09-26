@@ -121,14 +121,31 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_GetInt:
 					{
 						DEBUG ('s', "GetInt, initiated by user program.\n");
-						int *adress = (int*) malloc(sizeof(int));
-						*adress = machine->ReadRegister(ARG1);
-						synchconsole->GetInt(adress);
-						// int value = synchconsole->GetInt();
 
-						// machine->WriteRegister(2, value);
+						int *address = (int *) malloc(sizeof(int));
+						*address= machine->ReadRegister(ARG1);
 
-						//If char == EOF, alors interrupt-<Halt() ?
+						synchconsole->GetInt(address);
+
+						machine->WriteRegister(CALL_CODE, *address);
+
+
+
+
+						// int *address_result = (int*) malloc(sizeof(int));
+						// // char buffer[MAX_STRING_SIZE];
+						// *address_result = machine->ReadRegister(ARG1);
+						// synchconsole->GetInt(address_result);
+						// machine->WriteRegister(CALL_CODE, *address_result);
+
+						// //fprintf(stderr, "SYSCAALL GET INT: %p->%d\n", address, *address);
+						// synchconsole->GetInt(address_result);
+
+						// // int value = synchconsole->GetInt();
+						// // machine->WriteRegister(2, value);
+						// //If char == EOF, alors interrupt-<Halt() ?
+
+						// free(address_result);
 						break;
 					}
 

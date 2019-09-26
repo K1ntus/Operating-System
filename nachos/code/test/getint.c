@@ -7,7 +7,7 @@
 
 int
 main() {
-    int int_1 = 42;
+    int *int_1 = 42;
     int *int_2 = 1234567890;
 
     PutInt(int_1);

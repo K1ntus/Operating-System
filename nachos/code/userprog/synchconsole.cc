@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
@@ -233,7 +233,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
         if(DEBUG_MODE) {
             fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
         }
-
+        fprintf(stderr, "COPYSTRING: %p\n", &to);
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
@@ -272,23 +272,15 @@ void SynchConsole::PutInt (int n) {
 void SynchConsole::GetInt (int * n) {
 
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
+    buffer = (char*) &n; 
+    int res = -1;
 
-    size_t size = sscanf(buffer, "%d", n);
-    
-    if(size > 0){
-        this->SynchGetString(buffer, size);
-    } else {
-        fprintf(stderr, "Error using get int for n=%d at adress:%p",*n ,n);
-    }
+	int size = sscanf(buffer, "%d", n);
 
+    fprintf(stderr, "Registered %d!\n", n);
 
-    free(buffer);
+	//synchconsole->copyStringToMachine(&res, buffer, MAX_STRING_SIZE);
 }
-
-
-
-
-
 
 /*  TESTS   */
 #if 0
@@ -366,4 +358,3 @@ bool SynchConsole::SynchConsoleTestCopyString_01() {
 #endif  // Test (deprecated)
 
 #endif // CHANGED
-
