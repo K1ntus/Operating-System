@@ -25,9 +25,9 @@
 #include "system.h"
 #include "syscall.h"
 
-#if 1
-#include <unistd.h>
-#endif
+// #if 1
+// #include <unistd.h>
+// #endif
 //----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -154,7 +154,7 @@ void ExceptionHandler (ExceptionType which) {
 
 							//fprintf(stderr, "\n\nSYSCALL@SC_PUTSTRING: Number Character Copied = %d\n\n", nb_char_copied);
 							// fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
-							usleep(500);
+							// usleep(500);
 							synchconsole->SynchPutString(buffer);
 
 							if(buffer[nb_char_copied] == '\0'){

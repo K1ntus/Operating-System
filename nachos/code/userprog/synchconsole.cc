@@ -243,7 +243,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
     if(DEBUG_MODE) {
         fprintf(stderr,"Entry String:%s\n", from);
     }
-    int number_character_read = 0;
+    unsigned int number_character_read = 0;
 
 
     while(number_character_read < size){/* while avec la taille du buffer */
@@ -293,17 +293,31 @@ void SynchConsole::GetInt (int * n) {
     
     SynchConsole::SynchGetString(buffer, MAX_STRING_SIZE);
 
-    fprintf(stderr,"GETINT: Buffer=%s\n", buffer);
+    // fprintf(stderr,"GETINT: Buffer=%s\n", buffer);
 
-	int size = sscanf(buffer, "%d", n);
+	int ret = sscanf(buffer, "%d", n);
 
-    fprintf(stderr, "Registered %d!\n", *n);
+    if(ret == EOF) {
+        fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s\n", buffer);
+    }
+
+    // fprintf(stderr, "Registered %d!\n", *n);
 
 	//synchconsole->copyStringToMachine(&res, buffer, MAX_STRING_SIZE);
 }
 
-/*  TESTS   */
+
+
+
+
+
+
+
+
+
+/*  TESTS ~ DEPRECATED  */
 #if 0
+
 bool SynchConsole::SynchConsoleTestChar_01(){
     char ch;
     while ((ch = SynchGetChar()) != EOF){
