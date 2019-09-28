@@ -25,6 +25,9 @@
 #include "system.h"
 #include "syscall.h"
 
+#if 1
+#include <unistd.h>
+#endif
 //----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -141,11 +144,25 @@ void ExceptionHandler (ExceptionType which) {
 						char buffer[MAX_STRING_SIZE];
 						int address = machine->ReadRegister(CALL_ARG1);
 
-						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size);
-						synchconsole->copyStringFromMachine(address, buffer, MAX_STRING_SIZE);
 
-						fprintf(stderr, "PUTSTRING@Buffer  =  %s\n", buffer);
-						synchconsole->SynchPutString(buffer);
+						int nb_char_copied = -1;
+						int offset = 0;
+						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size);
+
+						while(nb_char_copied != 0) {
+							nb_char_copied = synchconsole->copyStringFromMachine(address + offset*MAX_STRING_SIZE, buffer, MAX_STRING_SIZE);
+
+							//fprintf(stderr, "\n\nSYSCALL@SC_PUTSTRING: Number Character Copied = %d\n\n", nb_char_copied);
+							// fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
+							usleep(500);
+							synchconsole->SynchPutString(buffer);
+
+							if(buffer[nb_char_copied] == '\0'){
+								break;
+							}
+
+							offset += 1;
+						}
 						break;
 					}
 					case SC_GetString:

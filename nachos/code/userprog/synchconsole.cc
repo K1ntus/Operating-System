@@ -133,8 +133,9 @@ void SynchConsole::SynchPutString(const char s[]) {
         i++;
     }
 
-    if(s[i--] != '\0'){
-        fprintf(stderr, "SynchPutString ERROR\n");
+    if(s[i] != '\0'){
+        //fprintf(stderr, "SynchPutString INFO - end of string not reached, last character is: %c at pos:%d", s[i],i);
+        //SynchPutChar((int)('\0'));
     }
 }
 
@@ -166,7 +167,6 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
         //console->GetChar ();
         if((char) character == '\0') {
             to[number_character_read] ='\0';
-            number_character_read+=1;
             break;
         }
         to[number_character_read] = (char) character;
@@ -204,7 +204,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     s[0] = '\0';
     int pos_in_buffer = 0;
 
-    while(n-- >= 0) {        
+    while(n >= 0) {        
         int char_readed = this->SynchGetChar();
         if(char_readed == EOF || char_readed == '\n') {
             if(DEBUG_MODE)
@@ -217,6 +217,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
                 fprintf(stderr, "[DEBUG@SynchGetString] Char:%c\n", s[pos_in_buffer]);
             pos_in_buffer+=1;
         }
+        n -= 1;
     }    
 }
 
@@ -242,7 +243,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
     if(DEBUG_MODE) {
         fprintf(stderr,"Entry String:%s\n", from);
     }
-    unsigned int number_character_read = 0;
+    int number_character_read = 0;
 
 
     while(number_character_read < size){/* while avec la taille du buffer */
