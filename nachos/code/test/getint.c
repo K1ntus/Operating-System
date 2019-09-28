@@ -7,14 +7,13 @@
 
 int
 main() {
-    int int_1 = 42;
-    int *int_2 = 1234567890;
+    int int_1 = 0;
+    int int_2 = 0;
 
-    PutInt(int_1);
-    GetInt(int_1);
+    GetInt(&int_2);
 
-    PutInt(int_2);
-    GetInt(int_2);
+    
+    GetInt(&int_1);
 
     PutChar('\n');
 
