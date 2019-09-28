@@ -2,15 +2,11 @@
 
 int
 main() {
-    char c;
-
-    c = '\51';
-
-    PutChar(c);
-    PutChar('\n');
-    PutString("Pour sortir de la boucle taper q\n");
+    char c = '\0';
 
     while (c != 'q') {
+        PutString("Quit by pressing '$'\n\n");
+        
         c = GetChar();
         PutChar(c);
     }

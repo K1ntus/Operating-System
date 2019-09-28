@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
@@ -85,6 +85,8 @@ int SynchConsole::SynchGetChar() {
 //	to occur in the future, and return.
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutChar(int ch) {
+
+    
     if(DEBUG_MODE) {
         if(ch == '\n')
             fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:\\n\n");
@@ -93,6 +95,8 @@ void SynchConsole::SynchPutChar(int ch) {
         else
             fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:%c\n", ch);
     }
+
+    
     console->PutChar (ch);	    // echo it!
     writeDone->P ();	        // wait for write to finish
 }
