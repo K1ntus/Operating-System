@@ -1,11 +1,10 @@
 #include "syscall.h"
 
-int
-main() {
+int main(void) {
     char c = '\0';
 
     while (c != 'q') {
-        PutString("Quit by pressing '$'\n\n");
+        PutString("Press `$` to quit\n\n");
         
         c = GetChar();
         PutChar(c);

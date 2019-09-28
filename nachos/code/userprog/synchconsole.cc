@@ -5,7 +5,14 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+//----------------------------------------------------------------------
+// DEBUG_MODE
+// 	Enable/Disable verbose mode for some method. Helping mostly for debugging purposes.
+//
+//	0 -- Activate this mode
+//	1 -- Deactivate this mode
+//----------------------------------------------------------------------
+#define DEBUG_MODE 0
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
@@ -25,11 +32,6 @@ static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 //
 //	"readFile" -- UNIX file simulating the keyboard (NULL -> use stdin)
 //	"writeFile" -- UNIX file simulating the display (NULL -> use stdout)
-// 	"readAvailHandler" is the interrupt handler called when a character arrives
-//		from the keyboard
-// 	"writeDoneHandler" is the interrupt handler called when a character has
-//		been output, so that it is ok to request the next char be
-//		output
 //----------------------------------------------------------------------
 SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
     readAvail = new Semaphore ("read avail", 0);
@@ -69,12 +71,6 @@ int SynchConsole::SynchGetChar() {
     else
         fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:%c\n", ch);
 
-    /* //Useless statement
-    if(ch == EOF) { //Mb not that much, make it halt the prog if EOF ?
-        return EOF;
-    }
-    */
-
     return ch;
 }
 
@@ -82,11 +78,12 @@ int SynchConsole::SynchGetChar() {
 //----------------------------------------------------------------------
 // SynchConsole::SynchPutChar(int ch)
 // 	Write a character to the simulated display, schedule an interrupt 
-//	to occur in the future, and return.
+//	to occurs in the future, and return. 
+// 
+//      "ch" the integer representation of the character to put into 
+//          the simulated display. 
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutChar(int ch) {
-
-    
     if(DEBUG_MODE) {
         if(ch == '\n')
             fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:\\n\n");
@@ -103,20 +100,15 @@ void SynchConsole::SynchPutChar(int ch) {
 
 
 //----------------------------------------------------------------------
-// Initialize
-//      Initialize Nachos global data structures.  Interpret command
-//      line arguments in order to determine flags for the initialization.  
+// SynchConsole::SynchPutString
+//      Write an array of character to the simulated display. Using a synchronous
+//      scheduling system. The maximum size of the string analysed is set
+//      with the constant MAX_STRING_SIZE-1 (system.h).
+//
+//      We kept the last position for the print of the null character.
+//      (for now, but this way of work is probably deprecated and pointless)
 // 
-//      "argc" is the number of command line arguments (including the name
-//              of the command) -- ex: "nachos -d +" -> argc = 3 
-//      "argv" is an array of strings, one for each command line argument
-//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
-
-
-// TODO
-
-
-
+//      "s" is the const array containing the string to display 
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutString(const char s[]) {
     if(s == NULL){
@@ -125,7 +117,7 @@ void SynchConsole::SynchPutString(const char s[]) {
     }
 
     int i = 0;
-    while(i < MAX_STRING_SIZE){
+    while(i < MAX_STRING_SIZE-1){
         SynchPutChar((int) s[i]);
         if(s[i] == '\0') 
             break;
@@ -133,38 +125,42 @@ void SynchConsole::SynchPutString(const char s[]) {
         i++;
     }
 
-    if(s[i] != '\0'){
+    if(s[i] != '\0'){   //To think about this conditional instruction, does not seems really interesting in case of great string size, cutting the string with multiple \0
         //fprintf(stderr, "SynchPutString INFO - end of string not reached, last character is: %c at pos:%d", s[i],i);
-        //SynchPutChar((int)('\0'));
+        SynchPutChar((int)('\0'));
     }
 }
 
 
 
 //----------------------------------------------------------------------
-// Initialize
-//      Initialize Nachos global data structures.  Interpret command
-//      line arguments in order to determine flags for the initialization.  
+// SynchConsole::copyStringFromMachine
+//      Copy the string content located at the adress from into
+//      a char* buffer. For a limited number of 'size' character
 // 
-//      "argc" is the number of command line arguments (including the name
-//              of the command) -- ex: "nachos -d +" -> argc = 3 
-//      "argv" is an array of strings, one for each command line argument
-//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
-
-
-// TODO
-
-
-
+//      "from" the address of the beginning of the string that we want
+//              to copy
+//      "to" a char array that will store the string that has been read
+//              from the machine
+//      "size" the maximum numbers of character to store into the buffer (usually majored by
+//              the constant MAX_STRING_SIZE located into system.h
 //----------------------------------------------------------------------
 int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
-    
+    if(size <= 0) {
+        fprintf(stderr, "[DEBUG@copyStringFromMachine] input size <= 0\n");
+        return -1;
+    }
+
+    if(size > MAX_STRING_SIZE) {
+        size = MAX_STRING_SIZE;
+    }
+
     unsigned int number_character_read = 0;
     int character = 1;
-    while(number_character_read < size){/* while avec la taille du buffer */
+
+    while(number_character_read < size){
 
         machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
-        //console->GetChar ();
         if((char) character == '\0') {
             to[number_character_read] ='\0';
             break;
@@ -172,37 +168,38 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
         to[number_character_read] = (char) character;
         number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
     }
-    
 
     return number_character_read;
-
 }
 
 
 //----------------------------------------------------------------------
-// Initialize
-//      Initialize Nachos global data structures.  Interpret command
-//      line arguments in order to determine flags for the initialization.  
+// SynchConsole::SynchPutString
+//      Write an array of character to the simulated display. Using a synchronous
+//      scheduling system. The maximum size of the string analysed is set
+//      with the constant MAX_STRING_SIZE-1 (system.h).
+//
+//      We kept the last position for the print of the null character.
+//      (for now, but this way of work is probably deprecated and pointless)
 // 
-//      "argc" is the number of command line arguments (including the name
-//              of the command) -- ex: "nachos -d +" -> argc = 3 
-//      "argv" is an array of strings, one for each command line argument
-//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
-
-
-// TODO
-
-
-
+//      "s" is the char array that will contains the result of the reading
+//          from the simulated display 
+//      "n" is the maximum size of the array. For now, the length cannot be
+//          greater than MAX_STRING_SIZE, to prevent some possible grief of the machine
+//          until a better implementation will be set up.
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     if(n <= 0){
-        fprintf(stderr, "[DEBUG@SynchGetString] n (input size) <= 0\n");
+        fprintf(stderr, "[DEBUG@SynchGetString] input size <= 0\n");
         return;
     }
 
     s[0] = '\0';
     int pos_in_buffer = 0;
+
+    if(n > MAX_STRING_SIZE) {
+        n = MAX_STRING_SIZE;
+    }
 
     while(n >= 0) {        
         int char_readed = this->SynchGetChar();
@@ -222,29 +219,34 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 }
 
 
+
 //----------------------------------------------------------------------
-// Initialize
-//      Initialize Nachos global data structures.  Interpret command
-//      line arguments in order to determine flags for the initialization.  
+// SynchConsole::copyStringToMachine
+//      Copy the string content located in the buffer 'from' to the machine address 'to'. 
+//          For a limited number of 'size' character
 // 
-//      "argc" is the number of command line arguments (including the name
-//              of the command) -- ex: "nachos -d +" -> argc = 3 
-//      "argv" is an array of strings, one for each command line argument
-//              ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
-
-
-// TODO
-
-
-
+//      "to" the address of the beginning of the machine address where we want
+//              to copy the from char array.
+//      "from" a char array that store the string that need to be paste
+//              into the machine.
+//      "size" the maximum numbers of character to copy into the machine (usually majored by
+//              the constant MAX_STRING_SIZE located into system.h. This size, in fact
+//              cannot be greater than this constant, to prevent malicious code
+//              to write into forbidden memory slots.
+//              Could probably fixed when a better implementation will be up.
 //----------------------------------------------------------------------
 int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
-  
-    if(DEBUG_MODE) {
-        fprintf(stderr,"Entry String:%s\n", from);
+    if (size < 0){
+        size = 0;   //Error case to manage
+    } else if (size > MAX_STRING_SIZE) {
+        size = MAX_STRING_SIZE;
     }
-    unsigned int number_character_read = 0;
 
+    if(DEBUG_MODE) {
+        fprintf(stderr,"[DEBUG@copyStringToMachine] Entry String:%s\n", from);
+    }
+
+    unsigned int number_character_read = 0;
 
     while(number_character_read < size){/* while avec la taille du buffer */
         if(DEBUG_MODE) {
@@ -254,11 +256,10 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
-        //console->GetChar ();
         if(from[number_character_read] == '\0' || from[number_character_read] == '\n') {
             
             if(DEBUG_MODE) {
-                fprintf(stderr, "[DEBUG@copyStringToMachine] Read a \\n at position:%d\n", number_character_read);
+                fprintf(stderr, "[DEBUG@copyStringToMachine] Read a \\n or \\0 at position:%d\n", number_character_read);
             }
             break;
         }
@@ -272,6 +273,20 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
 }
 
 
+
+//----------------------------------------------------------------------
+// SynchConsole::copyStringToMachine
+//      Copy the string content located in the buffer 'from' to the machine address 'to'. 
+//          For a limited number of 'size' character
+// 
+//      "to" the address of the beginning of the machine address where we want
+//              to copy the from char array.
+
+
+//TODO
+
+
+//----------------------------------------------------------------------
 void SynchConsole::PutInt (int n) {
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
 
@@ -287,13 +302,27 @@ void SynchConsole::PutInt (int n) {
     
 }
 
+
+//----------------------------------------------------------------------
+// SynchConsole::copyStringToMachine
+//      Copy the string content located in the buffer 'from' to the machine address 'to'. 
+//          For a limited number of 'size' character
+// 
+//      "to" the address of the beginning of the machine address where we want
+//              to copy the from char array.
+//      "from" a char array that store the string that need to be paste
+//              into the machine.
+
+
+//TODO
+
+
+//----------------------------------------------------------------------
 void SynchConsole::GetInt (int * n) {
 
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
     
     SynchConsole::SynchGetString(buffer, MAX_STRING_SIZE);
-
-    // fprintf(stderr,"GETINT: Buffer=%s\n", buffer);
 
 	int ret = sscanf(buffer, "%d", n);
 
@@ -301,9 +330,6 @@ void SynchConsole::GetInt (int * n) {
         fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s\n", buffer);
     }
 
-    // fprintf(stderr, "Registered %d!\n", *n);
-
-	//synchconsole->copyStringToMachine(&res, buffer, MAX_STRING_SIZE);
 }
 
 

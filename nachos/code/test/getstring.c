@@ -9,10 +9,12 @@
 int
 main() {
     char s1[SIZE_1];
-    char s2[SIZE_2];    //chaine trop longue en entrée
+    char s2[SIZE_2];
     char s3[MAX_STRING_SIZE];
 
     GetString(s1, SIZE_1);
+
+    GetString(s1, SIZE_1-SIZE_2);
 
     GetString(s2, SIZE_2);
     

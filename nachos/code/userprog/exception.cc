@@ -25,9 +25,7 @@
 #include "system.h"
 #include "syscall.h"
 
-// #if 1
-// #include <unistd.h>
-// #endif
+
 //----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -103,6 +101,7 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
 						synchconsole->SynchPutChar(machine->ReadRegister(CALL_ARG1));
+
 						break;
 					}
 					case SC_GetChar:
@@ -110,7 +109,6 @@ void ExceptionHandler (ExceptionType which) {
 						DEBUG ('s', "GetChar, initiated by user program.\n");
 						machine->WriteRegister(CALL_CODE, (int) synchconsole->SynchGetChar());
 
-						//If char == EOF, alors interrupt-<Halt() ?
 						break;
 					}
 
@@ -119,20 +117,14 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "PutInt, initiated by user program.\n");
 						synchconsole->PutInt(machine->ReadRegister(CALL_ARG1));
+
 						break;
 					}
 					case SC_GetInt:
 					{
 						DEBUG ('s', "GetInt, initiated by user program.\n");
-
 						int address = machine->ReadRegister(CALL_ARG1);
-
 						synchconsole->GetInt(&address);
-
-						//machine->WriteRegister(CALL_CODE, address);
-
-        				//machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
-
 
 						break;
 					}
@@ -144,17 +136,15 @@ void ExceptionHandler (ExceptionType which) {
 						char buffer[MAX_STRING_SIZE];
 						int address = machine->ReadRegister(CALL_ARG1);
 
-
 						int nb_char_copied = -1;
 						int offset = 0;
-						//int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size);
+						
 
 						while(nb_char_copied != 0) {
 							nb_char_copied = synchconsole->copyStringFromMachine(address + offset*MAX_STRING_SIZE, buffer, MAX_STRING_SIZE);
 
 							//fprintf(stderr, "\n\nSYSCALL@SC_PUTSTRING: Number Character Copied = %d\n\n", nb_char_copied);
-							// fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
-							// usleep(500);
+							//fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
 							synchconsole->SynchPutString(buffer);
 
 							if(buffer[nb_char_copied] == '\0'){
@@ -170,16 +160,12 @@ void ExceptionHandler (ExceptionType which) {
 						DEBUG ('s', "GetString, initiated by user program.\n");
 						char buffer[MAX_STRING_SIZE];
 
-						int address = machine->ReadRegister(CALL_ARG1);	// Get the first argument (ie. the address) 
-						int size = machine->ReadRegister(CALL_ARG2);	// Get the second argument (ie. the size) 
+						int address = machine->ReadRegister(CALL_ARG1);
+						int size = machine->ReadRegister(CALL_ARG2);
 
-						//TO TEST
-
-						//int copyStringToMachine(int to, char *from, unsigned size);
 						synchconsole->SynchGetString(buffer, size);
 
-
-						fprintf(stderr, "GETSTRING SYSCALL = %s\n", buffer);
+						//fprintf(stderr, "GETSTRING SYSCALL = %s\n", buffer);
 						synchconsole->copyStringToMachine(address, buffer, size);
 
 						break;
