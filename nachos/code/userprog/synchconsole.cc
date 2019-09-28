@@ -5,7 +5,7 @@
 #include "synch.h"
 
 
-#define DEBUG_MODE 0   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
+#define DEBUG_MODE 1   //1:true, 0:false    //Enable/Disable generation of < ... > surrounding each chars that has been read
 
 // External functions used by this file
 extern bool ReadMem(int addr, int size, int* value);
@@ -59,12 +59,15 @@ SynchConsole::~SynchConsole() {
 int SynchConsole::SynchGetChar() {
     int ch;
 
-    //readAvail->V ();	        // wait for write to finish
 	readAvail->P ();	// wait for character to arrive
 	ch = console->GetChar ();
-    if(DEBUG_MODE) {
-        fprintf(stderr, "[DEBUG@SynchPutChar] GetChar:%c\n", ch);
-    }
+
+    if(ch == '\n')
+        fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\n\n");
+    else if(ch == '\0')
+        fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\0\n");
+    else
+        fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:%c\n", ch);
 
     /* //Useless statement
     if(ch == EOF) { //Mb not that much, make it halt the prog if EOF ?
@@ -83,7 +86,12 @@ int SynchConsole::SynchGetChar() {
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutChar(int ch) {
     if(DEBUG_MODE) {
-        fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:%c\n", ch);
+        if(ch == '\n')
+            fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:\\n\n");
+        else if(ch == '\0')
+            fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\0\n");
+        else
+            fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:%c\n", ch);
     }
     console->PutChar (ch);	    // echo it!
     writeDone->P ();	        // wait for write to finish
@@ -114,11 +122,15 @@ void SynchConsole::SynchPutString(const char s[]) {
 
     int i = 0;
     while(i < MAX_STRING_SIZE){
-        if(s[i] == '\0')
+        SynchPutChar((int) s[i]);
+        if(s[i] == '\0') 
             break;
 
-        this->SynchPutChar((int) s[i]);
         i++;
+    }
+
+    if(s[i--] != '\0'){
+        fprintf(stderr, "SynchPutString ERROR\n");
     }
 }
 
@@ -181,15 +193,15 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     if(n <= 0){
-                fprintf(stderr, "[DEBUG@SynchGetString] n <= 0/NewLine\n");
+        fprintf(stderr, "[DEBUG@SynchGetString] n (input size) <= 0\n");
         return;
     }
 
     s[0] = '\0';
     int pos_in_buffer = 0;
 
-    while(--n > 0) {        
-        int char_readed = SynchConsole::SynchGetChar();
+    while(n-- >= 0) {        
+        int char_readed = this->SynchGetChar();
         if(char_readed == EOF || char_readed == '\n') {
             if(DEBUG_MODE)
                 fprintf(stderr, "[DEBUG@SynchGetString] EOF/NewLine\n");
@@ -233,7 +245,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
         if(DEBUG_MODE) {
             fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
         }
-        fprintf(stderr, "COPYSTRING: %p\n", &to);
+        
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
@@ -258,12 +270,13 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
 void SynchConsole::PutInt (int n) {
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
 
-    int size = snprintf(buffer, MAX_STRING_SIZE, "%d", n);
-    if(size >1){
-        this->SynchPutString(buffer);
-    } else {
-        this->SynchPutChar(buffer[0]);
-    }
+    int size = snprintf(buffer, MAX_STRING_SIZE-1, "%d", n);
+    buffer[size] = '\0';
+    // if(size >1){
+        SynchConsole::SynchPutString(buffer);
+    // } else {
+        // this->SynchPutChar(buffer[0]);
+    // }
 
     free(buffer);
     
@@ -272,12 +285,14 @@ void SynchConsole::PutInt (int n) {
 void SynchConsole::GetInt (int * n) {
 
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
-    buffer = (char*) &n; 
-    int res = -1;
+    
+    SynchConsole::SynchGetString(buffer, MAX_STRING_SIZE);
+
+    fprintf(stderr,"GETINT: Buffer=%s\n", buffer);
 
 	int size = sscanf(buffer, "%d", n);
 
-    fprintf(stderr, "Registered %d!\n", n);
+    fprintf(stderr, "Registered %d!\n", *n);
 
 	//synchconsole->copyStringToMachine(&res, buffer, MAX_STRING_SIZE);
 }

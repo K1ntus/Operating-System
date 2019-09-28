@@ -52,13 +52,13 @@ void StartProcess (char *filename) {
     AddrSpace *space;
 
     if (executable == NULL)
-      {
-	  SetColor (stdout, ColorRed);
-	  SetBold (stdout);
-	  printf ("Unable to open file %s\n", filename);
-	  ClearColor (stdout);
-	  return;
-      }
+    {
+        SetColor (stdout, ColorRed);
+        SetBold (stdout);
+        printf ("Unable to open file %s\n", filename);
+        ClearColor (stdout);
+        return;
+    }
     space = new AddrSpace (executable);
     currentThread->space = space;
 
