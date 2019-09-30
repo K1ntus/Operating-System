@@ -9,7 +9,7 @@ int main() {
     PutString("\0");
 
 
-    PutString("Chaine1.\nChaine 2 avec Bonus\n\0");
+    PutString("Chaine1.\nChaine 2. Il ne devrait rien y avoir derrière:\n\0 Si ce message est affiché, alors c'est un FAILURE \n\0");
 
 
     PutString("Chaine1.\n\0");

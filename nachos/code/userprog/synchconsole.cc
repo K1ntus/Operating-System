@@ -254,14 +254,14 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
-        if(from[number_character_read] == '\0' || from[number_character_read] == '\n') {
+        number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+        if(from[number_character_read] == '\0'){// || from[number_character_read] == '\n') {
             
             if(DEBUG_MODE) {
                 fprintf(stderr, "[DEBUG@copyStringToMachine] Read a \\n or \\0 at position:%d\n", number_character_read);
             }
             break;
         }
-        number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
 
     }
     
