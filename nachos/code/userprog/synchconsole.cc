@@ -9,8 +9,8 @@
 // DEBUG_MODE
 // 	Enable/Disable verbose mode for some method. Helping mostly for debugging purposes.
 //
-//	0 -- Activate this mode
-//	1 -- Deactivate this mode
+//	1 -- Activate this mode
+//	0 -- Deactivate this mode
 //----------------------------------------------------------------------
 #define DEBUG_MODE 0
 
@@ -189,24 +189,41 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //          until a better implementation will be set up.
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
-    if(n <= 0){
-        fprintf(stderr, "[DEBUG@SynchGetString] input size <= 0\n");
-        return;
-    }
+    ASSERT(n>0);
 
-    s[0] = '\0';
     int pos_in_buffer = 0;
+    int char_readed = 1;
+    int * buffer = (int *) malloc(sizeof(int) * MAX_STRING_SIZE);
 
-    if(n > MAX_STRING_SIZE) {
-        n = MAX_STRING_SIZE;
+    while(pos_in_buffer < MAX_STRING_SIZE && char_readed != '\n' && char_readed != EOF && char_readed != '\0') {
+        char_readed = this->SynchGetChar();
+        buffer[pos_in_buffer] = char_readed;
+        pos_in_buffer +=1;
+    }
+    buffer[pos_in_buffer] = '\0';
+
+
+
+    for(int i = 0; i < n; i++) {
+        if(buffer[i] == '\n' || buffer[i] == EOF || i == n-1 || buffer[i] == '\0'){
+            s[i] = '\0';
+            break;
+        }
+        s[i] = buffer[i];
     }
 
-    while(n >= 0) {        
+    free(buffer);
+    
+    /*while(pos_in_buffer < n) {        
         int char_readed = this->SynchGetChar();
         if(char_readed == EOF || char_readed == '\n') {
             if(DEBUG_MODE)
                 fprintf(stderr, "[DEBUG@SynchGetString] EOF/NewLine\n");
+            s[pos_in_buffer] = char_readed;
+            s[pos_in_buffer+1] = '\0';
             break;
+        } else if(char_readed == '\0') {
+            s[pos_in_buffer] = char_readed;
         } else {
             s[pos_in_buffer] = char_readed;
             s[pos_in_buffer+1] = '\0';
@@ -214,8 +231,8 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
                 fprintf(stderr, "[DEBUG@SynchGetString] Char:%c\n", s[pos_in_buffer]);
             pos_in_buffer+=1;
         }
-        n -= 1;
-    }    
+    }*/
+
 }
 
 
@@ -254,14 +271,14 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
 
 
-        number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
         if(from[number_character_read] == '\0'){// || from[number_character_read] == '\n') {
             
             if(DEBUG_MODE) {
-                fprintf(stderr, "[DEBUG@copyStringToMachine] Read a \\n or \\0 at position:%d\n", number_character_read);
+                fprintf(stderr, "[DEBUG@copyStringToMachine] Read Char: \\n or \\0 at position:%d\n", number_character_read);
             }
             break;
         }
+        number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
 
     }
     

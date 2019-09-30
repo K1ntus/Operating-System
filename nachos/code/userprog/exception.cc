@@ -141,41 +141,41 @@ void ExceptionHandler (ExceptionType which) {
 						
 
 						while(nb_char_copied != 0) {
-							fprintf(stderr,"\nBREAK\n");
+							//fprintf(stderr,"\nBREAK\n");
 							nb_char_copied = synchconsole->copyStringFromMachine(address + offset, buffer, MAX_STRING_SIZE);
-
-							//fprintf(stderr, "\n\nSYSCALL@SC_PUTSTRING: Number Character Copied = %d\n\n", nb_char_copied);
-							//fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
-							// fprintf(stderr, "\noffset:%d\nnb_char_copied=%d\n", offset, nb_char_copied);
 							synchconsole->SynchPutString(buffer);
 
+
+							//FIX THE OFFSET
 							if(MAX_STRING_SIZE == nb_char_copied){
-								nb_char_copied -=1;
+								nb_char_copied -=1;	
 							}
+
+							//EOSTRING or EOF
 							if(buffer[nb_char_copied] == '\0'){
-								break;	//EOSTRING or EOF
+								break;	
 							} else if(buffer[nb_char_copied] == EOF){
-								break;	//EOSTRING or EOF
+								break;	
 							}
 
 							offset += nb_char_copied;
-							// nb_char_copied = -1;
 						}
 						break;
 					}
 					case SC_GetString:
 					{
 						DEBUG ('s', "GetString, initiated by user program.\n");
-						char buffer[MAX_STRING_SIZE];
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
+						char * buffer = (char *) malloc(sizeof(char) * size);
 
 						synchconsole->SynchGetString(buffer, size);
 
-						//fprintf(stderr, "GETSTRING SYSCALL = %s\n", buffer);
 						synchconsole->copyStringToMachine(address, buffer, size);
 
+						free(buffer);
+						
 						break;
 					}
 					#endif	//CHANGED
