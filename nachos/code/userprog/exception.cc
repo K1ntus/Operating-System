@@ -169,6 +169,7 @@ void ExceptionHandler (ExceptionType which) {
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
 						char * buffer = (char *) malloc(sizeof(char) * size);
+    					ASSERT(buffer != 0x0);
 
 						synchconsole->SynchGetString(buffer, size);
 

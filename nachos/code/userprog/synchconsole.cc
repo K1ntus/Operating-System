@@ -64,12 +64,14 @@ int SynchConsole::SynchGetChar() {
 	readAvail->P ();	// wait for character to arrive
 	ch = console->GetChar ();
 
-    if(ch == '\n')
-        fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\n\n");
-    else if(ch == '\0')
-        fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\0\n");
-    else
-        fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:%c\n", ch);
+    if(DEBUG_MODE) {
+        if(ch == '\n')
+            fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\n\n");
+        else if(ch == '\0')
+            fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\0\n");
+        else
+            fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:%c\n", ch);
+    }
 
     return ch;
 }
@@ -109,12 +111,10 @@ void SynchConsole::SynchPutChar(int ch) {
 //      (for now, but this way of work is probably deprecated and pointless)
 // 
 //      "s" is the const array containing the string to display 
+//      This array can NOT be NULL.
 //----------------------------------------------------------------------
 void SynchConsole::SynchPutString(const char s[]) {
-    if(s == NULL){
-        //ERROR CASE
-        return;        
-    }
+    ASSERT(s != NULL);
 
     int i = 0;
     while(i < MAX_STRING_SIZE-1){
@@ -125,7 +125,11 @@ void SynchConsole::SynchPutString(const char s[]) {
         i++;
     }
 
-    if(s[i] != '\0'){   //To think about this conditional instruction, does not seems really interesting in case of great string size, cutting the string with multiple \0
+
+    // To think about this conditional instruction, 
+    // does not seems really interesting in case of great string size,
+    // cutting the string with multiple \0
+    if(s[i] != '\0'){   
         //fprintf(stderr, "SynchPutString INFO - end of string not reached, last character is: %c at pos:%d", s[i],i);
         SynchPutChar((int)('\0'));
     }
@@ -139,21 +143,20 @@ void SynchConsole::SynchPutString(const char s[]) {
 //      a char* buffer. For a limited number of 'size' character
 // 
 //      "from" the address of the beginning of the string that we want
-//              to copy
+//              to copy. This address can NOT be equals to the NULL address
+//              (ie. 0x0)
 //      "to" a char array that will store the string that has been read
 //              from the machine
 //      "size" the maximum numbers of character to store into the buffer (usually majored by
 //              the constant MAX_STRING_SIZE located into system.h
+//              The size can NOT be negative or greater than MAX_STRING_SIZE.
 //----------------------------------------------------------------------
 int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
-    if(size <= 0) {
-        fprintf(stderr, "[DEBUG@copyStringFromMachine] input size <= 0\n");
-        return -1;
-    }
+    ASSERT(size > 0);
 
-    if(size > MAX_STRING_SIZE) {
-        size = MAX_STRING_SIZE;
-    }
+    ASSERT(size <= MAX_STRING_SIZE);
+
+    ASSERT(from != 0x0);
 
     unsigned int number_character_read = 0;
     int character = 1;
@@ -187,15 +190,20 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //      "n" is the maximum size of the array. For now, the length cannot be
 //          greater than MAX_STRING_SIZE, to prevent some possible grief of the machine
 //          until a better implementation will be set up.
+//          The size can NOT be negative or greater than MAX_STRING_SIZE.
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
-    ASSERT(n>0);
+    ASSERT(n > 0);
+    ASSERT(n <= MAX_STRING_SIZE);
+    
 
     int pos_in_buffer = 0;
     int char_readed = 1;
     int * buffer = (int *) malloc(sizeof(int) * MAX_STRING_SIZE);
+    
+    ASSERT(buffer != 0x0);
 
-    while(pos_in_buffer < MAX_STRING_SIZE && char_readed != '\n' && char_readed != EOF && char_readed != '\0') {
+    while(pos_in_buffer < n && char_readed != '\n' && char_readed != EOF && char_readed != '\0') {
         char_readed = this->SynchGetChar();
         buffer[pos_in_buffer] = char_readed;
         pos_in_buffer +=1;
@@ -213,26 +221,6 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     }
 
     free(buffer);
-    
-    /*while(pos_in_buffer < n) {        
-        int char_readed = this->SynchGetChar();
-        if(char_readed == EOF || char_readed == '\n') {
-            if(DEBUG_MODE)
-                fprintf(stderr, "[DEBUG@SynchGetString] EOF/NewLine\n");
-            s[pos_in_buffer] = char_readed;
-            s[pos_in_buffer+1] = '\0';
-            break;
-        } else if(char_readed == '\0') {
-            s[pos_in_buffer] = char_readed;
-        } else {
-            s[pos_in_buffer] = char_readed;
-            s[pos_in_buffer+1] = '\0';
-            if(DEBUG_MODE)
-                fprintf(stderr, "[DEBUG@SynchGetString] Char:%c\n", s[pos_in_buffer]);
-            pos_in_buffer+=1;
-        }
-    }*/
-
 }
 
 
@@ -245,30 +233,35 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 //      "to" the address of the beginning of the machine address where we want
 //              to copy the from char array.
 //      "from" a char array that store the string that need to be paste
-//              into the machine.
+//              into the machine. This array should NOT be null
 //      "size" the maximum numbers of character to copy into the machine (usually majored by
 //              the constant MAX_STRING_SIZE located into system.h. This size, in fact
 //              cannot be greater than this constant, to prevent malicious code
 //              to write into forbidden memory slots.
 //              Could probably fixed when a better implementation will be up.
+//              The size can NOT be negative or greater than MAX_STRING_SIZE.
 //----------------------------------------------------------------------
 int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
-    if (size > MAX_STRING_SIZE) {
-        size = MAX_STRING_SIZE;
-    }
+    
+    ASSERT(from != NULL);
 
     if(DEBUG_MODE) {
         fprintf(stderr,"[DEBUG@copyStringToMachine] Entry String:%s with size=%d\n", from, size);
     }
 
+    ASSERT(size > 0);
+
+    ASSERT(size <= MAX_STRING_SIZE);
+
+
     unsigned int number_character_read = 0;
 
-    while(number_character_read < size){/* while avec la taille du buffer */
+    while(number_character_read < size){
         if(DEBUG_MODE) {
             fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
         }
         
-        machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+        machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already managing the Translation (virt <-> phys memory)
 
 
         if(from[number_character_read] == '\0'){// || from[number_character_read] == '\n') {
@@ -334,6 +327,7 @@ void SynchConsole::PutInt (int n) {
 
 //----------------------------------------------------------------------
 void SynchConsole::GetInt (int * n) {
+    ASSERT(n != 0x0);
 
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
     

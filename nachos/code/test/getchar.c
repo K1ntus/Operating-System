@@ -3,9 +3,8 @@
 int main(void) {
     char c = '\0';
 
-    while (c != 'q') {
-        PutString("Press `$` to quit\n\n");
-        
+    PutString("Press `$` to quit\n\n");
+    while (c != '$') {        
         c = GetChar();
         PutChar(c);
     }
