@@ -175,6 +175,7 @@ void ExceptionHandler (ExceptionType which) {
 					default:
 					{
 						printf("Unimplemented system call %d\n", type);
+						interrupt->Halt();
 						ASSERT(FALSE);
 					}
 				}

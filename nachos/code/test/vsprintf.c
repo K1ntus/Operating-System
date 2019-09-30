@@ -20,32 +20,50 @@
 
 
 
-int isxdigit ( int c ) {
-
-
-	return -1;
+int isxdigit ( int arg ) {
+	return (arg >= '0' && arg <= '9') || (arg >= 'a' && arg <= 'f') || (arg >= 'A' && arg <= 'F') ;
 }
 
 int isdigit( int arg ) {
-
-	return -1;
-}
-
-int islower( int character ) {
-
-	return -1;
+	return arg >= '0' && arg <= '9';
 }
 
 int toupper( int character ) {
+	if( character >= 'a' && character <= 'z')
+		return character - ('a' - 'A');
+	return character;
+}
 
-	return -1;
+int islower( int character ) {
+	if(toupper(character) == character)
+		return 0; // keep lowercase characters unchanged
+	return 1;	
 }
 
 int strnlen(const char *s, int maxlen){
-	return -1;
+	int size = 0;
+	while(size < maxlen && s[size] != '\0'){
+		size +=1;
+	}
+	return size;
 }
 
 
+//https://web.archive.org/web/20160801075139/http://www.x86-64.org/documentation/abi.pdf
+/*
+typedef struct {
+   unsigned int gp_offset;
+   unsigned int fp_offset;
+   void *overflow_arg_area;
+   void *reg_save_area;
+} va_list[1];
+*/
+
+/*
+void va_start(va_list ap, last){
+
+
+}*/
 unsigned long simple_strtoul(const char *cp,char **endp,unsigned int base)
 {
 	unsigned long result = 0,value;
