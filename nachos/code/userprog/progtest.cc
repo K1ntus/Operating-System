@@ -67,7 +67,7 @@ void StartProcess (char *filename) {
     space->InitRegisters ();	// set the initial register values
     space->RestoreState ();	// load page table register
 
-    machine->DumpMem ("memory.svg");
+    //machine->DumpMem ("memory.svg");
     machine->Run ();		// jump to the user progam
     ASSERT (FALSE);		// machine->Run never returns;
     

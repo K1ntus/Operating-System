@@ -141,17 +141,20 @@ void ExceptionHandler (ExceptionType which) {
 						
 
 						while(nb_char_copied != 0) {
-							nb_char_copied = synchconsole->copyStringFromMachine(address + offset*MAX_STRING_SIZE, buffer, MAX_STRING_SIZE);
+							nb_char_copied = synchconsole->copyStringFromMachine(address + offset, buffer, MAX_STRING_SIZE);
 
 							//fprintf(stderr, "\n\nSYSCALL@SC_PUTSTRING: Number Character Copied = %d\n\n", nb_char_copied);
 							//fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
+							fprintf(stderr, "\noffset:%d\nnb_char_copied=%d\n", offset, nb_char_copied);
 							synchconsole->SynchPutString(buffer);
 
-							if(buffer[nb_char_copied] == '\0'){
-								break;
+							if(buffer[nb_char_copied] == '\0' || buffer[nb_char_copied] == EOF){
+								break;	//EOSTRING or EOF
 							}
 
-							offset += 1;
+							offset -= 1;
+							offset += nb_char_copied;
+							// nb_char_copied = -1;
 						}
 						break;
 					}

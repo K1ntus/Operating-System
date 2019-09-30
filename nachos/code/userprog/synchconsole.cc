@@ -236,14 +236,12 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 //              Could probably fixed when a better implementation will be up.
 //----------------------------------------------------------------------
 int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
-    if (size < 0){
-        size = 0;   //Error case to manage
-    } else if (size > MAX_STRING_SIZE) {
+    if (size > MAX_STRING_SIZE) {
         size = MAX_STRING_SIZE;
     }
 
     if(DEBUG_MODE) {
-        fprintf(stderr,"[DEBUG@copyStringToMachine] Entry String:%s\n", from);
+        fprintf(stderr,"[DEBUG@copyStringToMachine] Entry String:%s with size=%d\n", from, size);
     }
 
     unsigned int number_character_read = 0;
@@ -293,7 +291,7 @@ void SynchConsole::PutInt (int n) {
     int size = snprintf(buffer, MAX_STRING_SIZE-1, "%d", n);
     buffer[size] = '\0';
     // if(size >1){
-        SynchConsole::SynchPutString(buffer);
+        this->SynchPutString(buffer);
     // } else {
         // this->SynchPutChar(buffer[0]);
     // }
@@ -322,7 +320,7 @@ void SynchConsole::GetInt (int * n) {
 
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
     
-    SynchConsole::SynchGetString(buffer, MAX_STRING_SIZE);
+    this->SynchGetString(buffer, MAX_STRING_SIZE);
 
 	int ret = sscanf(buffer, "%d", n);
 
