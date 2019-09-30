@@ -200,7 +200,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     int pos_in_buffer = 0;
     int char_readed = 1;
     int * buffer = (int *) malloc(sizeof(int) * MAX_STRING_SIZE);
-    
+
     ASSERT(buffer != 0x0);
 
     while(pos_in_buffer < n && char_readed != '\n' && char_readed != EOF && char_readed != '\0') {
@@ -233,7 +233,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 //      "to" the address of the beginning of the machine address where we want
 //              to copy the from char array.
 //      "from" a char array that store the string that need to be paste
-//              into the machine. This array should NOT be null
+//              into the machine. This array can NOT be null
 //      "size" the maximum numbers of character to copy into the machine (usually majored by
 //              the constant MAX_STRING_SIZE located into system.h. This size, in fact
 //              cannot be greater than this constant, to prevent malicious code
