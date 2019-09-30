@@ -145,7 +145,7 @@ void ExceptionHandler (ExceptionType which) {
 
 							//fprintf(stderr, "\n\nSYSCALL@SC_PUTSTRING: Number Character Copied = %d\n\n", nb_char_copied);
 							//fprintf(stderr, "SYSCALL@SC_PUTSTRING: String=%s\n\n", buffer);
-							fprintf(stderr, "\noffset:%d\nnb_char_copied=%d\n", offset, nb_char_copied);
+							// fprintf(stderr, "\noffset:%d\nnb_char_copied=%d\n", offset, nb_char_copied);
 							synchconsole->SynchPutString(buffer);
 
 							if(buffer[nb_char_copied] == '\0' || buffer[nb_char_copied] == EOF){

@@ -68,7 +68,7 @@ void StartProcess (char *filename) {
     space->RestoreState ();	// load page table register
 
     //machine->DumpMem ("memory.svg");
-    machine->Run ();		// jump to the user progam
+    machine->Run ();	// jump to the user progam
     ASSERT (FALSE);		// machine->Run never returns;
     
 
