@@ -47,7 +47,7 @@ CPP	:=	$(GCCDIR)/$(GCC) -E -P
 INCDIR	:=	-I../userprog -I../threads
 CFLAGS 	:=	-DIN_USER_MODE -c $(INCDIR) -G 0 -Wall -O2 -DCHANGED
 
-SOURCES	:=	$(wildcard *.c)
+SOURCES	=	$(filter-out vsprintf.c, $(wildcard *.c))
 PROGS	:=	$(patsubst %.c,%,$(SOURCES))
 
 .PHONY: all
@@ -59,8 +59,12 @@ start.o: start.S ../userprog/syscall.h
 	$(AS) $(ASFLAGS) -o start.o strt.s
 	rm strt.s
 
-%.o: %.c ../userprog/syscall.h
+
+%.o: %.c ../userprog/syscall.h #vsprintf.o
 	$(CC) $(CFLAGS) -c $<
+
+#vsprintf.o: vsprintf.c
+#	$(CC) $(CFLAGS) -c $<
 
 # LB: Caution! start.o should appear *before* $< for the load!
 
