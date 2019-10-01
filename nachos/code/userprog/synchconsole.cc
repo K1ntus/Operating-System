@@ -339,6 +339,7 @@ void SynchConsole::GetInt (int * n) {
         fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s\n", buffer);
     }
 
+    free(buffer);
 }
 
 
