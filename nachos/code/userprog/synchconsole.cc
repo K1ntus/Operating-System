@@ -161,15 +161,15 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     unsigned int number_character_read = 0;
     int character = 1;
 
-    while(number_character_read < size){
+    while(number_character_read < size-1){
 
         machine->ReadMem(from + number_character_read, 1, &character);   //ReadMem is already taking care of the Translation (virt <-> phys memory)
+        to[number_character_read] = (char) character;
         if((char) character == '\0') {
-            to[number_character_read] ='\0';
             break;
         }
-        to[number_character_read] = (char) character;
         number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+        to[number_character_read] = '\0';
     }
 
     return number_character_read;

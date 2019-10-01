@@ -152,7 +152,7 @@ void ExceptionHandler (ExceptionType which) {
 							}
 
 							//EOSTRING or EOF
-							if(buffer[nb_char_copied] == '\0'){
+							if(buffer[nb_char_copied] == '\0' && nb_char_copied < MAX_STRING_SIZE-1){
 								break;	
 							} else if(buffer[nb_char_copied] == EOF){
 								break;	
