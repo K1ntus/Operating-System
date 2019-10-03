@@ -177,7 +177,7 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 
 
 //----------------------------------------------------------------------
-// SynchConsole::SynchPutString
+// SynchConsole::SynchGetString
 //      Write an array of character to the simulated display. Using a synchronous
 //      scheduling system. The maximum size of the string analysed is set
 //      with the constant MAX_STRING_SIZE-1 (system.h).
@@ -194,33 +194,31 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     ASSERT(n > 0);
-    ASSERT(n <= MAX_STRING_SIZE);
+    //ASSERT(n <= MAX_STRING_SIZE);
+    ASSERT(s != 0x0);
     
 
     int pos_in_buffer = 0;
     int char_readed = 1;
-    int * buffer = (int *) malloc(sizeof(int) * MAX_STRING_SIZE);
 
-    ASSERT(buffer != 0x0);
 
-    while(pos_in_buffer < n && char_readed != '\n' && char_readed != EOF && char_readed != '\0') {
+    while(pos_in_buffer < n && char_readed != '\0' && char_readed != '\n') {
         char_readed = this->SynchGetChar();
-        buffer[pos_in_buffer] = char_readed;
+        s[pos_in_buffer] = char_readed;
         pos_in_buffer +=1;
     }
-    buffer[pos_in_buffer] = '\0';
+    s[pos_in_buffer] = '\0';
 
 
 
-    for(int i = 0; i < n; i++) {
+    /*for(int i = 0; i < n; i++) {
         if(buffer[i] == '\n' || buffer[i] == EOF || i == n-1 || buffer[i] == '\0'){
             s[i] = '\0';
             break;
         }
         s[i] = buffer[i];
-    }
+    }*/
 
-    free(buffer);
 }
 
 
@@ -264,10 +262,10 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already managing the Translation (virt <-> phys memory)
 
 
-        if(from[number_character_read] == '\0'){// || from[number_character_read] == '\n') {
+        if(from[number_character_read] == '\0' || from[number_character_read] == '\n') {
             
             if(DEBUG_MODE) {
-                fprintf(stderr, "[DEBUG@copyStringToMachine] Read Char: \\n or \\0 at position:%d\n", number_character_read);
+                fprintf(stderr, "[DEBUG@copyStringToMachine] Read Char: \\0 or \\n at position:%d\n", number_character_read);
             }
             break;
         }

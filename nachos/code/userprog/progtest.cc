@@ -133,6 +133,7 @@ void ConsoleTest (const char *in, const char *out) {
 //      the output.  Stop when the user types a 'q'.
 //      Also test the synchconsole using a few methods predefined
 //----------------------------------------------------------------------
+#ifdef CHANGED
 void SynchConsoleTest (const char * in, const char * out) {
     SynchConsole * test_synch_console = new SynchConsole(in, out);
 
@@ -164,4 +165,4 @@ void SynchConsoleTest (const char * in, const char * out) {
     delete writeDone;
 
 }
-
+#endif //Changed

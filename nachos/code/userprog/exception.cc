@@ -91,41 +91,55 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_Halt:
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
-						interrupt->Halt();
+						interrupt->Halt();	//Already making Exit(0)
+
 						break;
 					}
 
-
 					#ifdef CHANGED
+
+					case SC_Exit:
+					{
+						DEBUG ('s', "Shutdown, initiated by user program.\n");
+						int value = machine->ReadRegister(CALL_ARG1);
+						fprintf(stderr, "output exit code = %d\n", value);
+						
+						Exit(value);
+						break;
+					}
+
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
 						synchconsole->SynchPutChar(machine->ReadRegister(CALL_ARG1));
 
+						machine->WriteRegister(CALL_CODE, 0);
 						break;
 					}
+
 					case SC_GetChar:
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
 						machine->WriteRegister(CALL_CODE, (int) synchconsole->SynchGetChar());
-
 						break;
 					}
-
 
 					case SC_PutInt:
 					{
 						DEBUG ('s', "PutInt, initiated by user program.\n");
 						synchconsole->PutInt(machine->ReadRegister(CALL_ARG1));
 
+						machine->WriteRegister(CALL_CODE, 0);
 						break;
 					}
+
 					case SC_GetInt:
 					{
 						DEBUG ('s', "GetInt, initiated by user program.\n");
 						int address = machine->ReadRegister(CALL_ARG1);
 						synchconsole->GetInt(&address);
 
+						machine->WriteRegister(CALL_CODE, address);
 						break;
 					}
 
@@ -160,6 +174,8 @@ void ExceptionHandler (ExceptionType which) {
 
 							offset += nb_char_copied;
 						}
+
+						machine->WriteRegister(CALL_CODE, 0);
 						break;
 					}
 					case SC_GetString:
@@ -168,15 +184,30 @@ void ExceptionHandler (ExceptionType which) {
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
-						char * buffer = (char *) malloc(sizeof(char) * size);
-    					ASSERT(buffer != 0x0);
 
-						synchconsole->SynchGetString(buffer, size);
-
-						synchconsole->copyStringToMachine(address, buffer, size);
-
-						free(buffer);
+						int nb_char_written = 0;
 						
+						while(nb_char_written <= size) {
+							char * buffer = (char *) malloc(MAX_STRING_SIZE * sizeof(char));
+							synchconsole->SynchGetString(buffer, size);
+							//fprintf(stderr,"TEMPORARY STRING =%s\n", buffer);
+
+							size = synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
+
+							fprintf(stderr,"SIZE GETSTRING =%d\n", size);
+							fprintf(stderr,"STRING =%s\n", buffer);
+							
+							nb_char_written += size;
+
+							if(buffer[size] == '\n' || buffer[size] == '\0') {
+								break;
+							}
+
+							free(buffer);
+						}
+
+
+						machine->WriteRegister(CALL_CODE, nb_char_written);
 						break;
 					}
 					#endif	//CHANGED
@@ -184,7 +215,6 @@ void ExceptionHandler (ExceptionType which) {
 					default:
 					{
 						printf("Unimplemented system call %d\n", type);
-						interrupt->Halt();
 						ASSERT(FALSE);
 					}
 				}
