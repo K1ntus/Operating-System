@@ -301,12 +301,9 @@ void SynchConsole::PutInt (int n) {
 
     int size = snprintf(buffer, MAX_STRING_SIZE-1, "%d", n);
     buffer[size] = '\0';
-    // if(size >1){
-        this->SynchPutString(buffer);
-    // } else {
-        // this->SynchPutChar(buffer[0]);
-    // }
-
+    
+    this->SynchPutString(buffer);
+    
     free(buffer);
     
 }
@@ -330,14 +327,15 @@ void SynchConsole::PutInt (int n) {
 void SynchConsole::GetInt (int * n) {
     ASSERT(n != 0x0);
 
-    char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
+    char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);  
+    ASSERT(buffer != 0x0);  
     
     this->SynchGetString(buffer, MAX_STRING_SIZE);
-
+    
 	int ret = sscanf(buffer, "%d", n);
 
     if(ret == EOF) {
-        fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s\n", buffer);
+        fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s and saving to address %p\n", buffer, &n);
     }
 
     free(buffer);

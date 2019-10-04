@@ -127,19 +127,23 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutInt:
 					{
 						DEBUG ('s', "PutInt, initiated by user program.\n");
-						synchconsole->PutInt(machine->ReadRegister(CALL_ARG1));
+						int address = machine->ReadRegister(CALL_ARG1);
+						synchconsole->PutInt(address);
 
 						machine->WriteRegister(CALL_CODE, 0);
+
 						break;
 					}
 
 					case SC_GetInt:
 					{
 						DEBUG ('s', "GetInt, initiated by user program.\n");
+						int value = -1;
 						int address = machine->ReadRegister(CALL_ARG1);
-						synchconsole->GetInt(&address);
+						synchconsole->GetInt(&value);
 
-						machine->WriteRegister(CALL_CODE, address);
+						machine->WriteMem(address, 4, value);
+						
 						break;
 					}
 
@@ -176,6 +180,7 @@ void ExceptionHandler (ExceptionType which) {
 						}
 
 						machine->WriteRegister(CALL_CODE, 0);
+						
 						break;
 					}
 					case SC_GetString:
