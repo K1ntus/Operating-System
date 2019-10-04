@@ -18,5 +18,6 @@ int main() {
     PutInt(1234567890);
     PutInt(2147483647);
     PutInt(99999999999999999999999999999999999999); //Should return -1 because it's clearly too large for a signed integer
-    Halt();
+
+    // Halt();
 }

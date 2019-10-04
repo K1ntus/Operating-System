@@ -13,9 +13,9 @@ int main(void) {
     PutInt(int_1);
     
     GetInt(&int_2);
-    PutInt(int_2);
+    // PutInt(int_2);
 
-    PutChar('\n');
+    // PutChar('\n');
 
-    Halt();
+    // Halt();
 }

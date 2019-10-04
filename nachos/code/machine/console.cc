@@ -200,11 +200,11 @@ Console::GetChar()
 //	to occur in the future, and return.
 //----------------------------------------------------------------------
 
-void Console::PutChar(int ch)
+void
+Console::PutChar(int ch)
 {
     unsigned char c;
     ASSERT(putBusy == FALSE);
-
     if (ch < 0x80 || strcmp(nl_langinfo(CODESET),"UTF-8")) {
 	/* Not UTF-8 or ASCII, assume 8bit locale */
 	c = ch;

@@ -368,8 +368,6 @@ Machine::DumpMem(const char *name)
 
     height = virtual_height > physical_height ? virtual_height : physical_height;
 
-	fprintf(stderr,"Saving in file: %s. Is: %p\n", name, output);
-
     fprintf(output, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     fprintf(output, "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox = \"0 0 %u %u\" version = \"1.1\">\n", width, height);
 
@@ -426,3 +424,4 @@ void Machine::WriteRegister(int num, int value)
 	// DEBUG('m', "WriteRegister %d, value %d\n", num, value);
 	registers[num] = value;
     }
+

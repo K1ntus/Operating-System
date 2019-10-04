@@ -33,7 +33,12 @@
 	.ent	__start
 __start:
 	jal	main
-	move	$4,$0		
+	move	$4,$0
+
+#ifdef CHANGED
+	move	$4,$2	
+#endif //CHANGED
+
 	jal	Exit	 /* if we return from main, exit(0) */
 	.end __start
 
@@ -146,6 +151,7 @@ Yield:
 	j	$31
 	.end Yield
 
+#ifdef CHANGED
 	.global PutChar
 	.ent	PutChar
 PutChar:
@@ -194,7 +200,7 @@ GetInt:
 	syscall
 	j	$31
 	.end GetInt
-
+#endif //CHANGED
 
 
 /* dummy function to keep gcc happy */
