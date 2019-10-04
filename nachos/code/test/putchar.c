@@ -31,6 +31,4 @@ Putchar(char c){
 int main() {
     print1('a',4);
     print2('a',10);  
-    
-    // Halt();
 }

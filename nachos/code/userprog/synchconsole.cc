@@ -194,30 +194,33 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     ASSERT(n > 0);
-    //ASSERT(n <= MAX_STRING_SIZE);
+    ASSERT(n <= MAX_STRING_SIZE);
     ASSERT(s != 0x0);
     
 
     int pos_in_buffer = 0;
     int char_readed = 1;
+    char * buffer = (char*) malloc(sizeof(char) * MAX_STRING_SIZE);
 
 
-    while(pos_in_buffer < n && char_readed != '\0' && char_readed != '\n') {
+    while(pos_in_buffer < MAX_STRING_SIZE && char_readed != '\0' && char_readed != '\n') {
         char_readed = this->SynchGetChar();
-        s[pos_in_buffer] = char_readed;
+        buffer[pos_in_buffer] = char_readed;
         pos_in_buffer +=1;
     }
-    s[pos_in_buffer] = '\0';
+    buffer[pos_in_buffer-1] = '\0';
 
 
 
-    /*for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++) {
         if(buffer[i] == '\n' || buffer[i] == EOF || i == n-1 || buffer[i] == '\0'){
             s[i] = '\0';
             break;
         }
         s[i] = buffer[i];
-    }*/
+    }
+
+    free(buffer);
 
 }
 
@@ -241,7 +244,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 //----------------------------------------------------------------------
 int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
     
-    ASSERT(from != NULL);
+    ASSERT(from);
 
     if(DEBUG_MODE) {
         fprintf(stderr,"[DEBUG@copyStringToMachine] Entry String:%s with size=%d\n", from, size);

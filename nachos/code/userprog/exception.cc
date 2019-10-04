@@ -188,11 +188,10 @@ void ExceptionHandler (ExceptionType which) {
 						int nb_char_written = 0;
 						
 						while(nb_char_written <= size) {
-							char * buffer = (char *) malloc(MAX_STRING_SIZE * sizeof(char));
+							char * buffer = (char *) malloc(size * sizeof(char));
 							synchconsole->SynchGetString(buffer, size);
-							//fprintf(stderr,"TEMPORARY STRING =%s\n", buffer);
-
-							size = synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
+							
+							size = synchconsole->copyStringToMachine(address, buffer, size);
 
 							fprintf(stderr,"SIZE GETSTRING =%d\n", size);
 							fprintf(stderr,"STRING =%s\n", buffer);
@@ -205,6 +204,8 @@ void ExceptionHandler (ExceptionType which) {
 
 							free(buffer);
 						}
+
+
 
 
 						machine->WriteRegister(CALL_CODE, nb_char_written);

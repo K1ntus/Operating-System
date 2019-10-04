@@ -6,6 +6,8 @@ void print(int n) {
     #if 1
     for (i = 0; i < n; i++) {
         PutInt(i);
+        //PutChar(",");
+        //PutChar(" ");
     }
 #endif
 }
