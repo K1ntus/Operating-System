@@ -338,6 +338,8 @@ void SynchConsole::GetInt (int * n) {
         fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s and saving to address %p\n", buffer, &n);
     }
 
+    //machine->WriteMem(n, sizeof(int), *n);   //ReadMem is already managing the Translation (virt <-> phys memory)
+
     free(buffer);
 }
 

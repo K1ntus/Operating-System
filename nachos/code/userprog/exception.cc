@@ -97,7 +97,6 @@ void ExceptionHandler (ExceptionType which) {
 					}
 
 					#ifdef CHANGED
-
 					case SC_Exit:
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
@@ -108,6 +107,7 @@ void ExceptionHandler (ExceptionType which) {
 						break;
 					}
 
+
 					case SC_PutChar:
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
@@ -117,12 +117,14 @@ void ExceptionHandler (ExceptionType which) {
 						break;
 					}
 
+
 					case SC_GetChar:
 					{
 						DEBUG ('s', "GetChar, initiated by user program.\n");
 						machine->WriteRegister(CALL_CODE, (int) synchconsole->SynchGetChar());
 						break;
 					}
+
 
 					case SC_PutInt:
 					{
@@ -131,9 +133,9 @@ void ExceptionHandler (ExceptionType which) {
 						synchconsole->PutInt(address);
 
 						machine->WriteRegister(CALL_CODE, 0);
-
 						break;
 					}
+
 
 					case SC_GetInt:
 					{
@@ -142,8 +144,8 @@ void ExceptionHandler (ExceptionType which) {
 						int address = machine->ReadRegister(CALL_ARG1);
 						synchconsole->GetInt(&value);
 
-						machine->WriteMem(address, 4, value);
-						
+						machine->WriteMem(address, sizeof(int), (int) value);
+						machine->WriteRegister(CALL_CODE, value);
 						break;
 					}
 
@@ -179,10 +181,11 @@ void ExceptionHandler (ExceptionType which) {
 							offset += nb_char_copied;
 						}
 
-						machine->WriteRegister(CALL_CODE, 0);
-						
+						machine->WriteRegister(CALL_CODE, 0);						
 						break;
 					}
+
+
 					case SC_GetString:
 					{
 						DEBUG ('s', "GetString, initiated by user program.\n");
@@ -210,13 +213,11 @@ void ExceptionHandler (ExceptionType which) {
 							free(buffer);
 						}
 
-
-
-
 						machine->WriteRegister(CALL_CODE, nb_char_written);
 						break;
 					}
 					#endif	//CHANGED
+
 
 					default:
 					{
