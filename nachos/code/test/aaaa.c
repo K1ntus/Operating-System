@@ -1,5 +1,9 @@
+#ifdef CHANGED
+
 #include "syscall.h"
-/*
+#include <stdarg.h>
+#include "vsprintf.c"
+
 char buffer[80];
 int vspfunc(char *format, ...) {
    va_list aptr;
@@ -11,15 +15,17 @@ int vspfunc(char *format, ...) {
 
    return(ret);
 }
-*/
 
-int main () {/*
-   int i = 5;
+int main () {
+  int i = 5;
    float f = 27.0;
    char str[50] = "tutoriaspoint.com";
 
    vspfunc("%d %f %s", i, f, str);
-   printf("%s\n", buffer);
+   PutString(buffer);
    
-   return(0);*/
+   return(0);
 }
+
+
+#endif //CHANGED

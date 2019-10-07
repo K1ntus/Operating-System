@@ -16,7 +16,9 @@
 #include "stats.h"
 #include "timer.h"
 
+#ifdef CHANGED
 #define MAX_STRING_SIZE 1024
+#endif //CHANGED
 
 // Initialization and cleanup routines
 extern void Initialize (int argc, char **argv);	// Initialization,
@@ -51,10 +53,11 @@ extern SynchDisk *synchDisk;
 extern PostOffice *postOffice;
 #endif
 
+#ifdef CHANGED
 #ifdef USER_PROGRAM
 #include "synchconsole.h"
 extern SynchConsole * synchconsole;
 #endif
-
+#endif //CHANGED
 
 #endif // SYSTEM_H

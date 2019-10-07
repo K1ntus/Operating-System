@@ -140,9 +140,6 @@ void Fork (void (*func) ());
 void Yield ();
 
 
-void PutChar(char c);
-void PutString(char * c);
-
 #endif // IN_USER_MODE
 
 #endif /* SYSCALL_H */

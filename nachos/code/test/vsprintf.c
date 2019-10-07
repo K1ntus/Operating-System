@@ -9,6 +9,7 @@
  * Wirzenius wrote this portably, Torvalds fucked it up :-)
  */
 
+#ifdef CHANGED
 #include <stdarg.h>
 
 #if 0
@@ -366,3 +367,5 @@ int sprintf(char * buf, const char *fmt, ...)
 	va_end(args);
 	return i;
 }
+
+#endif //CHANGED
