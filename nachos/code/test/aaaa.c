@@ -1,30 +1,20 @@
 #ifdef CHANGED
 
-#include "syscall.h"
+//#include "syscall.h"
 #include <stdarg.h>
-#include "vsprintf.c"
+//#include "vsprintf.c"
 
-char buffer[80];
-int vspfunc(char *format, ...) {
-   va_list aptr;
-   int ret;
 
-   va_start(aptr, format);
-   ret = vsprintf(buffer, format, aptr);
-   va_end(aptr);
-
-   return(ret);
-}
 
 int main () {
-  int i = 5;
-   float f = 27.0;
-   char str[50] = "tutoriaspoint.com";
+   int i = 5;
+   char str[50];
+   strcpy(str, "tutoriaspoint.com!!");
 
-   vspfunc("%d %f %s", i, f, str);
-   PutString(buffer);
+   printf("%d %d %s", i+1, i, str);
+   //PutString(buffer);
    
-   return(0);
+    return(0);
 }
 
 

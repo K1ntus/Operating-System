@@ -47,10 +47,8 @@ CPP	:=	$(GCCDIR)/$(GCC) -E -P
 INCDIR	:=	-I../userprog -I../threads
 CFLAGS 	:=	-DIN_USER_MODE -c $(INCDIR) -G 0 -Wall -O2 -DCHANGED
 
-ifdef CHANGED
-SOURCES	=	$(filter-out vsprintf.c, $(wildcard *.c))
-endif #CHANGED
-PROGS	:=	$(patsubst %.c,%,$(SOURCES))
+SOURCES	=	$(wildcard *.c)
+PROGS	:=	$(filter-out vsprintf, $(patsubst %.c,%,$(SOURCES)))
 
 .PHONY: all
 
@@ -58,7 +56,7 @@ all: $(PROGS)
 
 start.o: start.S ../userprog/syscall.h
 	$(CPP) $(CPPFLAGS) start.S > strt.s
-	$(AS) $(ASFLAGS) -o start.o  strt.s
+	$(AS) $(ASFLAGS) -o start.o   strt.s
 	rm strt.s
 
 
@@ -66,21 +64,14 @@ start.o: start.S ../userprog/syscall.h
 	$(CC) $(CFLAGS) -c $<
 
 
-ifdef CHANGED
 vsprintf.o: vsprintf.c
-	$(CC) $(CFLAGS) -c vsprintf.c -I.
-endif #CHANGED
+	$(CC) $(CFLAGS) -c $<
 
 # LB: Caution! start.o should appear *before* $< for the load!
 
-ifdef CHANGED
 %.coff: %.o start.o vsprintf.o
 	$(LD) $(LDFLAGS) start.o vsprintf.o $< -o $@
-endif
-ifndef CHANGED
-%.coff: %.o start.o 
-	$(LD) $(LDFLAGS) start.o $< -o $@
-endif
+
 %.s: %.coff
 	$(OBJDUMP) -d $< | sed -e 's/\<zero\>/r0/g;s/\<at\>/r1/g;s/\<v0\>/r2/g;s/\<v1\>/r3/g;s/\<a0\>/r4/g;s/\<a1\>/r5/g;s/\<a2\>/r6/g;s/\<a3\>/r7/g;s/\<t0\>/r8/g;s/\<gp\>/r28/g;s/\<sp\>/r29/g;s/\<s8\>/r30/g;s/\<ra\>/r31/g;' > $@
 

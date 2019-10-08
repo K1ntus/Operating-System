@@ -18,8 +18,20 @@
 #include <linux/ctype.h>
 #endif
 
+int printf(char *format, ...) {	
+	char buffer[16];
+	va_list aptr;
+	int ret;
 
+	va_start(aptr, format);
+	
+	ret = vsprintf(buffer, format, aptr);
+	PutString(buffer);
+	
+	va_end(aptr);
 
+	return(ret);
+}
 
 int isxdigit ( int arg ) {
 	return (arg >= '0' && arg <= '9') || (arg >= 'a' && arg <= 'f') || (arg >= 'A' && arg <= 'F') ;
