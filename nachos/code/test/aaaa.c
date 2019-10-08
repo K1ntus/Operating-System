@@ -9,12 +9,14 @@
 int main () {
    int i = 5;
    char str[50];
-   strcpy(str, "tutoriaspoint.com!!");
+   strcpy(str, "Les ordinateurs, c'est vraiment génial\n\0");
 
-   printf("%d %d %s", i+1, i, str);
+   printf("%d %d %s\n", i+1, i);
+   printf("%s", str);   //Should work (but currently not)
+   printf(str);
    //PutString(buffer);
    
-    return(0);
+   return(0);
 }
 
 

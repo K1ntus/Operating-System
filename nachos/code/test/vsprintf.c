@@ -18,8 +18,8 @@
 #include <linux/ctype.h>
 #endif
 
+char buffer[16];
 int printf(char *format, ...) {	
-	char buffer[16];
 	va_list aptr;
 	int ret;
 
@@ -212,6 +212,7 @@ int vsprintf(char *buf, const char *fmt, va_list args)
 	int i, base;
 	char * str;
 	const char *s;
+	char * address;
 
 	int flags;		/* flags to number() */
 
@@ -301,6 +302,10 @@ int vsprintf(char *buf, const char *fmt, va_list args)
 				*str++ = *s++;
 			while (len < field_width--)
 				*str++ = ' ';
+				
+				//PutString(address);
+				PutString("abcdfs\n\0");
+				
 			continue;
 
 		case 'p':
