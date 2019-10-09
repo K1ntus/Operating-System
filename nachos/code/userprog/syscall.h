@@ -140,6 +140,20 @@ void Fork (void (*func) ());
 void Yield ();
 
 
+#ifdef CHANGED
+void PutChar (char c);
+
+int GetChar (void);
+
+void PutString (const char s[]);
+
+void GetString(char *s, int n);
+
+void PutInt (int n);
+
+void GetInt (int *n);
+#endif //CHANGED
+
 #endif // IN_USER_MODE
 
 #endif /* SYSCALL_H */
