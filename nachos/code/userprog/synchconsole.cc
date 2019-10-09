@@ -153,9 +153,7 @@ void SynchConsole::SynchPutString(const char s[]) {
 //----------------------------------------------------------------------
 int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
     ASSERT(size > 0);
-
     ASSERT(size <= MAX_STRING_SIZE);
-
     ASSERT(from != 0x0);
 
     unsigned int number_character_read = 0;
@@ -242,8 +240,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 //              Could probably fixed when a better implementation will be up.
 //              The size can NOT be negative or greater than MAX_STRING_SIZE.
 //----------------------------------------------------------------------
-int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
-    
+int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {    
     ASSERT(from);
 
     if(DEBUG_MODE) {
@@ -251,7 +248,6 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
     }
 
     ASSERT(size > 0);
-
     ASSERT(size <= MAX_STRING_SIZE);
 
 
@@ -283,18 +279,14 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
 
 
 
+
 //----------------------------------------------------------------------
-// SynchConsole::copyStringToMachine
-//      Copy the string content located in the buffer 'from' to the machine address 'to'. 
-//          For a limited number of 'size' character
-// 
-//      "to" the address of the beginning of the machine address where we want
-//              to copy the from char array.
-
-
-//TODO
-
-
+// SynchConsole::PutInt
+//      Put a String to the simulated console, convert a signed int to a char*
+//          by using the snprintf function. Then it will be copied to the
+//          console with the SynchPutString function.
+//
+//      "n" the signed integer value to be printed in the simulated console.
 //----------------------------------------------------------------------
 void SynchConsole::PutInt (int n) {
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
@@ -310,19 +302,13 @@ void SynchConsole::PutInt (int n) {
 
 
 //----------------------------------------------------------------------
-// SynchConsole::copyStringToMachine
-//      Copy the string content located in the buffer 'from' to the machine address 'to'. 
-//          For a limited number of 'size' character
-// 
-//      "to" the address of the beginning of the machine address where we want
-//              to copy the from char array.
-//      "from" a char array that store the string that need to be paste
-//              into the machine.
-
-
-//TODO
-
-
+// SynchConsole::GetInt
+//      Get a String from the simulated console, convert it to a signed int using
+//          the sscanf function and then copy it to the address of the integer
+//          parameter.
+//
+//      "n" the address of that will store the conversion of the simulated console
+//          string entry as an signed integer.
 //----------------------------------------------------------------------
 void SynchConsole::GetInt (int * n) {
     ASSERT(n != 0x0);
@@ -342,9 +328,6 @@ void SynchConsole::GetInt (int * n) {
 
     free(buffer);
 }
-
-
-
 
 
 

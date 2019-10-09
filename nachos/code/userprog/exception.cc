@@ -153,7 +153,7 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutString:
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
-						char buffer[MAX_STRING_SIZE];
+						char* buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
 						int address = machine->ReadRegister(CALL_ARG1);
 
 						int nb_char_copied = -1;
@@ -181,6 +181,7 @@ void ExceptionHandler (ExceptionType which) {
 							offset += nb_char_copied;
 						}
 
+						free(buffer);
 						machine->WriteRegister(CALL_CODE, 0);						
 						break;
 					}

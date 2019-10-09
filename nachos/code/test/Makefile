@@ -48,7 +48,12 @@ INCDIR	:=	-I../userprog -I../threads
 CFLAGS 	:=	-DIN_USER_MODE -c $(INCDIR) -G 0 -Wall -O2 -DCHANGED
 
 SOURCES	=	$(wildcard *.c)
+
+ifeq ($(CHANGED), )
 PROGS	:=	$(filter-out vsprintf, $(patsubst %.c,%,$(SOURCES)))
+else
+PROGS	:=	$(patsubst %.c,%,$(SOURCES))
+endif #CHANGED
 
 .PHONY: all
 
@@ -69,8 +74,16 @@ vsprintf.o: vsprintf.c
 
 # LB: Caution! start.o should appear *before* $< for the load!
 
-%.coff: %.o start.o vsprintf.o
+ifeq ($(CHANGED), )
+aaaa.coff: aaaa.o start.o vsprintf.o
 	$(LD) $(LDFLAGS) start.o vsprintf.o $< -o $@
+%.coff: %.o start.o
+	$(LD) $(LDFLAGS) start.o $< -o $@
+else
+%.coff: %.o start.o
+	$(LD) $(LDFLAGS) start.o $< -o $@
+endif #CHANGED
+
 
 %.s: %.coff
 	$(OBJDUMP) -d $< | sed -e 's/\<zero\>/r0/g;s/\<at\>/r1/g;s/\<v0\>/r2/g;s/\<v1\>/r3/g;s/\<a0\>/r4/g;s/\<a1\>/r5/g;s/\<a2\>/r6/g;s/\<a3\>/r7/g;s/\<t0\>/r8/g;s/\<gp\>/r28/g;s/\<sp\>/r29/g;s/\<s8\>/r30/g;s/\<ra\>/r31/g;' > $@
@@ -81,4 +94,4 @@ $(PROGS): %: %.coff
 # Cleaning rule
 .PHONY: clean
 clean:
-	rm -f core *.coff *.o *.s $(PROGS)
+	rm -f core *.coff *.o *.s $(PROGS) testvsprintf

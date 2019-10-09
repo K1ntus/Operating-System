@@ -8,13 +8,17 @@ int main() {
     PutString("Chaine Vide:\n> \0");
     PutString("\0");
 
+    PutString("Chaine sans caractère \\0 ni \\n:\n> \0");
+    PutString("Bonjour");
+    PutString("\n\0");
+
 
     PutString("Chaine1.\nChaine 2. Il ne devrait rien y avoir derrière:\n\0 Si ce message est affiché, alors c'est un FAILURE \n\0");
 
 
     PutString("Chaine1.\n\0");
     PutString("Voici la seconde chaine.\n\0");
-    PutString("Finalement, nous devons tester cet appel systeme avec une chaine de caracteres conséquentes.\n \t * La voici.\0");
+    PutString("Finalement, nous devons tester cet appel systeme avec une chaine de caracteres conséquentes.\n \t * La voici.\n\0");
 
     PutString("Chaine Depassant la taille du buffer:\n> \0");
     
@@ -25,6 +29,7 @@ int main() {
 
 
 
+    PutString("\n\0");
 //  Ceci est la derniere longue chaine de caractere, mais cette fois sans retour a la ligne donc cadeau: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam nostram quidem, inquit Pomponius iocans; Hunc vos beatum; Quid de Pythagora? Id mihi magnum videtur. Si quicquam extra virtutem habeatur in bonis. Age, inquies, ista parva sunt. Duo Reges: constructio interrete. Tum Torquatus: Prorsus, inquit, assentior;Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille,consentit.Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam nostram quidem, inquit Pomponius iocans; Hunc vos beatum; Quid de Pythagora? Id mihi magnum videtur. Si quicquam extra virtutem habeatur in bonis. Age, inquies, ista parva sunt. Duo Reges2: constructio interrete777. Tum Torquatus: Prorsus, inquit, assentior;Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.Ceci est la dernière longue chaine de caractere, mais cette fois sans retour à la ligne donc cadeau: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam nostram quidem, inquit Pomponius iocans; Hunc vos beatum; Quid de Pythagora? Id mihi magnum videtur. Si quicquam extra virtutem habeatur in bonis. Age, inquies, ista parva sunt. Duo Reges3: constructio interrete. Tum Torquatus: Prorsus, inquit, assentior;Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam n888ostram quidem, inquit Pomponius iocans; Hunc vos beatum; Quid de Pythagora? Id mihi magnum videtur. Si quicquam extra virtutem habeatur in bonis. Age, inquies, ista parva sunt. Duo Reges4: constructio interrete. Tum Torquatus: Prorsus, inquit, assentior;Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.                   PAS ENCORE FINIS         Ceci est la dernière longue chaine de caractere, mais cette fois sans retour à la ligne donc cadeau: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam nostram quidem, inquit Pomponius iocans; Hunc vos beatum; Quid de Pythagora? Id mihi magnum videtur. Si quicquam extra virtutem habeatur in bonis. Age, inquies, ista parva sunt. Duo Reges: constructio interrete. Tum Torquatus: Prorsus, inquit, assentior;Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille,consentit.Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam nostram quidem, inquit Pomponius iocans; Hunc vos beatum; Quid de Pythagora? Id mihi magnum videtur. Si quicquam extra virtutem habeatur in bonis. Age, inquies, ista parva sunt. Duo Reges2: constructio interrete777. Tum Torquatus: Prorsus, inquit, assentior;Sullae consulatum? Sed ad bona praeterita redeamus. Immo videri fortasse. Explanetur igitur. Esse enim, nisi eris, non potes. Minime vero, inquit ille, consentit.Ceci est la dernière longue chaine de caractere, mais cette fois sans retour à la ligne donc cadeau: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non quam nostram quidem, inquit Pomponius iocans;
     // Halt();
 }
