@@ -18,8 +18,8 @@
 #include <linux/ctype.h>
 #endif
 
-int printf(char *format, ...) {	
 char buffer[16];
+int printf(char *format, ...) {	
 	va_list aptr;
 	int ret;
 
@@ -53,11 +53,13 @@ int islower( int character ) {
 	return 1;	
 }
 
-int strnlen(const char *s, int maxlen){
+int strnlen(const char *str, int maxlen){
 	int size = 0;
-	while(size < maxlen && s[size] != '\0'){
-		size +=1;
+	
+	while (size < maxlen && str[size] != 0x0){
+		size++;
 	}
+
 	return size;
 }
 
@@ -292,9 +294,8 @@ int vsprintf(char *buf, const char *fmt, va_list args)
 			s = va_arg(args, char *);
 			if (!s)
 				s = "<NULL>";
-
-			len = strnlen(s, precision);
-			// len = 1;
+				
+			len = strnlen(s, 1024);
 			if (!(flags & LEFT))
 				while (len < field_width--)
 					*str++ = ' ';
@@ -302,7 +303,8 @@ int vsprintf(char *buf, const char *fmt, va_list args)
 				*str++ = *s++;
 			while (len < field_width--)
 				*str++ = ' ';
-				
+
+				/*
 				//PutString(address);
 				PutString("strnlen = \0");
 				PutInt(len);
@@ -310,6 +312,7 @@ int vsprintf(char *buf, const char *fmt, va_list args)
 				PutString("string = \0");
 				PutString(str);
 				PutString("\n\0");
+				*/
 				
 			continue;
 

@@ -36,7 +36,11 @@ static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
     readAvail = new Semaphore ("read avail", 0);
     writeDone = new Semaphore ("write done", 0);
+    ASSERT(writeDone);
+    ASSERT(readAvail);
+
     console = new Console (readFile, writeFile, ReadAvailHandler, WriteDoneHandler, 0);
+    ASSERT(console);
 }
 
 
@@ -199,6 +203,7 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     int pos_in_buffer = 0;
     int char_readed = 1;
     char * buffer = (char*) malloc(sizeof(char) * MAX_STRING_SIZE);
+    ASSERT(buffer != 0x0);  
 
 
     while(pos_in_buffer < MAX_STRING_SIZE && char_readed != '\0' && char_readed != '\n') {
@@ -290,6 +295,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
 //----------------------------------------------------------------------
 void SynchConsole::PutInt (int n) {
     char * buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
+    ASSERT(buffer != 0x0);  
 
     int size = snprintf(buffer, MAX_STRING_SIZE-1, "%d", n);
     buffer[size] = '\0';

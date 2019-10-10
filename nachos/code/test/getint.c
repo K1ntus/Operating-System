@@ -1,3 +1,12 @@
+/* getint.c
+ *	Simple program to test whether the GetInt works. 
+ *  Also supposed that the PutString, PutChar and PutInt syscalls 
+ *  are working.
+ *	
+ *	It is looping, trying to GetInt, then Put it in the simulated console
+ *  To exit the looping, you had to send the integer 42.
+ */
+
 #include "syscall.h"
 
 int main(void) {

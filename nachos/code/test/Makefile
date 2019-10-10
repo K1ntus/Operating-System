@@ -69,19 +69,23 @@ start.o: start.S ../userprog/syscall.h
 	$(CC) $(CFLAGS) -c $<
 
 
+ifeq ($(CHANGED), )
+
 vsprintf.o: vsprintf.c
 	$(CC) $(CFLAGS) -c $<
 
-# LB: Caution! start.o should appear *before* $< for the load!
-
-ifeq ($(CHANGED), )
 aaaa.coff: aaaa.o start.o vsprintf.o
 	$(LD) $(LDFLAGS) start.o vsprintf.o $< -o $@
-%.coff: %.o start.o
+
+%.coff: %.o start.o 
 	$(LD) $(LDFLAGS) start.o $< -o $@
+
 else
+
+# LB: Caution! start.o should appear *before* $< for the load!
 %.coff: %.o start.o
 	$(LD) $(LDFLAGS) start.o $< -o $@
+
 endif #CHANGED
 
 

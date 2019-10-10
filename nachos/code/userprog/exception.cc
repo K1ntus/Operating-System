@@ -67,9 +67,10 @@ static void UpdatePC () {
 #define CALL_ARG2 5
 #define CALL_ARG3 6
 #define CALL_ARG4 7
+#define DEFAULT_RETURN_VALUE 0
 
 void ExceptionHandler (ExceptionType which) {
-    int type = machine->ReadRegister (2);
+    int type = machine->ReadRegister (CALL_CODE);
 
 
 //	FLAGS:
@@ -113,7 +114,7 @@ void ExceptionHandler (ExceptionType which) {
 						DEBUG ('s', "Putchar, initiated by user program.\n");
 						synchconsole->SynchPutChar(machine->ReadRegister(CALL_ARG1));
 
-						machine->WriteRegister(CALL_CODE, 0);
+						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
 
@@ -132,7 +133,7 @@ void ExceptionHandler (ExceptionType which) {
 						int address = machine->ReadRegister(CALL_ARG1);
 						synchconsole->PutInt(address);
 
-						machine->WriteRegister(CALL_CODE, 0);
+						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
 
@@ -154,6 +155,8 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
 						char* buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
+    					ASSERT(buffer != 0x0);  
+
 						int address = machine->ReadRegister(CALL_ARG1);
 
 						int nb_char_copied = -1;
@@ -182,7 +185,7 @@ void ExceptionHandler (ExceptionType which) {
 						}
 
 						free(buffer);
-						machine->WriteRegister(CALL_CODE, 0);						
+						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);						
 						break;
 					}
 
@@ -194,16 +197,17 @@ void ExceptionHandler (ExceptionType which) {
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
 
+
+						char * buffer = (char *) malloc(size * sizeof(char));
+    					ASSERT(buffer != 0x0);  
+
 						int nb_char_written = 0;
 						
 						while(nb_char_written <= size) {
-							char * buffer = (char *) malloc(size * sizeof(char));
+
 							synchconsole->SynchGetString(buffer, size);
 							
 							size = synchconsole->copyStringToMachine(address, buffer, size);
-
-							fprintf(stderr,"SIZE GETSTRING =%d\n", size);
-							fprintf(stderr,"STRING =%s\n", buffer);
 							
 							nb_char_written += size;
 

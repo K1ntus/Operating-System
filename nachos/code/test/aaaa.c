@@ -9,14 +9,16 @@
 int main () {
    int i = 5;
    char str[50];
-   strcpy(str, "Les ordinateurs, c'est vraiment génial\n\0");
+   char hello[50];
 
-   printf("%d %d %s\n", i+1, i);
-   printf("%s", str);   //Should work (but currently not)
-   printf(str);
+   strcpy(str, "Ceci est une chaine de caractères à printf !\n\0");
+   strcpy(hello, "Hello World\n\0");
+
+   printf("Entier 1(6) -> %d;\nEntier 2(5) -> %d;\nChaine de caracteres: %s\n", i+1, i, str);
+   printf("Printf de 'Hello World'\n", hello);
+   printf("Printf du caractere C -> %c\n", 'C');
    //PutString(buffer);
    
-   return(0);
 }
 
 
