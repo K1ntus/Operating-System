@@ -14,6 +14,10 @@
  * 
  */
 
+
+#ifdef CHANGED
+
+
 #include "syscall.h"
 
 #define SIZE_1 12
@@ -31,3 +35,6 @@ int main() {
 
     }
 }
+
+
+#endif //CHANGED

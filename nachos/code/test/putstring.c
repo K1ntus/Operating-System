@@ -11,6 +11,10 @@
  *      \* Very large string (4990+) characters
  * 
  */
+
+
+#ifdef CHANGED
+
 #include "syscall.h"
 
 int main() {  
@@ -38,3 +42,5 @@ int main() {
 
     PutString("\n\0");
 }
+
+#endif //CHANGED

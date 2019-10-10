@@ -6,6 +6,10 @@
  *	It is looping, trying to Getchar, then Put it in the simulated console
  *  To exit the looping, you had to send the character '$'.
  */
+
+
+#ifdef CHANGED
+
 #include "syscall.h"
 
 int main(void) {
@@ -19,3 +23,5 @@ int main(void) {
 
     return 0;
 }
+
+#endif //CHANGED

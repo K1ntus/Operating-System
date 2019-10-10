@@ -7,6 +7,9 @@
  *  To exit the looping, you had to send the integer 42.
  */
 
+
+#ifdef CHANGED
+
 #include "syscall.h"
 
 int main(void) {
@@ -25,3 +28,6 @@ int main(void) {
     PutChar('\n');
     // Halt();
 }
+
+
+#endif //CHANGED

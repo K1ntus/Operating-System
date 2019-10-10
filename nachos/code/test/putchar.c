@@ -10,6 +10,10 @@
  * 
  */
 
+
+#ifdef CHANGED
+
+
 #include "syscall.h"
 
 void print1(char c, int n) {
@@ -46,3 +50,5 @@ int main() {
     PutChar('\n');
     PutChar('\0');
 }
+
+#endif //CHANGED

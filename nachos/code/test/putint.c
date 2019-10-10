@@ -17,6 +17,10 @@
  * 
  */
 
+
+#ifdef CHANGED
+
+
 #include "syscall.h"
 
 void print(int n) {
@@ -63,3 +67,5 @@ int main() {
 
     // Halt();
 }
+
+#endif //CHANGED

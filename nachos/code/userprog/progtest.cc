@@ -136,6 +136,7 @@ void ConsoleTest (const char *in, const char *out) {
 #ifdef CHANGED
 void SynchConsoleTest (const char * in, const char * out) {
     SynchConsole * test_synch_console = new SynchConsole(in, out);
+    ASSERT(test_synch_console);
 
     if(in == NULL && out == NULL)
         fprintf(stderr,"[INFO] SynchConsoleTest: Interactive test using '<'output'>'\n");
