@@ -32,7 +32,8 @@ int main() {
     GetString(s1, SIZE_1); //Can test with MAX_STRING_SIZE string
     PutString(">> \0");
     PutString(s1);
-    
+    PutString("\n");
+    /*
     PutString("\nChaine de taille 6:\n> \0");
     GetString(s2, SIZE_2); //Can test with MAX_STRING_SIZE string
     PutString(">> \0");
@@ -50,7 +51,7 @@ int main() {
     PutString(">> \0");
     PutString(s4);
     PutString("\n");
-
+*/
 /*
     PutString("\nChaine de taille 1025:\n> \0");    //MAX_STRING_SIZE set to 1024, so will return an error
     GetString(s5, 1025);

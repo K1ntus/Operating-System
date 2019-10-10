@@ -14,17 +14,17 @@ NACHOS_ROOT = ../../
 NACHOS_SYS := $(shell $(NACHOS_ROOT)/bin/nachos_sys)
 NACHOS_ARCH := $(shell $(NACHOS_ROOT)/bin/nachos_arch)
 
-ifneq ($(wildcard /net/cremi/aguermou/xgcc/decstation-ultrix/bin),)
-# Cremi
-GCCDIR	= /net/cremi/aguermou/xgcc/decstation-ultrix/bin
-GCC	:=	gcc
-endif
+# ifeq ($(wildcard /net/cremi/aguermou/xgcc/decstation-ultrix/bin),)
+# # Cremi
+# GCCDIR	= /net/cremi/aguermou/xgcc/decstation-ultrix/bin
+# GCC	:=	gcc
+# endif
 
-ifneq ($(wildcard /opt/xgcc/decstation-ultrix/bin),)
+# ifeq ($(wildcard /opt/xgcc/decstation-ultrix/bin),)
 # Maison
 GCCDIR = /opt/xgcc/decstation-ultrix/bin
 GCC	:=	xgcc
-endif
+# endif
 
 LDFLAGS = -T script -N
 ASFLAGS = 
@@ -69,7 +69,7 @@ start.o: start.S ../userprog/syscall.h
 	$(CC) $(CFLAGS) -c $<
 
 
-ifeq ($(CHANGED), )
+ifneq ($(CHANGED), )
 
 vsprintf.o: vsprintf.c
 	$(CC) $(CFLAGS) -c $<

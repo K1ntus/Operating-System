@@ -102,8 +102,7 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
 						int value = machine->ReadRegister(CALL_ARG1);
-						fprintf(stderr, "output exit code = %d\n", value);
-						
+						//fprintf(stderr, "output exit code = %d\n", value);						
 						Exit(value);
 						break;
 					}
@@ -113,7 +112,6 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Putchar, initiated by user program.\n");
 						synchconsole->SynchPutChar(machine->ReadRegister(CALL_ARG1));
-
 						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
@@ -154,17 +152,14 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutString:
 					{
 						DEBUG ('s', "PutString, initiated by user program.\n");
+						int address = machine->ReadRegister(CALL_ARG1);
+						int nb_char_copied = -1;
+						int offset = 0;
+
 						char* buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
     					ASSERT(buffer != 0x0);  
 
-						int address = machine->ReadRegister(CALL_ARG1);
-
-						int nb_char_copied = -1;
-						int offset = 0;
-						
-
 						while(nb_char_copied != 0) {
-							//fprintf(stderr,"\nBREAK\n");
 							nb_char_copied = synchconsole->copyStringFromMachine(address + offset, buffer, MAX_STRING_SIZE);
 							synchconsole->SynchPutString(buffer);
 
@@ -196,29 +191,21 @@ void ExceptionHandler (ExceptionType which) {
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
-
-
-						char * buffer = (char *) malloc(size * sizeof(char));
-    					ASSERT(buffer != 0x0);  
-
-						int nb_char_written = 0;
+						int nb_char_readed = size;
+						int offset = 0;
 						
-						while(nb_char_written <= size) {
-
+						char * buffer = (char *) malloc(size * sizeof(char));
+						ASSERT(buffer != 0x0);
+						
+						while(nb_char_readed != 0 && nb_char_readed == size) {
 							synchconsole->SynchGetString(buffer, size);
-							
-							size = synchconsole->copyStringToMachine(address, buffer, size);
-							
-							nb_char_written += size;
-
-							if(buffer[size] == '\n' || buffer[size] == '\0') {
-								break;
-							}
-
-							free(buffer);
+							nb_char_readed = synchconsole->copyStringToMachine(address+offset, buffer, MAX_STRING_SIZE);
+							offset += nb_char_readed;
 						}
 
-						machine->WriteRegister(CALL_CODE, nb_char_written);
+						free(buffer);
+
+						machine->WriteRegister(CALL_CODE, offset);
 						break;
 					}
 					#endif	//CHANGED

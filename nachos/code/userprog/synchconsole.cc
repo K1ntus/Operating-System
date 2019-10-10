@@ -7,7 +7,7 @@
 
 //----------------------------------------------------------------------
 // DEBUG_MODE
-// 	Enable/Disable verbose mode for some method. Helping mostly for debugging purposes.
+// 	Enable/Disable verbose mode for some functions. Helping mostly for debugging purposes.
 //
 //	1 -- Activate this mode
 //	0 -- Deactivate this mode
@@ -198,33 +198,16 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     ASSERT(n > 0);
     ASSERT(n <= MAX_STRING_SIZE);
     ASSERT(s != 0x0);
-    
 
     int pos_in_buffer = 0;
     int char_readed = 1;
-    char * buffer = (char*) malloc(sizeof(char) * MAX_STRING_SIZE);
-    ASSERT(buffer != 0x0);  
 
-
-    while(pos_in_buffer < MAX_STRING_SIZE && char_readed != '\0' && char_readed != '\n') {
+    while(pos_in_buffer < n && char_readed != '\0' && char_readed != '\n') {
         char_readed = this->SynchGetChar();
-        buffer[pos_in_buffer] = char_readed;
+        s[pos_in_buffer] = char_readed;
         pos_in_buffer +=1;
     }
-    buffer[pos_in_buffer-1] = '\0';
-
-
-
-    for(int i = 0; i < n; i++) {
-        if(buffer[i] == '\n' || buffer[i] == EOF || i == n-1 || buffer[i] == '\0'){
-            s[i] = '\0';
-            break;
-        }
-        s[i] = buffer[i];
-    }
-
-    free(buffer);
-
+    s[pos_in_buffer] = '\0';
 }
 
 
@@ -247,24 +230,17 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
 //----------------------------------------------------------------------
 int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {    
     ASSERT(from);
-
-    if(DEBUG_MODE) {
-        fprintf(stderr,"[DEBUG@copyStringToMachine] Entry String:%s with size=%d\n", from, size);
-    }
-
     ASSERT(size > 0);
     ASSERT(size <= MAX_STRING_SIZE);
 
 
     unsigned int number_character_read = 0;
-
     while(number_character_read < size){
         if(DEBUG_MODE) {
             fprintf(stderr, "[DEBUG@copyStringToMachine] Write Char:%c. SlotID=%d\n", from[number_character_read], number_character_read);
         }
         
         machine->WriteMem(to + number_character_read, 1, from[number_character_read]);   //ReadMem is already managing the Translation (virt <-> phys memory)
-
 
         if(from[number_character_read] == '\0' || from[number_character_read] == '\n') {
             
@@ -274,12 +250,9 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
             break;
         }
         number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
-
     }
-    
 
     return number_character_read;
-
 }
 
 
@@ -302,8 +275,7 @@ void SynchConsole::PutInt (int n) {
     
     this->SynchPutString(buffer);
     
-    free(buffer);
-    
+    free(buffer);    
 }
 
 
@@ -325,96 +297,11 @@ void SynchConsole::GetInt (int * n) {
     this->SynchGetString(buffer, MAX_STRING_SIZE);
     
 	int ret = sscanf(buffer, "%d", n);
-
     if(ret == EOF) {
         fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s and saving to address %p\n", buffer, &n);
     }
 
-    //machine->WriteMem(n, sizeof(int), *n);   //ReadMem is already managing the Translation (virt <-> phys memory)
-
     free(buffer);
 }
-
-
-
-
-
-
-
-/*  TESTS ~ DEPRECATED  */
-#if 0
-
-bool SynchConsole::SynchConsoleTestChar_01(){
-    char ch;
-    while ((ch = SynchGetChar()) != EOF){
-        if(DEBUG_MODE){
-            SynchPutChar('<');
-            SynchPutChar(ch);
-            SynchPutChar('>');
-            SynchPutChar('\n');
-        } else {
-            SynchPutChar(ch);
-
-        }
-    }
-    
-    if(DEBUG_MODE){
-        fprintf(stderr, "[DEBUG@SynchConsoleTestChar_01] EOF detected in SynchConsoleTestChar!\n");
-    }
-
-
-    return true;
-}
-
-bool SynchConsole::SynchConsoleTestString_01() {
-    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
-
-    //Test if first line is already EOF
-    SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-    if(DEBUG_MODE)
-        fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
-
-
-    while(char_buffer[0] != '\0') {
-        char_buffer[0] = '\0';
-        SynchGetString(char_buffer, TEST_STRING_BUFFER_SIZE);
-        if(DEBUG_MODE)
-            fprintf(stderr, "[DEBUG@TestString_01] char: %s\n", char_buffer);
-    }
-
-
-    free(char_buffer);
-
-    return true;
-}
-
-bool SynchConsole::SynchConsoleTestCopyString_01() {
-    char * char_buffer = (char *) malloc(sizeof(char) * TEST_STRING_BUFFER_SIZE);
-
-
-    
-    // char name[13] = "StudyTonight";       // valid character array initialization
-    // int  int_name[13];
-    // for(int i = 0; i < 13; i++){
-    //     int_name[i] = name[i];
-    // }
-
-    int int_name2[13] = {83, 116, 117, 100, 121, 84, 111, 110, 105, 103, 104, 116};
-    int res = copyStringFromMachine(int_name2[0], char_buffer, 120);
-    
-    if (res != 14){
-        free(char_buffer);
-
-        return false;
-    }
-
-
-
-
-    free(char_buffer);
-
-    return true;
-}
-#endif  // Test (deprecated)
 
 #endif // CHANGED
