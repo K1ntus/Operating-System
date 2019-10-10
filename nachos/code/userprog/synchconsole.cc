@@ -94,7 +94,7 @@ void SynchConsole::SynchPutChar(int ch) {
         if(ch == '\n')
             fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:\\n\n");
         else if(ch == '\0')
-            fprintf(stderr, "[DEBUG@SynchGetChar] GetChar:\\0\n");
+            fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:\\0\n");
         else
             fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:%c\n", ch);
     }
@@ -298,7 +298,8 @@ void SynchConsole::GetInt (int * n) {
     
 	int ret = sscanf(buffer, "%d", n);
     if(ret == EOF) {
-        fprintf(stderr, "[ERROR] GetInt invoked an error while performing sscanf call with argument : %s and saving to address %p\n", buffer, &n);
+        fprintf(stderr, "[WARNING] GetInt invoked an error while performing sscanf call with argument : [%s] and saving to address %p\n", buffer, &n);
+        fprintf(stderr, "[WARNING] Make sure you're not sending an invalid argument.\n");
     }
 
     free(buffer);

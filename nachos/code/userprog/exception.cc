@@ -93,7 +93,6 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
 						interrupt->Halt();	//Already making Exit(0)
-
 						break;
 					}
 
@@ -102,7 +101,6 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
 						int value = machine->ReadRegister(CALL_ARG1);
-						//fprintf(stderr, "output exit code = %d\n", value);						
 						Exit(value);
 						break;
 					}
@@ -128,9 +126,8 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_PutInt:
 					{
 						DEBUG ('s', "PutInt, initiated by user program.\n");
-						int address = machine->ReadRegister(CALL_ARG1);
-						synchconsole->PutInt(address);
-
+						int value = machine->ReadRegister(CALL_ARG1);
+						synchconsole->PutInt(value);
 						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
@@ -142,7 +139,6 @@ void ExceptionHandler (ExceptionType which) {
 						int value = -1;
 						int address = machine->ReadRegister(CALL_ARG1);
 						synchconsole->GetInt(&value);
-
 						machine->WriteMem(address, sizeof(int), (int) value);
 						machine->WriteRegister(CALL_CODE, value);
 						break;
@@ -200,6 +196,7 @@ void ExceptionHandler (ExceptionType which) {
 						while(nb_char_readed != 0 && nb_char_readed == size-1) {
 							synchconsole->SynchGetString(buffer, size);
 							nb_char_readed = synchconsole->copyStringToMachine(address+offset, buffer, MAX_STRING_SIZE);
+							fprintf(stderr, "[%d->%d]@%d %s\n", nb_char_readed, offset, size, buffer);
 							offset += nb_char_readed;
 						}
 
