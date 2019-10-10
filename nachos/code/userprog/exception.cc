@@ -196,20 +196,18 @@ void ExceptionHandler (ExceptionType which) {
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
+						ASSERT(size > 0);
 
 
+						int nb_char_written = 0;
+
+						while(size > 0) {
 						char * buffer = (char *) malloc(size * sizeof(char));
     					ASSERT(buffer != 0x0);  
 
-						int nb_char_written = 0;
-						
-						while(nb_char_written <= size) {
-
 							synchconsole->SynchGetString(buffer, size);
-							
-							size = synchconsole->copyStringToMachine(address, buffer, size);
-							
-							nb_char_written += size;
+					
+							size = synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
 
 							if(buffer[size] == '\n' || buffer[size] == '\0') {
 								break;

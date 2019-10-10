@@ -196,17 +196,21 @@ int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {
 //----------------------------------------------------------------------
 void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     ASSERT(n > 0);
-    ASSERT(n <= MAX_STRING_SIZE);
+    //ASSERT(n <= MAX_STRING_SIZE);
     ASSERT(s != 0x0);
-    
+
+    int max_size = n;
+
+    if (n <= MAX_STRING_SIZE)
+        max_size = MAX_STRING_SIZE;
 
     int pos_in_buffer = 0;
     int char_readed = 1;
-    char * buffer = (char*) malloc(sizeof(char) * MAX_STRING_SIZE);
+    char * buffer = (char*) malloc(sizeof(char) * max_size);
     ASSERT(buffer != 0x0);  
 
 
-    while(pos_in_buffer < MAX_STRING_SIZE && char_readed != '\0' && char_readed != '\n') {
+    while(pos_in_buffer < max_size && char_readed != '\0' && char_readed != '\n') {
         char_readed = this->SynchGetChar();
         buffer[pos_in_buffer] = char_readed;
         pos_in_buffer +=1;
