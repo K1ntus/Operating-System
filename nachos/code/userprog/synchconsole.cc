@@ -202,12 +202,12 @@ void SynchConsole::SynchGetString(char *s, int n) { //Fgets
     int pos_in_buffer = 0;
     int char_readed = 1;
 
-    while(pos_in_buffer < n && char_readed != '\0' && char_readed != '\n') {
+    while(pos_in_buffer < n-1 && char_readed != '\0' && char_readed != '\n') {
         char_readed = this->SynchGetChar();
         s[pos_in_buffer] = char_readed;
         pos_in_buffer +=1;
+        s[pos_in_buffer] = '\0';
     }
-    s[pos_in_buffer] = '\0';
 }
 
 
