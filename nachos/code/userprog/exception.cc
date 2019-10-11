@@ -195,7 +195,7 @@ void ExceptionHandler (ExceptionType which) {
 						
 						while(nb_char_readed != 0 && nb_char_readed == size-1) {
 							synchconsole->SynchGetString(buffer, size);
-							nb_char_readed = synchconsole->copyStringToMachine(address+offset, buffer, MAX_STRING_SIZE);
+							nb_char_readed = synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
 							fprintf(stderr, "[%d->%d]@%d %s\n", nb_char_readed, offset, size, buffer);
 							offset += nb_char_readed;
 						}
