@@ -187,17 +187,15 @@ void ExceptionHandler (ExceptionType which) {
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
-						int nb_char_readed = size-1;
+						ASSERT(size > 0);
 						int offset = 0;
 						
 						char * buffer = (char *) malloc(size * sizeof(char));
 						ASSERT(buffer != 0x0);
 						
-						while(nb_char_readed != 0 && nb_char_readed == size-1) {
+						while(offset < size) {
 							synchconsole->SynchGetString(buffer, size);
-							nb_char_readed = synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
-							fprintf(stderr, "[%d->%d]@%d %s\n", nb_char_readed, offset, size, buffer);
-							offset += nb_char_readed;
+							offset += synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
 						}
 
 						free(buffer);

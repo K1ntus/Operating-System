@@ -249,7 +249,7 @@ int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {
             }
             break;
         }
-        number_character_read += 1; /* On récupère, on test si /0 si /0 -> break, sinon putchar, à la fin p-e rajouter un /0 */
+        number_character_read += 1;
     }
 
     return number_character_read;

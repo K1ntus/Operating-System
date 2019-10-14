@@ -42,7 +42,7 @@ int main() {
     PutString("\n\0");
 
     PutString("\nNombre 'classique':\n> \0");
-    PutInt(1234567890);
+    PutInt(5496513);
     PutString("\n\0");
 
     PutString("\nUn caractere:\n> \0");
@@ -62,7 +62,7 @@ int main() {
     PutString("\n\0");
 
     PutString("\nNombre beaucoup trop grand:\n> \0");
-    PutInt(99999999999999999999999999999999999999); //Should return -1 because it's clearly too large for a signed integer
+    PutInt(999999999999999); //Should return -1 because it's clearly too large for a signed integer
     PutString("\n\n\0");
 
     // Halt();
