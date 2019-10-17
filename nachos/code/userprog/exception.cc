@@ -24,6 +24,7 @@
 #include "copyright.h"
 #include "system.h"
 #include "syscall.h"
+#include "userthread.h"
 
 
 //----------------------------------------------------------------------
@@ -218,6 +219,25 @@ void ExceptionHandler (ExceptionType which) {
 						}
 
 						machine->WriteRegister(CALL_CODE, nb_char_written);
+						break;
+					}
+
+
+					case SC_ThreadCreate:
+					{
+						DEBUG ('s', "ThreadCreate, initiated by user program.\n");
+						int return_value = -1;
+
+						int function_adress = machine->ReadRegister(CALL_ARG1);
+						int args_adress = machine->ReadRegister(CALL_ARG2);
+
+						return_value = UserThread::do_ThreadCreate(function_adress, args_adress);
+						break;
+					}
+					case SC_ThreadExit:
+					{
+						DEBUG ('s', "ThreadExit, initiated by user program.\n");
+						int return_value = -1;
 						break;
 					}
 					#endif	//CHANGED
