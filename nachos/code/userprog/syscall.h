@@ -155,15 +155,12 @@ int GetString(char *s, int n);
 
 void PutInt (int n);
 
-<<<<<<< HEAD
-int GetInt (int *n);
-=======
 void GetInt (int *n);
 
 void ThreadCreate (void f(void*args), void * args);
 
 void ThreadExit (void);
->>>>>>> get_string
+
 #endif //CHANGED
 
 #endif // IN_USER_MODE

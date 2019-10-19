@@ -188,26 +188,13 @@ void ExceptionHandler (ExceptionType which) {
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
-<<<<<<< HEAD
-						ASSERT(size > 0);
-						int offset = 0;
-						
-						char * buffer = (char *) malloc(size * sizeof(char));
-						ASSERT(buffer != 0x0);
-						
-						while(offset < size) {
-							synchconsole->SynchGetString(buffer, size);
-							offset += synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
-=======
 						int init_size = size;
 						ASSERT(size > 0);
 						int offset = 0;
 
-						int nb_char_written = 0;
-
 						while(size > 0 && size <= init_size) {
-						char * buffer = (char *) malloc(size * sizeof(char));
-    					ASSERT(buffer != 0x0);  
+							char * buffer = (char *) malloc(size * sizeof(char));
+							ASSERT(buffer != 0x0);  
 
 							synchconsole->SynchGetString(buffer, size);
 					
@@ -218,10 +205,8 @@ void ExceptionHandler (ExceptionType which) {
 							}
 
 							free(buffer);
->>>>>>> get_string
 						}
 
-						free(buffer);
 
 						machine->WriteRegister(CALL_CODE, offset);
 						break;
@@ -237,12 +222,19 @@ void ExceptionHandler (ExceptionType which) {
 						int args_adress = machine->ReadRegister(CALL_ARG2);
 
 						return_value = UserThread::do_ThreadCreate(function_adress, args_adress);
+
+						machine->WriteRegister(CALL_CODE, return_value);
 						break;
 					}
 					case SC_ThreadExit:
 					{
 						DEBUG ('s', "ThreadExit, initiated by user program.\n");
 						int return_value = -1;
+
+
+
+						
+						machine->WriteRegister(CALL_CODE, return_value);
 						break;
 					}
 					#endif	//CHANGED
