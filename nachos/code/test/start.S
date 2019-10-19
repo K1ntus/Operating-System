@@ -199,7 +199,26 @@ GetInt:
 	addiu $2,$0,SC_GetInt
 	syscall
 	j	$31
+
+
+
+
 	.end GetInt
+	.global ThreadCreate
+	.ent	ThreadCreate
+ThreadCreate:
+	addiu $2,$0,SC_ThreadCreate
+	syscall
+	j	$31
+	.end ThreadCreate
+
+	.global ThreadExit
+	.ent	ThreadExit
+ThreadExit:
+	addiu $2,$0,SC_ThreadExit
+	syscall
+	j	$31
+	.end ThreadExit
 #endif //CHANGED
 
 

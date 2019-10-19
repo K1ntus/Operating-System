@@ -9,7 +9,7 @@
 
 #include "syscall.h"
 
-#define N 1024
+#define N 124
 int A[N];			/* size of physical memory; with code, we'll run out of space! */
 
 int
@@ -21,7 +21,7 @@ main ()
     for (i = 0; i < N; i++)
 	A[i] = N - i;
 
-    /* then sort! */
+    /* then sort! */ 
     for (i = 1; i < N; i++)
 	for (j = 0; j < N - i; j++)
 	    if (A[j] > A[j + 1])

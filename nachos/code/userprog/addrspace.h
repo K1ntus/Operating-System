@@ -41,7 +41,15 @@ class AddrSpace:dontcopythis
 				// Dump program layout as SVG
     unsigned NumPages() { return numPages; }
 
+    int AllocateUserStack() {
+      int res = userStackPosition;
+      this->userStackPosition += 256;
+      return res;
+      
+    }
+
   private:
+    int userStackPosition = 256;
     NoffHeader noffH;		// Program layout
 
     TranslationEntry * pageTable; // Page table

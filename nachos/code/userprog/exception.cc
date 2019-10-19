@@ -24,6 +24,7 @@
 #include "copyright.h"
 #include "system.h"
 #include "syscall.h"
+#include "userthread.h"
 
 
 //----------------------------------------------------------------------
@@ -187,6 +188,7 @@ void ExceptionHandler (ExceptionType which) {
 
 						int address = machine->ReadRegister(CALL_ARG1);
 						int size = machine->ReadRegister(CALL_ARG2);
+<<<<<<< HEAD
 						ASSERT(size > 0);
 						int offset = 0;
 						
@@ -196,11 +198,51 @@ void ExceptionHandler (ExceptionType which) {
 						while(offset < size) {
 							synchconsole->SynchGetString(buffer, size);
 							offset += synchconsole->copyStringToMachine(address, buffer, MAX_STRING_SIZE);
+=======
+						int init_size = size;
+						ASSERT(size > 0);
+						int offset = 0;
+
+						int nb_char_written = 0;
+
+						while(size > 0 && size <= init_size) {
+						char * buffer = (char *) malloc(size * sizeof(char));
+    					ASSERT(buffer != 0x0);  
+
+							synchconsole->SynchGetString(buffer, size);
+					
+							size = synchconsole->copyStringToMachine(address+offset, buffer, MAX_STRING_SIZE);
+							offset += size;
+							if(buffer[size] == '\n' || buffer[size] == '\0') {
+								break;
+							}
+
+							free(buffer);
+>>>>>>> get_string
 						}
 
 						free(buffer);
 
 						machine->WriteRegister(CALL_CODE, offset);
+						break;
+					}
+
+
+					case SC_ThreadCreate:
+					{
+						DEBUG ('s', "ThreadCreate, initiated by user program.\n");
+						int return_value = -1;
+
+						int function_adress = machine->ReadRegister(CALL_ARG1);
+						int args_adress = machine->ReadRegister(CALL_ARG2);
+
+						return_value = UserThread::do_ThreadCreate(function_adress, args_adress);
+						break;
+					}
+					case SC_ThreadExit:
+					{
+						DEBUG ('s', "ThreadExit, initiated by user program.\n");
+						int return_value = -1;
 						break;
 					}
 					#endif	//CHANGED

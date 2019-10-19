@@ -39,8 +39,12 @@
 #define SC_GetString    14
 #define SC_PutInt       15
 #define SC_GetInt       16
-#endif //CHANGED
 
+
+#define SC_ThreadCreate 30
+#define SC_ThreadExit   31
+
+#endif //CHANGED
 #ifdef IN_USER_MODE
 
 // LB: This part is read only on compiling the test/*.c files.
@@ -151,7 +155,15 @@ int GetString(char *s, int n);
 
 void PutInt (int n);
 
+<<<<<<< HEAD
 int GetInt (int *n);
+=======
+void GetInt (int *n);
+
+void ThreadCreate (void f(void*args), void * args);
+
+void ThreadExit (void);
+>>>>>>> get_string
 #endif //CHANGED
 
 #endif // IN_USER_MODE

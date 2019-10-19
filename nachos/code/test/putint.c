@@ -67,5 +67,8 @@ int main() {
 
     // Halt();
 }
+<<<<<<< HEAD
 
 #endif //CHANGED
+=======
+>>>>>>> get_string
