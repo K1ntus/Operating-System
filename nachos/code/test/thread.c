@@ -14,18 +14,18 @@ void print1(char c) {
     int i;
     for (i = 0; i < n; i++) {
         PutChar(c);
+    // while(1);
     }
-    PutChar('\n');
 }
 
 
 int main(void) {
     // fun_ptr is a pointer to function fun()  
     void (*fun_ptr)(int) = &print1; 
-    
-    ThreadCreate(*fun_ptr,'g');
     print1('e');
-
+    ThreadCreate(*fun_ptr,'u');
+    while(1);
+    
     return 0;
 }
 #endif

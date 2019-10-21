@@ -48,6 +48,10 @@ class AddrSpace:dontcopythis
       
     }
 
+    void FreeUserStack() {
+      this->userStackPosition -= 256;
+    }
+
   private:
     int userStackPosition = 256;
     NoffHeader noffH;		// Program layout

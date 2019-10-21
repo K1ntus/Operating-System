@@ -20,6 +20,10 @@ extern bool ReadMem(int addr, int size, int* value);
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
+
+static Semaphore * threadReadProtector;
+static Semaphore * threadWriteProtector;
+
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 
@@ -36,8 +40,14 @@ static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
 SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
     readAvail = new Semaphore ("read avail", 0);
     writeDone = new Semaphore ("write done", 0);
-    ASSERT(writeDone);
+    threadReadProtector = new Semaphore("thread read", 1);
+    threadWriteProtector = new Semaphore("thread write", 1);
+
     ASSERT(readAvail);
+    ASSERT(threadReadProtector);
+
+    ASSERT(writeDone);
+    ASSERT(threadWriteProtector);
 
     console = new Console (readFile, writeFile, ReadAvailHandler, WriteDoneHandler, 0);
     ASSERT(console);
@@ -51,8 +61,12 @@ SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {
 //----------------------------------------------------------------------
 SynchConsole::~SynchConsole() {
     delete console;
-    delete writeDone;
+
     delete readAvail;
+    delete threadReadProtector;
+
+    delete writeDone;
+    delete threadWriteProtector;
 }
 
 
@@ -65,8 +79,10 @@ SynchConsole::~SynchConsole() {
 int SynchConsole::SynchGetChar() {
     int ch;
 
+    threadReadProtector->V();
 	readAvail->P ();	// wait for character to arrive
 	ch = console->GetChar ();
+    threadReadProtector->P();
 
     if(DEBUG_MODE) {
         if(ch == '\n')
@@ -98,10 +114,10 @@ void SynchConsole::SynchPutChar(int ch) {
         else
             fprintf(stderr, "[DEBUG@SynchPutChar] PutChar:%c\n", ch);
     }
-
-    
+    threadWriteProtector->P();
     console->PutChar (ch);	    // echo it!
     writeDone->P ();	        // wait for write to finish
+    threadWriteProtector->V();
 }
 
 

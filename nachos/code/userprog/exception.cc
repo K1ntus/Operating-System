@@ -216,22 +216,23 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_ThreadCreate:
 					{
 						DEBUG ('s', "ThreadCreate, initiated by user program.\n");
-						int return_value = -1;
+						int thread_id = -1;
 
 						int function_adress = machine->ReadRegister(CALL_ARG1);
 						int args_adress = machine->ReadRegister(CALL_ARG2);
 
-						return_value = UserThread::do_ThreadCreate(function_adress, args_adress);
+						thread_id = UserThread::do_ThreadCreate(function_adress, args_adress);
 
-						machine->WriteRegister(CALL_CODE, return_value);
+						machine->WriteRegister(CALL_CODE, thread_id);
 						break;
 					}
 					case SC_ThreadExit:
 					{
 						DEBUG ('s', "ThreadExit, initiated by user program.\n");
 						int return_value = -1;
+						return_value = machine->ReadRegister(CALL_ARG1);
 
-
+						return_value = UserThread::do_ThreadExit();//(thread_id);
 
 						
 						machine->WriteRegister(CALL_CODE, return_value);

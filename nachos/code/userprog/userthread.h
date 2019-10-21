@@ -14,15 +14,17 @@ class UserThread:dontcopythis {
         // // initialize the hardware console device
         // ~UserThread();                        // clean up console emulation
         
-    static int Start(void f(void *arg), void *arg);
+        static int Start(void f(void *arg), void *arg);
 
-    static void Exit(void);
+        static void Exit(void);
 
-    static int do_ThreadCreate(int f, int arg);
+        static int do_ThreadCreate(int f, int arg);
 
-    static void StartUserThread(void * schmurtz); 
+        static void StartUserThread(void * schmurtz); 
+        
 
-    // static 
+        static int do_ThreadExit();
+
     // private:
     //     UserThread *thread;
 };
