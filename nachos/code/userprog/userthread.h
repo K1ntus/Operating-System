@@ -25,8 +25,13 @@ class UserThread:dontcopythis {
 
         static int do_ThreadExit();
 
-    // private:
-    //     UserThread *thread;
+        // static void getNumberThreadInstanciate() {
+        //     return UserThread::thread_id;
+        // }
+
+
+
+     private:
 };
 
 

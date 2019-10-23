@@ -7,6 +7,7 @@
 #include "console.h"
 #include "machine.h"
 #include "translate.h"
+#include "synch.h"
 
 class SynchConsole:dontcopythis {
     public:
@@ -33,6 +34,9 @@ class SynchConsole:dontcopythis {
     
     private:
         Console *console;
+        Semaphore * threadReadProtector;
+        Semaphore * threadWriteProtector;
+
 };
 
 

@@ -53,7 +53,7 @@ class AddrSpace:dontcopythis
     }
 
   private:
-    int userStackPosition = 256;
+    int userStackPosition = 16 + 256;
     NoffHeader noffH;		// Program layout
 
     TranslationEntry * pageTable; // Page table

@@ -3,8 +3,13 @@
 #include "system.h"
 #include "userthread.h"
 
+static int thread_id = 1;
+
 int UserThread::do_ThreadCreate(int f, int arg) {
     Thread* newThread = new Thread("test_thread");
+
+    thread_id += 1;
+    fprintf(stderr, "\nCreating thread: %d\n", thread_id);
 
     int * adress_pack = (int *) malloc(sizeof(int) * 2);
     adress_pack[0] = f;
@@ -30,7 +35,7 @@ void UserThread::StartUserThread(void * schmurtz) {
     int function_adress = (int) array[0];
     int arg_adress = (int) array[1];
 
-    fprintf(stderr, "Created a thread with arguments: %d && %d\n", function_adress, arg_adress);
+    // fprintf(stderr, "Created a thread with arguments: %d && %d\n", function_adress, arg_adress);
 
     DEBUG('x', "Function: %d\n", function_adress);
     
@@ -55,7 +60,7 @@ void UserThread::StartUserThread(void * schmurtz) {
     // Set the stack register to the end of the address space, where we
     // allocated the stack; but subtract off a bit, to make sure we don't
     // accidentally reference off the end!
-    machine->WriteRegister (StackReg, currentThread->space->NumPages() * PageSize - 16 - currentThread->space->AllocateUserStack());
+    machine->WriteRegister (StackReg, currentThread->space->NumPages() * PageSize - currentThread->space->AllocateUserStack());
     DEBUG ('a', "Initializing stack register to 0x%x\n",
 	   currentThread->space->NumPages() * PageSize - 16);
     
@@ -68,11 +73,17 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 
 int UserThread::do_ThreadExit() {
-    machine->WriteRegister(StackReg, currentThread->space->NumPages() * PageSize -16 - 256);
+    // machine->WriteRegister(StackReg, currentThread->space->NumPages() * PageSize -16 - 256);
 
-
-    currentThread->Finish();
-    return 1;
+    fprintf(stderr, "\nExiting thread: %d\n", thread_id);
+    thread_id -= 1;
+    if(thread_id != 0){
+        currentThread->Finish();
+        return 1;
+    } else {
+        interrupt->Halt();
+        return 0;
+    }
     // Thread* newThread = new Thread("test_thread");
 
     // int * adress_pack = (int *) malloc(sizeof(int) * 2);

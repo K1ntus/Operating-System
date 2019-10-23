@@ -102,7 +102,7 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
 						int value = machine->ReadRegister(CALL_ARG1);
-						Exit(value);
+
 						break;
 					}
 

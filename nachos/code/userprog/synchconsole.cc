@@ -1,8 +1,8 @@
 #ifdef CHANGED
 #include "copyright.h"
-#include "system.h"
 #include "synchconsole.h"
 #include "synch.h"
+#include "system.h"
 
 
 //----------------------------------------------------------------------
@@ -21,8 +21,6 @@ static Semaphore *readAvail;
 static Semaphore *writeDone;
 
 
-static Semaphore * threadReadProtector;
-static Semaphore * threadWriteProtector;
 
 static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
 static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
