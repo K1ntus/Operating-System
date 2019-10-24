@@ -13,7 +13,8 @@ nachos/code/test/sort
 #Userprog
 nachos/code/userprog/nachos
 nachos/code/userprog/memory.svg
-nachos/code/userprog.abort.svg
+nachos/code/userprog/abort.svg
+nachos/code/userprog/*.svg
 
 # Hidden folder
 hidden/
