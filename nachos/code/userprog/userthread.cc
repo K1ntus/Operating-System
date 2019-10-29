@@ -8,28 +8,21 @@ static int thread_id = 1;
 int UserThread::do_ThreadCreate(int f, int arg) {
     Thread* newThread = new Thread("test_thread");
 
-    thread_id += 1;
+    thread_id += 1;//Protéger accès
     fprintf(stderr, "\nCreating thread: %d\n", thread_id);
 
     int * adress_pack = (int *) malloc(sizeof(int) * 2);
     adress_pack[0] = f;
     adress_pack[1] = arg;
     newThread->Start(UserThread::StartUserThread, (void*)adress_pack);
-    // space->RestoreState ();	// load page table register
 
-    //machine->DumpMem ("memory.svg");
-    // machine->Run ();	// jump to the user progam
-    // ASSERT (FALSE);		// machine->Run never returns;
-    
-
-
-    return -1;
+    return thread_id;
 }
 
 void UserThread::StartUserThread(void * schmurtz) {
     ASSERT(schmurtz);
 	
-    fprintf(stderr, "toto_init thread\n");
+    // fprintf(stderr, "toto_init thread\n");
     int * array = (int*) schmurtz;
 
     int function_adress = (int) array[0];
@@ -60,7 +53,12 @@ void UserThread::StartUserThread(void * schmurtz) {
     // Set the stack register to the end of the address space, where we
     // allocated the stack; but subtract off a bit, to make sure we don't
     // accidentally reference off the end!
-    machine->WriteRegister (StackReg, currentThread->space->NumPages() * PageSize - currentThread->space->AllocateUserStack());
+    int space;
+    while((space = currentThread->space->AllocateUserStack()) == -1){
+        // printf("Waiting for free mem\n");
+    };
+
+    machine->WriteRegister (StackReg, currentThread->space->NumPages() * PageSize - space);
     DEBUG ('a', "Initializing stack register to 0x%x\n",
 	   currentThread->space->NumPages() * PageSize - 16);
     
@@ -73,10 +71,11 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 
 int UserThread::do_ThreadExit() {
-    // machine->WriteRegister(StackReg, currentThread->space->NumPages() * PageSize -16 - 256);
+    currentThread->space->FreeUserStack();
+    // fprintf(stderr, "\nExiting thread: %d\n", thread_id);
+    thread_id -= 1;//Protéger accès
 
-    fprintf(stderr, "\nExiting thread: %d\n", thread_id);
-    thread_id -= 1;
+    
     if(thread_id != 0){
         currentThread->Finish();
         return 1;
@@ -84,33 +83,7 @@ int UserThread::do_ThreadExit() {
         interrupt->Halt();
         return 0;
     }
-    // Thread* newThread = new Thread("test_thread");
-
-    // int * adress_pack = (int *) malloc(sizeof(int) * 2);
-    // adress_pack[0] = f;
-    // adress_pack[1] = arg;
-    // newThread->Start(UserThread::StartUserThread, (void*)adress_pack);
-    // space->RestoreState ();	// load page table register
-
-    //machine->DumpMem ("memory.svg");
-    // machine->Run ();	// jump to the user progam
-    // ASSERT (FALSE);		// machine->Run never returns;
     
-
-
-    // return -1;
 }
-/*
-void UserThread::Exit(void) {
-
-}
-
-int UserThread::Start(void f(void *arg), void *arg) {
-    int res = -1;
-
-    // res = do_ThreadCreate(*f, *arg);
-    return res;
-}*/
-
 
 #endif

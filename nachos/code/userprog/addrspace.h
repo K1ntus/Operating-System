@@ -1,5 +1,5 @@
-// addrspace.h 
-//      Data structures to keep track of executing user programs 
+// addrspace.h
+//      Data structures to keep track of executing user programs
 //      (address spaces).
 //
 //      For now, we don't keep any information about address spaces.
@@ -7,7 +7,7 @@
 //      executing the user program (see thread.h).
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 #ifndef ADDRSPACE_H
@@ -18,46 +18,50 @@
 #include "translate.h"
 #include "noff.h"
 #include "list.h"
+#include "bitmap.h"
 
-#define UserStacksAreaSize		1024	// increase this as necessary!
+#define UserStacksAreaSize 1024 // increase this as necessary!
+#define UserThreadSize 256
+#define StackSizeToNotTouch 16
 
-class AddrSpace:dontcopythis
+class Semaphore;
+
+class AddrSpace : dontcopythis
 {
   public:
-    AddrSpace (OpenFile * executable);	// Create an address space,
+    AddrSpace(OpenFile *executable); // Create an address space,
     // initializing it with the program
     // stored in the file "executable"
-    ~AddrSpace ();		// De-allocate an address space
+    ~AddrSpace(); // De-allocate an address space
 
-    void InitRegisters ();	// Initialize user-level CPU registers,
+    void InitRegisters(); // Initialize user-level CPU registers,
     // before jumping to user code
 
-    void SaveState ();		// Save/restore address space-specific
-    void RestoreState ();	// info on a context switch 
+    void SaveState();    // Save/restore address space-specific
+    void RestoreState(); // info on a context switch
 
     unsigned Dump(FILE *output, unsigned virtual_x, unsigned virtual_width,
-		    unsigned physical_x, unsigned virtual_y, unsigned y,
-		    unsigned blocksize);
-				// Dump program layout as SVG
+                  unsigned physical_x, unsigned virtual_y, unsigned y,
+                  unsigned blocksize);
+    // Dump program layout as SVG
     unsigned NumPages() { return numPages; }
 
-    int AllocateUserStack() {
-      int res = userStackPosition;
-      this->userStackPosition += 256;
-      return res;
-      
-    }
+    //Protect operation with semaphore
+    int AllocateUserStack();
+    int AllocateUserStack(int size);
 
-    void FreeUserStack() {
-      this->userStackPosition -= 256;
-    }
+    //Protect operation with semaphore
+    void FreeUserStack();
+    void FreeUserStack(int size);
 
   private:
-    int userStackPosition = 16 + 256;
-    NoffHeader noffH;		// Program layout
+    int userStackPosition = StackSizeToNotTouch;
+    NoffHeader noffH; // Program layout
 
-    TranslationEntry * pageTable; // Page table
-    unsigned int numPages;	// Number of pages in the page table
+    BitMap *threadMapManager;
+
+    TranslationEntry *pageTable; // Page table
+    unsigned int numPages;       // Number of pages in the page table
 };
 
 extern List AddrspaceList;
