@@ -5,6 +5,7 @@
 
 static int thread_id = 1;
 
+
 int UserThread::do_ThreadCreate(int f, int arg) {
     Thread* newThread = new Thread("test_thread");
 
@@ -71,8 +72,8 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 
 int UserThread::do_ThreadExit() {
-    currentThread->space->FreeUserStack();
-    // fprintf(stderr, "\nExiting thread: %d\n", thread_id);
+    fprintf(stderr, "\nExiting thread: %d at pos: %d\n", thread_id, currentThread->space->NumPages() * PageSize -  machine->ReadRegister(StackReg));
+    currentThread->space->FreeUserStack(machine->ReadRegister(StackReg));
     thread_id -= 1;//Protéger accès
 
     

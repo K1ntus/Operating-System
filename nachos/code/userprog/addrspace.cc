@@ -175,13 +175,17 @@ int AddrSpace::AllocateUserStack()
 int AddrSpace::AllocateUserStack(int size)
 {
     addingThread->V();
-    int res = userStackPosition;
-    if (res + size > UserStacksAreaSize)
+    // int userStackPosition = Find();
+    // int res = userStackPosition;
+    int res = threadMapManager->Find();
+
+
+    if (res + size > UserStacksAreaSize || threadMapManager->Test(res + size))
     {
         return -1;
     }
 
-    printf("\n[INFO] Alloc Thread.\n");
+    printf("\n[INFO] Alloc Thread: space %d.\n", res);
 
     for (int i = res; i < res + size; i++)
     {
@@ -189,35 +193,39 @@ int AddrSpace::AllocateUserStack(int size)
         threadMapManager->Mark(i);
     }
 
-    this->userStackPosition += size;
+    // this->userStackPosition += size;
 
     addingThread->P();
     return res;
 }
 
-void AddrSpace::FreeUserStack()
+void AddrSpace::FreeUserStack(int pos)
 {
-    return this->FreeUserStack(UserThreadSize);
+    return this->FreeUserStack(UserThreadSize, pos);
 }
 
-void AddrSpace::FreeUserStack(int size)
+void AddrSpace::FreeUserStack(int size, int pos)
 {
     printf("\n[INFO] Kill Thread.\n");
     deletingThread->V();
-    for (int i = this->userStackPosition; i > userStackPosition - size && i > StackSizeToNotTouch; i--)
+
+    if(pos > UserStacksAreaSize)
+        return;
+
+    for (int i = pos; i > pos - size && i > StackSizeToNotTouch; i--)
     {
-        // printf("Free: %d\n",i);
+        printf("Free: %d. Pos=%d and size=%d\n",i,pos,size);
         threadMapManager->Clear(i);
     }
 
-    if (this->userStackPosition > 16)
-    {
-        this->userStackPosition -= size;
-    }
-    else
-    {
-        printf("\n[INFO] Main thread just exit.\n");
-    }
+    // if (this->userStackPosition > 16)
+    // {
+    //     this->userStackPosition -= size;
+    // }
+    // else
+    // {
+    //     printf("\n[INFO] Main thread just exit.\n");
+    // }
     deletingThread->P();
 }
 
