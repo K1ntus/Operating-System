@@ -53,14 +53,14 @@ int main(void)
     ThreadCreate(*fun_ptr, '2');
     ThreadCreate(*fun_ptr, '3');
     ThreadCreate(*fun_ptr, '3');
-    ThreadCreate(*fun_ptr, '3');
-    ThreadCreate(*fun_ptr, '3');
-    ThreadCreate(*fun_ptr, '3');
-    ThreadCreate(*fun_ptr, '3');
-    ThreadCreate(*fun_ptr, '3');
-    ThreadCreate(*fun_ptr,'4');
-    ThreadCreate(*fun_ptr,'5');
-    ThreadCreate(*fun_ptr,'6');
+    ThreadCreate(*fun_ptr, '5');
+    ThreadCreate(*fun_ptr, '1');
+    ThreadCreate(*fun_ptr, '5');
+    ThreadCreate(*fun_ptr, '5');
+    ThreadCreate(*fun_ptr, '2');
+    ThreadCreate(*fun_ptr, '4');
+    ThreadCreate(*fun_ptr, '5');
+    ThreadCreate(*fun_ptr, '6');
     // while(1);
 
     ThreadExit(); //ThreadPrincipal

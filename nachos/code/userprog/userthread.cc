@@ -59,9 +59,11 @@ void UserThread::StartUserThread(void * schmurtz) {
         // printf("Waiting for free mem\n");
     };
 
-    machine->WriteRegister (StackReg, currentThread->space->NumPages() * PageSize - space);
+    int offset = currentThread->space->NumPages() * PageSize - 16;
+    machine->WriteRegister (StackReg, offset - space);
+    fprintf(stderr, "\nInitializing thread %d.\n", thread_id, offset - space, space);
     DEBUG ('a', "Initializing stack register to 0x%x\n",
-	   currentThread->space->NumPages() * PageSize - 16);
+	   machine->ReadRegister(StackReg));
     
 
 	
@@ -72,8 +74,14 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 
 int UserThread::do_ThreadExit() {
-    fprintf(stderr, "\nExiting thread: %d at pos: %d\n", thread_id, currentThread->space->NumPages() * PageSize -  machine->ReadRegister(StackReg));
-    currentThread->space->FreeUserStack(machine->ReadRegister(StackReg));
+    int offset = currentThread->space->NumPages() * PageSize - 16;
+
+    
+    // fprintf(stderr, "\nExiting thread: %d at pos: %d+%d\n", thread_id, offset, machine->ReadRegister(StackReg));
+    fprintf(stderr, "\nExiting thread: %d \n", thread_id);  
+    
+    
+    currentThread->space->FreeUserStack(machine->ReadRegister(StackReg) - offset);
     thread_id -= 1;//Protéger accès
 
     
