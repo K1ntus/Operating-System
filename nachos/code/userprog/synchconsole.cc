@@ -138,6 +138,7 @@ void SynchConsole::SynchPutString(const char s[])
 {
     ASSERT(s != NULL);
 
+    threadWriteProtector->P();
     int i = 0;
     while (i < MAX_STRING_SIZE - 1)
     {
@@ -147,6 +148,7 @@ void SynchConsole::SynchPutString(const char s[])
 
         i++;
     }
+    threadWriteProtector->V();
 
     // To think about this conditional instruction,
     // does not seems really interesting in case of great string size,
@@ -229,6 +231,7 @@ void SynchConsole::SynchGetString(char *s, int n)
     char *buffer = (char *)malloc(sizeof(char) * max_size);
     ASSERT(buffer != 0x0);
 
+    threadReadProtector->V();
     while (pos_in_buffer < max_size && char_readed != '\0' && char_readed != '\n')
     {
         char_readed = this->SynchGetChar();
@@ -236,6 +239,7 @@ void SynchConsole::SynchGetString(char *s, int n)
         pos_in_buffer += 1;
         s[pos_in_buffer] = '\0';
     }
+    threadReadProtector->P();
 }
 
 //----------------------------------------------------------------------
