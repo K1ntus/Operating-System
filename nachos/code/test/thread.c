@@ -9,23 +9,61 @@
  */
 #include "syscall.h"
 
-void print1(char c) {
+void print1(char c)
+{
+    int n = 150;
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        PutChar(c);
+        // while(1);
+    }
+    ThreadExit();
+}
+void print_no_exit(char c)
+{
+    int n = 150;
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        PutChar(c);
+        // while(1);
+    }
+    // ThreadExit();
+}
+
+void print_principal(char c)
+{
     int n = 12;
     int i;
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < n; i++)
+    {
         PutChar(c);
-    // while(1);
+        // while(1);
     }
 }
 
+int main(void)
+{
+    // fun_ptr is a pointer to function fun()
+    void (*fun_ptr)(int) = &print1;
+    void (*fun_ptr_no_exit)(int) = &print_no_exit;
+    print_principal('0');
+    ThreadCreate(*fun_ptr, '1');
+    ThreadCreate(*fun_ptr, '2');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr, '3');
+    ThreadCreate(*fun_ptr,'4');
+    ThreadCreate(*fun_ptr,'5');
+    ThreadCreate(*fun_ptr,'6');
+    // while(1);
 
-int main(void) {
-    // fun_ptr is a pointer to function fun()  
-    void (*fun_ptr)(int) = &print1; 
-    print1('e');
-    ThreadCreate(*fun_ptr,'u');
-    while(1);
-    
+    ThreadExit(); //ThreadPrincipal
     return 0;
 }
 #endif

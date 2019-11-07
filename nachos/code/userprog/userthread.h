@@ -8,27 +8,21 @@
 #include "translate.h"
 #include "thread.h"
 
-class UserThread:dontcopythis {
-    public:
-        // UserThread(const char *readFile, const char *writeFile);
-        // // initialize the hardware console device
-        // ~UserThread();                        // clean up console emulation
-        
-        static int Start(void f(void *arg), void *arg);
+class UserThread : dontcopythis
+{
+public:
+    static int Start(void f(void *arg), void *arg);
 
-        static void Exit(void);
+    static void Exit(void);
 
-        static int do_ThreadCreate(int f, int arg);
+    static int do_ThreadCreate(int f, int arg);
 
-        static void StartUserThread(void * schmurtz); 
-        
+    static void StartUserThread(void *schmurtz);
 
-        static int do_ThreadExit();
-
-    // private:
-    //     UserThread *thread;
+    static int do_ThreadExit();
+    
+private:
 };
-
 
 #endif // USERTHREAD_H
 #endif // CHANGED
