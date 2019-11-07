@@ -18,7 +18,7 @@ void print1(char c)
         PutChar(c);
         // while(1);
     }
-    ThreadExit();
+    // ThreadExit();
 }
 void print_no_exit(char c)
 {
@@ -26,7 +26,7 @@ void print_no_exit(char c)
     int i;
     for (i = 0; i < n; i++)
     {
-        PutChar(c);
+        PutString("ABC");
         // while(1);
     }
     // ThreadExit();

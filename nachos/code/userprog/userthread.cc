@@ -3,21 +3,21 @@
 #include "system.h"
 #include "userthread.h"
 
-static int thread_id = 1;
 
 
 int UserThread::do_ThreadCreate(int f, int arg) {
     Thread* newThread = new Thread("test_thread");
 
-    thread_id += 1;//Protéger accès
-    fprintf(stderr, "\nCreating thread: %d\n", thread_id);
+    // thread_id += 1;//Protéger accès
+    fprintf(stderr, "\nCreating thread %d.\n", currentThread->space->thread_id);
 
     int * adress_pack = (int *) malloc(sizeof(int) * 2);
     adress_pack[0] = f;
     adress_pack[1] = arg;
+
     newThread->Start(UserThread::StartUserThread, (void*)adress_pack);
 
-    return thread_id;
+    return currentThread->space->thread_id;
 }
 
 void UserThread::StartUserThread(void * schmurtz) {
@@ -54,10 +54,12 @@ void UserThread::StartUserThread(void * schmurtz) {
     // Set the stack register to the end of the address space, where we
     // allocated the stack; but subtract off a bit, to make sure we don't
     // accidentally reference off the end!
-    int space;
-    while((space = currentThread->space->AllocateUserStack()) == -1){
-        // printf("Waiting for free mem\n");
-    };
+    int space = currentThread->space->AllocateUserStack();
+
+    if(space == -1){
+        fprintf(stderr, "Not enought space to alloc the thread %d\n", currentThread->space->thread_id);
+        return;
+    }
 
     machine->WriteRegister (StackReg, currentThread->space->NumPages() * PageSize - space);
     DEBUG ('a', "Initializing stack register to 0x%x\n",
@@ -72,12 +74,12 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 
 int UserThread::do_ThreadExit() {
-    fprintf(stderr, "\nExiting thread: %d at pos: %d\n", thread_id, currentThread->space->NumPages() * PageSize -  machine->ReadRegister(StackReg));
-    currentThread->space->FreeUserStack(machine->ReadRegister(StackReg));
-    thread_id -= 1;//Protéger accès
-
+    fprintf(stderr, "\nExiting thread %d.\n", currentThread->space->thread_id);
     
-    if(thread_id != 0){
+    currentThread->space->FreeUserStack(machine->ReadRegister(StackReg) - currentThread->space->NumPages() * PageSize);
+    // thread_id -= 1;//Protéger accès
+
+    if(currentThread->space->thread_id != 0){
         currentThread->Finish();
         return 1;
     } else {

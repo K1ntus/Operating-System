@@ -53,6 +53,7 @@ class AddrSpace : dontcopythis
     //Protect operation with semaphore
     void FreeUserStack(int pos);
     void FreeUserStack(int size, int pos);
+    int thread_id = 1;
 
   private:
     int userStackPosition = StackSizeToNotTouch;

@@ -180,7 +180,7 @@ int AddrSpace::AllocateUserStack(int size)
     int res = threadMapManager->Find();
 
 
-    if (res + size > UserStacksAreaSize || threadMapManager->Test(res + size))
+    if (res + size > UserStacksAreaSize || res == -1)// || threadMapManager->Test(res + size))
     {
         return -1;
     }
@@ -195,6 +195,7 @@ int AddrSpace::AllocateUserStack(int size)
 
     // this->userStackPosition += size;
 
+    thread_id += 1;
     addingThread->P();
     return res;
 }
@@ -209,8 +210,6 @@ void AddrSpace::FreeUserStack(int size, int pos)
     printf("\n[INFO] Kill Thread.\n");
     deletingThread->V();
 
-    if(pos > UserStacksAreaSize)
-        return;
 
     for (int i = pos; i > pos - size && i > StackSizeToNotTouch; i--)
     {
@@ -226,6 +225,7 @@ void AddrSpace::FreeUserStack(int size, int pos)
     // {
     //     printf("\n[INFO] Main thread just exit.\n");
     // }
+    thread_id -= 1;
     deletingThread->P();
 }
 
