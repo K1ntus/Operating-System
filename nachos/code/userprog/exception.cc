@@ -224,9 +224,13 @@ void ExceptionHandler (ExceptionType which) {
 						int function_adress = machine->ReadRegister(CALL_ARG1);
 						int args_adress = machine->ReadRegister(CALL_ARG2);
 
+						
+
 						thread_id = UserThread::do_ThreadCreate(function_adress, args_adress);
 
-						machine->WriteRegister(CALL_CODE, thread_id);
+						// machine->WriteRegister(CALL_CODE, function_adress);
+
+						machine->WriteRegister(CALL_ARG4, function_adress);
 						break;
 					}
 					case SC_ThreadExit:

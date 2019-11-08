@@ -199,7 +199,8 @@ int AddrSpace::AllocateUserStack(int size)
     }
 
     // this->userStackPosition += size;
-    // printf("-- %d blocs has been marked.\n", i - res);
+
+    thread_id += 1;
     addingThread->P();
     return res;
 }
@@ -214,10 +215,6 @@ void AddrSpace::FreeUserStack(int size, int pos)
     // printf("\n- [INFO] Free Thread Stack: block begin %d.\n", pos);
     deletingThread->V();
 
-    if(pos > UserStacksAreaSize){
-        // printf("-- Error.\n");
-        return;
-    }
 
     int i;
     for (i = pos + size; i > pos && i >= StackSizeToNotTouch; i--)
@@ -234,7 +231,7 @@ void AddrSpace::FreeUserStack(int size, int pos)
     // {
         // printf("\n[INFO] Main thread just exit.\n");
     // }
-    // printf("- Freed %d bits.\n", pos + size - i);
+    thread_id -= 1;
     deletingThread->P();
 }
 
