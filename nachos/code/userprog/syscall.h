@@ -43,6 +43,8 @@
 
 #define SC_ThreadCreate 30
 #define SC_ThreadExit   31
+#define SC_V            32
+#define SC_P            33
 
 #endif //CHANGED
 #ifdef IN_USER_MODE
@@ -160,6 +162,8 @@ void GetInt (int *n);
 void ThreadCreate (void f(void*args), void * args);
 
 void ThreadExit (void);
+
+
 
 #endif //CHANGED
 
