@@ -101,6 +101,7 @@ void ExceptionHandler (ExceptionType which) {
 					{
 						DEBUG ('s', "Shutdown, initiated by user program.\n");
 						int value = machine->ReadRegister(CALL_ARG1);
+						machine->WriteRegister(CALL_CODE, value);
 
 						break;
 					}
@@ -215,7 +216,6 @@ void ExceptionHandler (ExceptionType which) {
 					case SC_ThreadCreate:
 					{
 						DEBUG ('s', "ThreadCreate, initiated by user program.\n");
-						int thread_id = -1;
 
 						int function_address = machine->ReadRegister(CALL_ARG1);
 						int args_address = machine->ReadRegister(CALL_ARG2);
@@ -232,8 +232,9 @@ void ExceptionHandler (ExceptionType which) {
 						// printf("Entry function:%p->%p\n", *f_address, &f_address);
 						// unsigned long tmp = (unsigned long)f_address;
 
-						thread_id = UserThread::do_ThreadCreate(function_address, args_address);
-
+						int thread_id = UserThread::do_ThreadCreate(function_address, args_address);
+						machine->WriteRegister(CALL_CODE, thread_id);
+						
 						free(f_address);
 
 						// machine->WriteRegister(CALL_CODE, function_adress);
