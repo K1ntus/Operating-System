@@ -8,9 +8,6 @@
 int UserThread::do_ThreadCreate(int f, int arg) {
     Thread* newThread = new Thread("test_thread");
 
-    // thread_id += 1;//Protéger accès
-    fprintf(stderr, "\nCreating thread %d.\n", currentThread->space->thread_id);
-
     int * adress_pack = (int *) malloc(sizeof(int) * 2);
     adress_pack[0] = f;
     adress_pack[1] = arg;
@@ -63,7 +60,7 @@ void UserThread::StartUserThread(void * schmurtz) {
 
     int offset = currentThread->space->NumPages() * PageSize - 16;
     machine->WriteRegister (StackReg, offset - space);
-    fprintf(stderr, "\nInitializing a thread.\n", thread_id, offset - space, space);
+    printf("StackReg = %d\n", machine->ReadRegister(StackReg));
     DEBUG ('a', "Initializing stack register to 0x%x\n",
 	   machine->ReadRegister(StackReg));
     
@@ -77,9 +74,9 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 int UserThread::do_ThreadExit() {
     fprintf(stderr, "\nExiting thread %d.\n", currentThread->space->thread_id);
-    
-    currentThread->space->FreeUserStack(machine->ReadRegister(StackReg) - currentThread->space->NumPages() * PageSize);
-    // thread_id -= 1;//Protéger accès
+    int offset = currentThread->space->NumPages() * PageSize -48;
+    printf("Offset=%d\n",offset);
+    currentThread->space->FreeUserStack(offset - machine->ReadRegister(StackReg));
 
     if(currentThread->space->thread_id != 0){
         currentThread->Finish();

@@ -209,7 +209,6 @@ GetInt:
 ThreadCreate:
 	addiu $2,$0,SC_ThreadCreate
 	syscall
-	la $6, ThreadExit
 	j	$31
 	.end ThreadCreate
 

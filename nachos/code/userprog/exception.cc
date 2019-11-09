@@ -26,10 +26,6 @@
 #include "syscall.h"
 #include "userthread.h"
 
-extern int PCReg;
-extern int PrevPCReg;
-extern int NextPCReg;
-
 //----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -230,7 +226,7 @@ void ExceptionHandler (ExceptionType which) {
 
 						// machine->WriteRegister(CALL_CODE, function_adress);
 
-						machine->WriteRegister(CALL_ARG4, function_adress);
+						// machine->WriteRegister(CALL_ARG4, function_adress);
 						break;
 					}
 					case SC_ThreadExit:

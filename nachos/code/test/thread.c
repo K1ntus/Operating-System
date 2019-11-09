@@ -18,7 +18,7 @@ void print1(char c)
         PutChar(c);
         // while(1);
     }
-    // ThreadExit();
+    ThreadExit();
 }
 void print_no_exit(char c)
 {
