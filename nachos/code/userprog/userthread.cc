@@ -7,10 +7,13 @@
 
 int UserThread::do_ThreadCreate(int f, int arg) {
     Thread* newThread = new Thread("test_thread");
-
-    int * adress_pack = (int *) malloc(sizeof(int) * 2);
+    
+    // int *address_exit = &(f) + sizeof(int);
+    
+    int * adress_pack = (int *) malloc(sizeof(int) * 3);
     adress_pack[0] = f;
     adress_pack[1] = arg;
+    adress_pack[2] = machine->ReadRegister(7);  //ARG4
 
     newThread->Start(UserThread::StartUserThread, (void*)adress_pack);
 
@@ -25,6 +28,7 @@ void UserThread::StartUserThread(void * schmurtz) {
 
     int function_adress = (int) array[0];
     int arg_adress = (int) array[1];
+    int exit_address = (int) array[2];
 
     // fprintf(stderr, "Created a thread with arguments: %d && %d\n", function_adress, arg_adress);
 
@@ -58,13 +62,13 @@ void UserThread::StartUserThread(void * schmurtz) {
         return;
     }
 
-    int offset = currentThread->space->NumPages() * PageSize - 16;
+    int offset = currentThread->space->NumPages() * PageSize - StackSizeToNotTouch;
     machine->WriteRegister (StackReg, offset - space);
-    printf("StackReg = %d\n", machine->ReadRegister(StackReg));
+    // printf("StackReg = %d\n", machine->ReadRegister(StackReg));
     DEBUG ('a', "Initializing stack register to 0x%x\n",
 	   machine->ReadRegister(StackReg));
     
-
+    machine->WriteRegister(RetAddrReg, exit_address);
 	
     machine->Run();
     free(array);
@@ -74,8 +78,8 @@ void UserThread::StartUserThread(void * schmurtz) {
 
 int UserThread::do_ThreadExit() {
     fprintf(stderr, "\nExiting thread %d.\n", currentThread->space->thread_id);
-    int offset = currentThread->space->NumPages() * PageSize -48;
-    printf("Offset=%d\n",offset);
+    int offset = currentThread->space->NumPages() * PageSize - StackSizeToNotTouch;
+    // printf("Offset=%d\n",offset);
     currentThread->space->FreeUserStack(offset - machine->ReadRegister(StackReg));
 
     if(currentThread->space->thread_id != 0){

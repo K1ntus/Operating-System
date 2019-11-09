@@ -207,8 +207,10 @@ GetInt:
 	.global ThreadCreate
 	.ent	ThreadCreate
 ThreadCreate:
+	la $7, ThreadExit
 	addiu $2,$0,SC_ThreadCreate
 	syscall
+	
 	j	$31
 	.end ThreadCreate
 
