@@ -59,6 +59,7 @@ SynchList::Append (void *item)
     lock->Release ();
 }
 
+
 //----------------------------------------------------------------------
 // SynchList::Remove
 //      Remove an "item" from the beginning of the list.  Wait if

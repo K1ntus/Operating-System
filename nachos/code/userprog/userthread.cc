@@ -5,37 +5,37 @@
 
 
 
+
 int UserThread::do_ThreadCreate(int f, int arg) {
-    Thread* newThread = new Thread("test_thread");
+    Thread* newThread = new Thread("user_thread");
     
-    // int *address_exit = &(f) + sizeof(int);
     
-    int * adress_pack = (int *) malloc(sizeof(int) * 3);
+    int * adress_pack = (int *) malloc(sizeof(int) * 4);
     adress_pack[0] = f;
     adress_pack[1] = arg;
     adress_pack[2] = machine->ReadRegister(7);  //ARG4
+    adress_pack[3] = -1;
+    currentThread->space->thread_id++;
 
     newThread->Start(UserThread::StartUserThread, (void*)adress_pack);
 
-    return currentThread->space->thread_id;
+    return 1;
 }
 
 void UserThread::StartUserThread(void * schmurtz) {
     ASSERT(schmurtz);
 	
-    // fprintf(stderr, "toto_init thread\n");
     int * array = (int*) schmurtz;
 
     int function_adress = (int) array[0];
     int arg_adress = (int) array[1];
     int exit_address = (int) array[2];
-
-    // fprintf(stderr, "Created a thread with arguments: %d && %d\n", function_adress, arg_adress);
+    // free(schmurtz);
 
     DEBUG('x', "Function: %d\n", function_adress);
     
 
-    // AddrSpace::InitRegisters ();	// set the initial register values
+    // Init the registers
     int i;
 
     for (i = 0; i < NumTotalRegs; i++)
@@ -49,47 +49,74 @@ void UserThread::StartUserThread(void * schmurtz) {
     machine->WriteRegister (NextPCReg, machine->ReadRegister(PCReg) + 4);
 
     // ARGUMENT
-    // machine->WriteRegister (2, function_adress);
     machine->WriteRegister (4, arg_adress);
 
     // Set the stack register to the end of the address space, where we
     // allocated the stack; but subtract off a bit, to make sure we don't
-    // accidentally reference off the end!
+    // accidentally reference off the end and put it on a free space
+    // of a range of 256 bytes
     int space = currentThread->space->AllocateUserStack();
 
     if(space == -1){
-        fprintf(stderr, "Not enought space to alloc the thread %d\n", currentThread->space->thread_id);
+        DEBUG('t', "Not enought space to alloc the thread %d\n", currentThread->space->thread_id);
+        currentThread->space->thread_id--;
+        currentThread->Finish();
         return;
     }
 
     int offset = currentThread->space->NumPages() * PageSize - StackSizeToNotTouch;
-    machine->WriteRegister (StackReg, offset - space);
-    // printf("StackReg = %d\n", machine->ReadRegister(StackReg));
-    DEBUG ('a', "Initializing stack register to 0x%x\n",
+    machine->WriteRegister (StackReg, offset - space); 
+    
+    DEBUG ('t', "Initializing stack register to 0x%x\n",
 	   machine->ReadRegister(StackReg));
     
-    machine->WriteRegister(RetAddrReg, exit_address);
+    machine->WriteRegister(RetAddrReg, exit_address);   //To allow auto-exit when the thread as reach the end 
 	
     machine->Run();
-    free(array);
 }
 
 
 
 int UserThread::do_ThreadExit() {
-    fprintf(stderr, "\nExiting thread %d.\n", currentThread->space->thread_id);
+        DEBUG('t', "\nExiting thread %d.\n", currentThread->space->thread_id);
     int offset = currentThread->space->NumPages() * PageSize - StackSizeToNotTouch;
-    // printf("Offset=%d\n",offset);
+    
     currentThread->space->FreeUserStack(offset - machine->ReadRegister(StackReg));
 
-    if(currentThread->space->thread_id != 0){
-        currentThread->Finish();
-        return 1;
-    } else {
+    if(currentThread->space->GetFreeSpace() == UserStacksAreaSize && currentThread->space->thread_id  == 0) {
         interrupt->Halt();
         return 0;
+    } else {
+        currentThread->Finish();
+        return 1;
     }
     
 }
 
-#endif
+
+void UserThread::do_SemaphoreInit(sem_t sem_id, int initial_value){
+                // ListElement* res = new ListElement(new Semaphore("martine decouvre les semaphores", initial_value), (long long) sem_id);
+    semaphore_user_list->Prepend(new ListElement(new Semaphore("martine decouvre les semaphores", initial_value), (long long) sem_id));
+    // ListElement * elem = new ListElement(new Semaphore("sem name", initial_value), sem_id);
+    // printf("Added a semaphore. Name:%s. ID:%d. Init:%d.\n", ((Semaphore*) elem)->getName(),sem_id, initial_value);
+    // semaphore_user_list->Prepend(elem);
+}
+
+void UserThread::UserSemaphore_V(int sem) {
+    ListElement * semaphore = isElementPresent(sem);
+    printf("V, ");
+    getSemaphoreFromElement(semaphore)->V();
+    // if(sem != 0x0)
+    //     sem->V();
+}
+
+
+void UserThread::UserSemaphore_P(int sem) {
+    ListElement * semaphore = isElementPresent(sem);
+    printf("P, ");
+    getSemaphoreFromElement(semaphore)->P();
+    // if(sem != 0x0)
+    //     sem->V();
+}
+
+#endif  //CHANGED

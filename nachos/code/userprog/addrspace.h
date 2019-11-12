@@ -20,11 +20,13 @@
 #include "list.h"
 #include "bitmap.h"
 
+#ifdef CHANGED
 #define UserStacksAreaSize 1024 // increase this as necessary!
 #define UserThreadSize 256
 #define StackSizeToNotTouch 16
 
 class Semaphore;
+#endif
 
 class AddrSpace : dontcopythis
 {
@@ -46,6 +48,7 @@ class AddrSpace : dontcopythis
     // Dump program layout as SVG
     unsigned NumPages() { return numPages; }
 
+    #ifdef CHANGED
     //Protect operation with semaphore
     int AllocateUserStack();
     int AllocateUserStack(int size);
@@ -53,13 +56,18 @@ class AddrSpace : dontcopythis
     //Protect operation with semaphore
     void FreeUserStack(int pos);
     void FreeUserStack(int size, int pos);
+
+    int GetFreeSpace();
     int thread_id = 1;
+    #endif //CHANGED
 
   private:
+    #ifdef CHANGED
     int userStackPosition = StackSizeToNotTouch;
+    BitMap *threadMapManager;
+    #endif //CHANGED
     NoffHeader noffH; // Program layout
 
-    BitMap *threadMapManager;
 
     TranslationEntry *pageTable; // Page table
     unsigned int numPages;       // Number of pages in the page table

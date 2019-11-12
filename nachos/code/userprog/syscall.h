@@ -43,8 +43,11 @@
 
 #define SC_ThreadCreate 30
 #define SC_ThreadExit   31
-#define SC_V            32
-#define SC_P            33
+
+
+#define SC_V                32
+#define SC_P                33
+#define SC_SemaphoreInit    34
 
 #endif //CHANGED
 #ifdef IN_USER_MODE
@@ -147,6 +150,11 @@ void Yield ();
 
 
 #ifdef CHANGED
+// typedef struct {
+//     int begin_value;
+//     int id;
+// }sem_t;
+typedef int sem_t;
 void PutChar (char c);
 
 int GetChar (void);
@@ -155,13 +163,20 @@ void PutString (const char s[]);
 
 int GetString(char *s, int n);
 
-void PutInt (int n);
+int PutInt (int n);
 
 void GetInt (int *n);
 
-void ThreadCreate (void f(void*args), void * args);
+int ThreadCreate (void f(void*args), void * args);
 
-void ThreadExit (void);
+int ThreadExit (void);
+
+void V(sem_t sem);
+
+void P(sem_t sem);
+
+void SemaphoreInit(sem_t sem_id, int initial_value);
+
 
 
 

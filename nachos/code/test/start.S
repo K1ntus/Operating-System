@@ -74,6 +74,8 @@ Halt:
 	.globl Exit
 	.ent	Exit
 Exit:
+	addiu $2,$0,SC_ThreadExit
+	syscall
 	addiu $2,$0,SC_Exit
 	syscall
 	j	$31
@@ -199,18 +201,17 @@ GetInt:
 	addiu $2,$0,SC_GetInt
 	syscall
 	j	$31
-
-
-
-
 	.end GetInt
+
+
+
+
 	.global ThreadCreate
 	.ent	ThreadCreate
 ThreadCreate:
 	la $7, ThreadExit
 	addiu $2,$0,SC_ThreadCreate
 	syscall
-	
 	j	$31
 	.end ThreadCreate
 
@@ -221,6 +222,33 @@ ThreadExit:
 	syscall
 	j	$31
 	.end ThreadExit
+
+
+
+
+; 	.global SemaphoreInit
+; 	.ent	SemaphoreInit
+; SemaphoreInit:
+; 	addiu $2,$0,SC_SemaphoreInit
+; 	syscall
+; 	j	$31
+; 	.end SemaphoreInit
+
+	.global P
+	.ent	P
+P:
+	addiu $2,$0,SC_P
+	syscall
+	j	$31
+	.end P
+
+	.global V
+	.ent	V
+V:
+	addiu $2,$0,SC_V
+	syscall
+	j	$31
+	.end V
 #endif //CHANGED
 
 

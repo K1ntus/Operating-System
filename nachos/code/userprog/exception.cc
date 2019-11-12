@@ -219,66 +219,49 @@ void ExceptionHandler (ExceptionType which) {
 
 						int function_address = machine->ReadRegister(CALL_ARG1);
 						int args_address = machine->ReadRegister(CALL_ARG2);
-						// int exit_address = machine->ReadRegister(CALL_ARG4);
 
-
-						int * f_address = (int*) malloc(sizeof(int) *2);
-						// f_address[0] = function_address;
-						// f_address[1] = exit_address;
-						// printf("Func Value:%p->%d\n", &f_address[0], f_address[0]);
-						// printf("Exit Value:%p->%d\n", &f_address[1], f_address[1]);
-
-
-						// printf("Entry function:%p->%p\n", *f_address, &f_address);
-						// unsigned long tmp = (unsigned long)f_address;
 
 						int thread_id = UserThread::do_ThreadCreate(function_address, args_address);
 						machine->WriteRegister(CALL_CODE, thread_id);
 						
-						free(f_address);
-
-						// machine->WriteRegister(CALL_CODE, function_adress);
-
-						// machine->WriteRegister(CALL_ARG4, function_adress);
 						break;
 					}
 					case SC_ThreadExit:
 					{
 						DEBUG ('s', "ThreadExit, initiated by user program.\n");
-						int return_value = -1;
-						return_value = machine->ReadRegister(CALL_ARG1);
 
-						return_value = UserThread::do_ThreadExit();//(thread_id);
-
-						
-						machine->WriteRegister(CALL_CODE, return_value);
+						UserThread::do_ThreadExit();						
+						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
 
+					case SC_SemaphoreInit:
+					{
+						UserThread::do_SemaphoreInit(machine->ReadRegister(CALL_ARG1), machine->ReadRegister(CALL_ARG2));
+						printf("Init. %d + %d\n", machine->ReadRegister(CALL_ARG1), machine->ReadRegister(CALL_ARG2));
+						break;
+					}
 
 					case SC_P:
 					{
 						DEBUG ('s', "Sephamore P, initiated by user program.\n");
-						int thread_id = -1;
 
-						int function_adress = machine->ReadRegister(CALL_ARG1);
-						int args_adress = machine->ReadRegister(CALL_ARG2);
-
-						thread_id = UserThread::do_ThreadCreate(function_adress, args_adress);
-
-						machine->WriteRegister(CALL_CODE, thread_id);
+						int id = machine->ReadRegister(CALL_ARG1);
+						// printf("P!\n");
+						// printf("P with id: %d\n", id);
+						UserThread::UserSemaphore_P(id);		
+						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
 					case SC_V:
 					{
 						DEBUG ('s', "Sephamore V, initiated by user program.\n");
-						int return_value = -1;
-						return_value = machine->ReadRegister(CALL_ARG1);
 
-						return_value = UserThread::do_ThreadExit();//(thread_id);
-
-						 
-						machine->WriteRegister(CALL_CODE, return_value);
+						int id = machine->ReadRegister(CALL_ARG1);
+						// printf("V with id: %d\n", id);
+						UserThread::UserSemaphore_V(id);			 
+						// printf("V!\n");
+						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
 					#endif	//CHANGED
