@@ -155,7 +155,6 @@ void ExceptionHandler (ExceptionType which) {
 
 						char* buffer = (char *) malloc(sizeof(char) * MAX_STRING_SIZE);
     					ASSERT(buffer != 0x0);  
-
 						while(nb_char_copied != 0) {
 							nb_char_copied = synchconsole->copyStringFromMachine(address + offset, buffer, MAX_STRING_SIZE);
 							synchconsole->SynchPutString(buffer);

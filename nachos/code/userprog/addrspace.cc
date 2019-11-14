@@ -102,7 +102,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
     pageTable = new TranslationEntry[numPages];
     for (i = 0; i < numPages; i++)
     {
-        pageTable[i].physicalPage = i; // for now, phys page # = virtual page #
+        pageTable[i].physicalPage = i + 1; // for now, phys page # = virtual page #
         pageTable[i].valid = TRUE;
         pageTable[i].use = FALSE;
         pageTable[i].dirty = FALSE;
@@ -116,16 +116,36 @@ AddrSpace::AddrSpace(OpenFile *executable)
     {
         DEBUG('a', "Initializing code segment, at 0x%x, size 0x%x\n",
               noffH.code.virtualAddr, noffH.code.size);
-        executable->ReadAt(&(machine->mainMemory[noffH.code.virtualAddr]),
-                           noffH.code.size, noffH.code.inFileAddr);
+
+        #ifdef CHANGED
+           ReadAtVirtual(executable, 
+                                noffH.code.virtualAddr,
+                                noffH.code.size, 
+                                noffH.code.inFileAddr, 
+                                pageTable, 
+                                numPages
+                            );
+        #else
+            executable->ReadAt(&(machine->mainMemory[noffH.code.virtualAddr]),
+                            noffH.code.size, noffH.code.inFileAddr);
+        #endif //CHANGED
     }
     if (noffH.initData.size > 0)
     {
         DEBUG('a', "Initializing data segment, at 0x%x, size 0x%x\n",
               noffH.initData.virtualAddr, noffH.initData.size);
-        executable->ReadAt(&(machine->mainMemory
-                                 [noffH.initData.virtualAddr]),
-                           noffH.initData.size, noffH.initData.inFileAddr);
+
+        #ifdef CHANGED
+           ReadAtVirtual(executable, 
+                                noffH.initData.virtualAddr,
+                                noffH.initData.size, 
+                                noffH.initData.inFileAddr, 
+                                pageTable, 
+                                numPages
+                            );
+        #else
+            executable->ReadAt(&(machine->mainMemory[noffH.initData.virtualAddr]), noffH.initData.size, noffH.initData.inFileAddr);
+        #endif //CHANGED
     }
 
     DEBUG('a', "Area for stacks at 0x%x, size 0x%x\n",
@@ -135,8 +155,8 @@ AddrSpace::AddrSpace(OpenFile *executable)
 
     AddrSpaceList.Append(this);
 
+
     threadMapManager = new BitMap(UserStacksAreaSize);
-    // threadMapManager = new BitMap(UserStacksAreaSize / UserThreadSize);
 }
 
 //----------------------------------------------------------------------
@@ -156,6 +176,31 @@ AddrSpace::~AddrSpace()
 }
 
 
+
+
+
+#ifdef CHANGED
+void AddrSpace::ReadAtVirtual(OpenFile * executable, int virtualaddr, int numBytes, int position, TranslationEntry * pageTable, unsigned numPages) {
+
+    char * buffer = (char*) malloc(sizeof(char) * numBytes);
+    ASSERT(buffer != 0x0);
+    executable->ReadAt(buffer, numBytes, position);
+    
+
+    TranslationEntry * tmp_pageTable = machine->pageTable;
+    unsigned tmp_numPages = machine->pageTableSize;
+
+
+    machine->pageTableSize = numPages;
+    machine->pageTable = pageTable;
+    for(int i = 0; i < numBytes; i++){
+        machine->WriteMem(virtualaddr+i, 1, (int) buffer[i]);
+    }
+    free(buffer);
+
+    machine->pageTableSize = tmp_numPages;
+    machine->pageTable = tmp_pageTable;
+}
 
 
 
@@ -232,8 +277,7 @@ void AddrSpace::FreeUserStack(int size, int pos)
 
 
 
-
-
+#endif //CHANGED
 
 
 

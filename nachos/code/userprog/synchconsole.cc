@@ -138,7 +138,7 @@ void SynchConsole::SynchPutString(const char s[])
 {
     ASSERT(s != NULL);
 
-    threadWriteProtector->P();
+    // threadWriteProtector->P();
     int i = 0;
     while (i < MAX_STRING_SIZE - 1)
     {
@@ -148,7 +148,7 @@ void SynchConsole::SynchPutString(const char s[])
 
         i++;
     }
-    threadWriteProtector->V();
+    // threadWriteProtector->V();
 
     // To think about this conditional instruction,
     // does not seems really interesting in case of great string size,
