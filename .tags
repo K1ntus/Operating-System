@@ -1,0 +1,1314 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+A	nachos/code/test/matmult.c	/^int A[Dim][Dim];$/;"	v
+A	nachos/code/test/sort.c	/^int A[N];			\/* size of physical memory; with code, we'll run out of space! *\/$/;"	v
+ADDRSPACE_H	nachos/code/userprog/addrspace.h	14;"	d
+AOUTHDR	nachos/code/bin/coff.h	/^      } AOUTHDR;$/;"	t	typeref:struct:aouthdr
+AOUTHSZ	nachos/code/bin/coff.h	34;"	d
+AS	nachos/code/test/Makefile	/^AS	:=	$(GCCDIR)\/as$/;"	m
+ASFLAGS	nachos/code/test/Makefile	/^ASFLAGS = $/;"	m
+ASSERT	nachos/code/threads/utility.h	92;"	d
+ASSOC	nachos/code/bin/disasm.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+ASSOC	nachos/code/bin/main.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+Abort	nachos/code/machine/sysdep.cc	/^Abort()$/;"	f
+Acquire	nachos/code/threads/synch.cc	/^Lock::Acquire ()$/;"	f	class:Lock
+Add	nachos/code/filesys/directory.cc	/^Directory::Add(const char *name, int newSector)$/;"	f	class:Directory
+AddrSpace	nachos/code/userprog/addrspace.cc	/^AddrSpace::AddrSpace (OpenFile * executable)$/;"	f	class:AddrSpace
+AddrSpace	nachos/code/userprog/addrspace.h	/^class AddrSpace:dontcopythis$/;"	c
+AddrSpaceList	nachos/code/userprog/addrspace.cc	/^List AddrSpaceList;$/;"	v
+AddrSpacesRoom	nachos/code/userprog/addrspace.cc	/^AddrSpacesRoom(unsigned blocksize)$/;"	f
+AddressErrorException	nachos/code/machine/machine.h	/^		     AddressErrorException, \/\/ Unaligned reference or one that$/;"	e	enum:ExceptionType
+AllocBoundedArray	nachos/code/machine/sysdep.cc	/^AllocBoundedArray(int size)$/;"	f
+Allocate	nachos/code/filesys/filehdr.cc	/^FileHeader::Allocate(BitMap *freeMap, int fileSize)$/;"	f	class:FileHeader
+AnsiColor	nachos/code/threads/utility.h	/^enum AnsiColor {$/;"	g
+Append	nachos/code/threads/list.cc	/^List::Append (void *item)$/;"	f	class:List
+Append	nachos/code/threads/synchlist.cc	/^SynchList::Append (void *item)$/;"	f	class:SynchList
+AssignNameToSocket	nachos/code/machine/sysdep.cc	/^AssignNameToSocket(const char *socketName, int sockID)$/;"	f
+B	nachos/code/test/matmult.c	/^int B[Dim][Dim];$/;"	v
+BCOND	nachos/code/machine/mipssim.h	106;"	d
+BITMAP_H	nachos/code/userprog/bitmap.h	16;"	d
+BLOCKED	nachos/code/threads/thread.h	/^{ JUST_CREATED, RUNNING, READY, BLOCKED };$/;"	e	enum:ThreadStatus
+BadVAddrReg	nachos/code/machine/machine.h	70;"	d
+BitMap	nachos/code/userprog/bitmap.cc	/^BitMap::BitMap (int nitems)$/;"	f	class:BitMap
+BitMap	nachos/code/userprog/bitmap.h	/^class BitMap:dontcopythis$/;"	c
+BitsInByte	nachos/code/filesys/filesys.cc	63;"	d	file:
+BitsInByte	nachos/code/userprog/bitmap.cc	13;"	d	file:
+BitsInWord	nachos/code/userprog/bitmap.cc	14;"	d	file:
+BlockUserAbort	nachos/code/machine/sysdep.cc	/^BlockUserAbort(void)$/;"	f
+Broadcast	nachos/code/threads/synch.cc	/^Condition::Broadcast (Lock * conditionLock)$/;"	f	class:Condition
+BusErrorException	nachos/code/machine/machine.h	/^		     BusErrorException,     \/\/ Translation resulted in an $/;"	e	enum:ExceptionType
+ByteToSector	nachos/code/filesys/filehdr.cc	/^FileHeader::ByteToSector(int offset)$/;"	f	class:FileHeader
+C	nachos/code/test/matmult.c	/^int C[Dim][Dim];$/;"	v
+CALL_ARG1	nachos/code/userprog/exception.cc	66;"	d	file:
+CALL_ARG2	nachos/code/userprog/exception.cc	67;"	d	file:
+CALL_ARG3	nachos/code/userprog/exception.cc	68;"	d	file:
+CALL_ARG4	nachos/code/userprog/exception.cc	69;"	d	file:
+CALL_CODE	nachos/code/userprog/exception.cc	65;"	d	file:
+CC	nachos/code/bin/Makefile	/^CC=gcc$/;"	m
+CC	nachos/code/test/Makefile	/^CC	:=	$(GCCDIR)\/$(GCC)$/;"	m
+CFLAGS	nachos/code/bin/Makefile	/^CFLAGS=-I.\/ -I..\/threads -Wall -Wextra -Wshadow$/;"	m
+CFLAGS	nachos/code/test/Makefile	/^CFLAGS 	:=	-DIN_USER_MODE -c $(INCDIR) -G 0 -Wall -O2 -DCHANGED$/;"	m
+CONSOLE_H	nachos/code/machine/console.h	24;"	d
+CPP	nachos/code/test/Makefile	/^CPP	:=	$(GCCDIR)\/$(GCC) -E -P$/;"	m
+CPPFLAGS	nachos/code/test/Makefile	/^CPPFLAGS = $(INCDIR) -DCHANGED$/;"	m
+C_OFILES	nachos/code/filesys/Makefile	/^C_OFILES = $(THREAD_O) $(USERPROG_O) $(VM_O) $(FILESYS_O)$/;"	m
+C_OFILES	nachos/code/network/Makefile	/^C_OFILES = $(THREAD_O) $(USERPROG_O) $(VM_O) $(FILESYS_O) $(NETWORK_O)$/;"	m
+C_OFILES	nachos/code/threads/Makefile	/^C_OFILES = $(THREAD_O)$/;"	m
+C_OFILES	nachos/code/userprog/Makefile	/^C_OFILES = $(THREAD_O) $(USERPROG_O)$/;"	m
+C_OFILES	nachos/code/vm/Makefile	/^C_OFILES = $(THREAD_O) $(USERPROG_O) $(VM_O)$/;"	m
+CallOnUserAbort	nachos/code/machine/sysdep.cc	/^CallOnUserAbort(VoidNoArgFunctionPtr func)$/;"	f
+ChangeLevel	nachos/code/machine/interrupt.cc	/^Interrupt::ChangeLevel(IntStatus old, IntStatus now)$/;"	f	class:Interrupt
+CheckCharAvail	nachos/code/machine/console.cc	/^Console::CheckCharAvail()$/;"	f	class:Console
+CheckEndian	nachos/code/machine/machine.cc	/^void CheckEndian()$/;"	f	file:
+CheckIfDue	nachos/code/machine/interrupt.cc	/^Interrupt::CheckIfDue(bool advanceClock)$/;"	f	class:Interrupt
+CheckOverflow	nachos/code/threads/thread.cc	/^Thread::CheckOverflow ()$/;"	f	class:Thread
+CheckPktAvail	nachos/code/machine/network.cc	/^Network::CheckPktAvail()$/;"	f	class:Network
+Cleanup	nachos/code/threads/system.cc	/^Cleanup ()$/;"	f
+Clear	nachos/code/userprog/bitmap.cc	/^BitMap::Clear (int which)$/;"	f	class:BitMap
+ClearColor	nachos/code/threads/utility.cc	/^ClearColor (FILE *output)$/;"	f
+Close	nachos/code/machine/sysdep.cc	/^Close(int fd)$/;"	f
+Close	nachos/code/test/start.S	/^Close:$/;"	l
+CloseSocket	nachos/code/machine/sysdep.cc	/^CloseSocket(int sockID)$/;"	f
+ColorBlack	nachos/code/threads/utility.h	/^	ColorBlack,$/;"	e	enum:AnsiColor
+ColorBlue	nachos/code/threads/utility.h	/^	ColorBlue,$/;"	e	enum:AnsiColor
+ColorCyan	nachos/code/threads/utility.h	/^	ColorCyan,$/;"	e	enum:AnsiColor
+ColorGreen	nachos/code/threads/utility.h	/^	ColorGreen,$/;"	e	enum:AnsiColor
+ColorMagenta	nachos/code/threads/utility.h	/^	ColorMagenta,$/;"	e	enum:AnsiColor
+ColorRed	nachos/code/threads/utility.h	/^	ColorRed,$/;"	e	enum:AnsiColor
+ColorWhite	nachos/code/threads/utility.h	/^	ColorWhite,$/;"	e	enum:AnsiColor
+ColorYellow	nachos/code/threads/utility.h	/^	ColorYellow,$/;"	e	enum:AnsiColor
+ComputeLatency	nachos/code/machine/disk.cc	/^Disk::ComputeLatency(int newSector, bool writing)$/;"	f	class:Disk
+Condition	nachos/code/threads/synch.cc	/^Condition::Condition (const char *debugName)$/;"	f	class:Condition
+Condition	nachos/code/threads/synch.h	/^class Condition:dontcopythis$/;"	c
+Console	nachos/code/machine/console.cc	/^Console::Console(const char *readFile, const char *writeFile, VoidFunctionPtr readAvailHandler, $/;"	f	class:Console
+Console	nachos/code/machine/console.h	/^class Console:dontcopythis {$/;"	c
+ConsoleInput	nachos/code/userprog/syscall.h	98;"	d
+ConsoleOutput	nachos/code/userprog/syscall.h	99;"	d
+ConsoleReadInt	nachos/code/machine/interrupt.h	/^enum IntType { TimerInt, DiskInt, ConsoleWriteInt, ConsoleReadInt, $/;"	e	enum:IntType
+ConsoleReadPoll	nachos/code/machine/console.cc	/^static void ConsoleReadPoll(void *c) $/;"	f	file:
+ConsoleTest	nachos/code/userprog/progtest.cc	/^void ConsoleTest (const char *in, const char *out) {$/;"	f
+ConsoleTime	nachos/code/machine/stats.h	66;"	d
+ConsoleWriteDone	nachos/code/machine/console.cc	/^static void ConsoleWriteDone(void *c)$/;"	f	file:
+ConsoleWriteInt	nachos/code/machine/interrupt.h	/^enum IntType { TimerInt, DiskInt, ConsoleWriteInt, ConsoleReadInt, $/;"	e	enum:IntType
+ContentSize	nachos/code/filesys/fstest.cc	113;"	d	file:
+Contents	nachos/code/filesys/fstest.cc	112;"	d	file:
+Copy	nachos/code/filesys/fstest.cc	/^Copy(char *from, char *to)$/;"	f
+Create	nachos/code/filesys/filesys.cc	/^FileSystem::Create(const char *name, int initialSize)$/;"	f	class:FileSystem
+Create	nachos/code/filesys/filesys.h	/^    bool Create(const char *name, int initialSize) { $/;"	f	class:FileSystem
+Create	nachos/code/test/start.S	/^Create:$/;"	l
+DEBUG	nachos/code/threads/utility.cc	/^DEBUG (char flag, const char *format, ...)$/;"	f
+DEBUG_MODE	nachos/code/userprog/synchconsole.cc	15;"	d	file:
+DEFINES	nachos/code/filesys/Makefile	/^DEFINES =-DTHREADS -DUSER_PROGRAM -DVM -DFILESYS_NEEDED -DFILESYS$/;"	m
+DEFINES	nachos/code/network/Makefile	/^DEFINES = -DUSER_PROGRAM -DVM -DFILESYS_NEEDED -DFILESYS -DNETWORK$/;"	m
+DEFINES	nachos/code/threads/Makefile	/^DEFINES = -DTHREADS$/;"	m
+DEFINES	nachos/code/userprog/Makefile	/^DEFINES = -DUSER_PROGRAM -DFILESYS_NEEDED -DFILESYS_STUB #-DUSE_TLB$/;"	m
+DEFINES	nachos/code/vm/Makefile	/^DEFINES = -DUSER_PROGRAM  -DFILESYS_NEEDED -DFILESYS_STUB -DVM -DUSE_TLB$/;"	m
+DIRECTORY_H	nachos/code/filesys/directory.h	18;"	d
+DIRS	nachos/code/Makefile	/^DIRS	:=	threads userprog $/;"	m
+DIRS_INDENT	nachos/code/Makefile	/^DIRS_INDENT	:= threads userprog test$/;"	m
+DISK_H	nachos/code/machine/disk.h	18;"	d
+DeAssignNameToSocket	nachos/code/machine/sysdep.cc	/^DeAssignNameToSocket(const char *socketName)$/;"	f
+DeallocBoundedArray	nachos/code/machine/sysdep.cc	/^DeallocBoundedArray(char *ptr, int size)$/;"	f
+Deallocate	nachos/code/filesys/filehdr.cc	/^FileHeader::Deallocate(BitMap *freeMap)$/;"	f	class:FileHeader
+DebugInit	nachos/code/threads/utility.cc	/^DebugInit (const char *flagList)$/;"	f
+DebugIsEnabled	nachos/code/threads/utility.cc	/^DebugIsEnabled (char flag)$/;"	f
+Debugger	nachos/code/machine/machine.cc	/^void Machine::Debugger()$/;"	f	class:Machine
+Decode	nachos/code/machine/mipssim.cc	/^Instruction::Decode()$/;"	f	class:Instruction
+Delay	nachos/code/machine/sysdep.cc	/^Delay(int seconds)$/;"	f
+DelayedLoad	nachos/code/machine/mipssim.cc	/^Machine::DelayedLoad(int nextReg, int nextValue)$/;"	f	class:Machine
+Dim	nachos/code/test/matmult.c	12;"	d	file:
+Directory	nachos/code/filesys/directory.cc	/^Directory::Directory(int size)$/;"	f	class:Directory
+Directory	nachos/code/filesys/directory.h	/^class Directory:dontcopythis {$/;"	c
+DirectoryEntry	nachos/code/filesys/directory.h	/^class DirectoryEntry {$/;"	c
+DirectoryFileSize	nachos/code/filesys/filesys.cc	66;"	d	file:
+DirectorySector	nachos/code/filesys/filesys.cc	58;"	d	file:
+Disk	nachos/code/machine/disk.cc	/^Disk::Disk(const char* name, VoidFunctionPtr callWhenDone, void *callArg)$/;"	f	class:Disk
+Disk	nachos/code/machine/disk.h	/^class Disk:dontcopythis {$/;"	c
+DiskDone	nachos/code/machine/disk.cc	/^static void DiskDone(void *arg) { ((Disk *)arg)->HandleInterrupt(); }$/;"	f	file:
+DiskInt	nachos/code/machine/interrupt.h	/^enum IntType { TimerInt, DiskInt, ConsoleWriteInt, ConsoleReadInt, $/;"	e	enum:IntType
+DiskRequestDone	nachos/code/filesys/synchdisk.cc	/^DiskRequestDone (void *arg)$/;"	f	file:
+DiskSize	nachos/code/machine/disk.cc	26;"	d	file:
+DrawArea	nachos/code/userprog/addrspace.cc	/^DrawArea(FILE *output, unsigned x, unsigned virtual_x,$/;"	f	file:
+Dump	nachos/code/userprog/addrspace.cc	/^AddrSpace::Dump(FILE *output, unsigned virtual_x, unsigned virtual_width,$/;"	f	class:AddrSpace
+DumpAddrSpaces	nachos/code/userprog/addrspace.cc	/^DumpAddrSpaces(FILE *output,$/;"	f
+DumpMem	nachos/code/machine/machine.cc	/^Machine::DumpMem(const char *name)$/;"	f	class:Machine
+DumpPageTable	nachos/code/machine/machine.cc	/^Machine::DumpPageTable(FILE *output,$/;"	f	class:Machine
+DumpReg	nachos/code/machine/machine.cc	/^Machine::DumpReg(FILE *output, int val, const char *name, const char *color,$/;"	f	class:Machine
+DumpRegs	nachos/code/machine/machine.cc	/^Machine::DumpRegs(FILE *output, int ptr_x, unsigned virtual_x,$/;"	f	class:Machine
+DumpState	nachos/code/machine/interrupt.cc	/^Interrupt::DumpState()$/;"	f	class:Interrupt
+DumpState	nachos/code/machine/machine.cc	/^Machine::DumpState()$/;"	f	class:Machine
+DumpThreadState	nachos/code/threads/thread.cc	/^Thread::DumpThreadState(FILE *output, int ptr_x, unsigned virtual_x, unsigned virtual_y, unsigned blocksize)$/;"	f	class:Thread
+DumpThreadsState	nachos/code/threads/thread.cc	/^DumpThreadsState(FILE *output, AddrSpace *space, unsigned virtual_x, unsigned virtual_y, unsigned blocksize)$/;"	f
+EXTRA	nachos/code/machine/mipssim.h	/^enum RegType { NONE, RS, RT, RD, EXTRA }; $/;"	e	enum:RegType
+Enable	nachos/code/machine/interrupt.cc	/^Interrupt::Enable()$/;"	f	class:Interrupt
+ExceptionHandler	nachos/code/userprog/exception.cc	/^void ExceptionHandler (ExceptionType which) {$/;"	f
+ExceptionType	nachos/code/machine/machine.h	/^enum ExceptionType { NoException,           \/\/ Everything ok!$/;"	g
+Exec	nachos/code/test/start.S	/^Exec:$/;"	l
+Exit	nachos/code/machine/sysdep.cc	/^Exit(int exitCode)$/;"	f
+Exit	nachos/code/test/start.S	/^Exit:$/;"	l
+FALSE	nachos/code/threads/bool.h	12;"	d
+FAST	nachos/code/bin/execute.c	14;"	d	file:
+FILEHDR_H	nachos/code/filesys/filehdr.h	15;"	d
+FP	nachos/code/threads/switch.h	37;"	d
+FP	nachos/code/threads/switch.h	77;"	d
+FPState	nachos/code/threads/switch.h	180;"	d
+FPState	nachos/code/threads/switch.h	211;"	d
+FPState	nachos/code/threads/switch.h	56;"	d
+FS_H	nachos/code/filesys/filesys.h	36;"	d
+FetchFrom	nachos/code/filesys/directory.cc	/^Directory::FetchFrom(OpenFile *file)$/;"	f	class:Directory
+FetchFrom	nachos/code/filesys/filehdr.cc	/^FileHeader::FetchFrom(int sector)$/;"	f	class:FileHeader
+FetchFrom	nachos/code/userprog/bitmap.cc	/^BitMap::FetchFrom (OpenFile * file)$/;"	f	class:BitMap
+FileHeader	nachos/code/filesys/filehdr.h	/^class FileHeader {$/;"	c
+FileLength	nachos/code/filesys/filehdr.cc	/^FileHeader::FileLength()$/;"	f	class:FileHeader
+FileName	nachos/code/filesys/fstest.cc	111;"	d	file:
+FileNameMaxLen	nachos/code/filesys/directory.h	22;"	d
+FileRead	nachos/code/filesys/fstest.cc	/^FileRead()$/;"	f	file:
+FileSize	nachos/code/filesys/fstest.cc	114;"	d	file:
+FileSystem	nachos/code/filesys/filesys.cc	/^FileSystem::FileSystem(bool format)$/;"	f	class:FileSystem
+FileSystem	nachos/code/filesys/filesys.h	/^    FileSystem(bool format) { (void) format; }$/;"	f	class:FileSystem
+FileSystem	nachos/code/filesys/filesys.h	/^class FileSystem:dontcopythis {$/;"	c
+FileWrite	nachos/code/filesys/fstest.cc	/^FileWrite()$/;"	f	file:
+Find	nachos/code/filesys/directory.cc	/^Directory::Find(const char *name)$/;"	f	class:Directory
+Find	nachos/code/userprog/bitmap.cc	/^BitMap::Find ()$/;"	f	class:BitMap
+FindIndex	nachos/code/filesys/directory.cc	/^Directory::FindIndex(const char *name)$/;"	f	class:Directory
+FindNextToRun	nachos/code/threads/scheduler.cc	/^Scheduler::FindNextToRun ()$/;"	f	class:Scheduler
+Finish	nachos/code/threads/thread.cc	/^Thread::Finish ()$/;"	f	class:Thread
+FirstElement	nachos/code/threads/list.cc	/^List::FirstElement ()$/;"	f	class:List
+Fork	nachos/code/test/start.S	/^Fork:$/;"	l
+FreeMapFileSize	nachos/code/filesys/filesys.cc	64;"	d	file:
+FreeMapSector	nachos/code/filesys/filesys.cc	57;"	d	file:
+GCC	nachos/code/test/Makefile	/^GCC	:=	gcc$/;"	m
+GCC	nachos/code/test/Makefile	/^GCC	:=	xgcc$/;"	m
+GCCDIR	nachos/code/test/Makefile	/^GCCDIR	= \/net\/cremi\/aguermou\/xgcc\/decstation-ultrix\/bin$/;"	m
+GCCDIR	nachos/code/test/Makefile	/^GCCDIR = \/opt\/xgcc\/decstation-ultrix\/bin$/;"	m
+Get	nachos/code/network/post.cc	/^MailBox::Get(PacketHeader *pktHdr, MailHeader *mailHdr, void *data) $/;"	f	class:MailBox
+GetChar	nachos/code/machine/console.cc	/^Console::GetChar()$/;"	f	class:Console
+GetChar	nachos/code/test/start.S	/^GetChar:$/;"	l
+GetInt	nachos/code/test/start.S	/^GetInt:$/;"	l
+GetInt	nachos/code/userprog/synchconsole.cc	/^void SynchConsole::GetInt (int * n) {$/;"	f	class:SynchConsole
+GetString	nachos/code/test/start.S	/^GetString:$/;"	l
+HI	nachos/code/bin/execute.c	/^int HI, LO;			\/* mul\/div machine registers *\/$/;"	v
+Halt	nachos/code/machine/interrupt.cc	/^Interrupt::Halt()$/;"	f	class:Interrupt
+Halt	nachos/code/test/start.S	/^Halt:$/;"	l
+Halt	nachos/code/threads/scheduler.cc	/^Scheduler::Halt ()$/;"	f	class:Scheduler
+HandleInterrupt	nachos/code/machine/disk.cc	/^Disk::HandleInterrupt ()$/;"	f	class:Disk
+HiReg	nachos/code/machine/machine.h	63;"	d
+I0	nachos/code/threads/switch.h	67;"	d
+I1	nachos/code/threads/switch.h	68;"	d
+I2	nachos/code/threads/switch.h	69;"	d
+I3	nachos/code/threads/switch.h	70;"	d
+I4	nachos/code/threads/switch.h	71;"	d
+I5	nachos/code/threads/switch.h	72;"	d
+I6	nachos/code/threads/switch.h	73;"	d
+I7	nachos/code/threads/switch.h	74;"	d
+IFMT	nachos/code/machine/mipssim.h	108;"	d
+IM	nachos/code/bin/execute.c	/^IM(i)$/;"	f
+INCDIR	nachos/code/test/Makefile	/^INCDIR	:=	-I..\/userprog -I..\/threads$/;"	m
+INCPATH	nachos/code/filesys/Makefile	/^INCPATH = -I..\/filesys -I..\/bin -I..\/vm -I..\/userprog -I..\/threads -I..\/machine$/;"	m
+INCPATH	nachos/code/network/Makefile	/^INCPATH = -I..\/network -I..\/bin -I..\/filesys -I..\/vm -I..\/userprog -I..\/threads -I..\/machine$/;"	m
+INCPATH	nachos/code/threads/Makefile	/^INCPATH = -I..\/threads -I..\/machine$/;"	m
+INCPATH	nachos/code/userprog/Makefile	/^INCPATH = -I..\/bin -I..\/filesys -I..\/userprog -I..\/threads -I..\/machine$/;"	m
+INCPATH	nachos/code/vm/Makefile	/^INCPATH = -I..\/filesys -I..\/bin -I..\/vm -I..\/userprog -I..\/threads -I..\/machine$/;"	m
+INDENT	nachos/code/Makefile	/^INDENT	:= indent --indent-level4$/;"	m
+INTERRUPT_H	nachos/code/machine/interrupt.h	36;"	d
+IOCPARM_MASK	nachos/code/bin/system.c	89;"	d	file:
+I_ADD	nachos/code/bin/encode.h	84;"	d
+I_ADDI	nachos/code/bin/encode.h	20;"	d
+I_ADDIU	nachos/code/bin/encode.h	21;"	d
+I_ADDU	nachos/code/bin/encode.h	85;"	d
+I_AND	nachos/code/bin/encode.h	88;"	d
+I_ANDI	nachos/code/bin/encode.h	24;"	d
+I_BCOND	nachos/code/bin/encode.h	13;"	d
+I_BEQ	nachos/code/bin/encode.h	16;"	d
+I_BGEZ	nachos/code/bin/encode.h	100;"	d
+I_BGEZAL	nachos/code/bin/encode.h	103;"	d
+I_BGTZ	nachos/code/bin/encode.h	19;"	d
+I_BLEZ	nachos/code/bin/encode.h	18;"	d
+I_BLTZ	nachos/code/bin/encode.h	99;"	d
+I_BLTZAL	nachos/code/bin/encode.h	102;"	d
+I_BNE	nachos/code/bin/encode.h	17;"	d
+I_BREAK	nachos/code/bin/encode.h	72;"	d
+I_COP0	nachos/code/bin/encode.h	28;"	d
+I_COP1	nachos/code/bin/encode.h	29;"	d
+I_COP2	nachos/code/bin/encode.h	30;"	d
+I_COP3	nachos/code/bin/encode.h	31;"	d
+I_DIV	nachos/code/bin/encode.h	81;"	d
+I_DIVU	nachos/code/bin/encode.h	82;"	d
+I_J	nachos/code/bin/encode.h	14;"	d
+I_JAL	nachos/code/bin/encode.h	15;"	d
+I_JALR	nachos/code/bin/encode.h	69;"	d
+I_JR	nachos/code/bin/encode.h	68;"	d
+I_LB	nachos/code/bin/encode.h	33;"	d
+I_LBU	nachos/code/bin/encode.h	37;"	d
+I_LH	nachos/code/bin/encode.h	34;"	d
+I_LHU	nachos/code/bin/encode.h	38;"	d
+I_LUI	nachos/code/bin/encode.h	27;"	d
+I_LW	nachos/code/bin/encode.h	36;"	d
+I_LWC0	nachos/code/bin/encode.h	48;"	d
+I_LWC1	nachos/code/bin/encode.h	49;"	d
+I_LWC2	nachos/code/bin/encode.h	50;"	d
+I_LWC3	nachos/code/bin/encode.h	51;"	d
+I_LWL	nachos/code/bin/encode.h	35;"	d
+I_LWR	nachos/code/bin/encode.h	39;"	d
+I_MFHI	nachos/code/bin/encode.h	74;"	d
+I_MFLO	nachos/code/bin/encode.h	76;"	d
+I_MTHI	nachos/code/bin/encode.h	75;"	d
+I_MTLO	nachos/code/bin/encode.h	77;"	d
+I_MULT	nachos/code/bin/encode.h	79;"	d
+I_MULTU	nachos/code/bin/encode.h	80;"	d
+I_NOP	nachos/code/bin/encode.h	107;"	d
+I_NOR	nachos/code/bin/encode.h	91;"	d
+I_OR	nachos/code/bin/encode.h	89;"	d
+I_ORI	nachos/code/bin/encode.h	25;"	d
+I_SB	nachos/code/bin/encode.h	41;"	d
+I_SH	nachos/code/bin/encode.h	42;"	d
+I_SLL	nachos/code/bin/encode.h	60;"	d
+I_SLLV	nachos/code/bin/encode.h	64;"	d
+I_SLT	nachos/code/bin/encode.h	93;"	d
+I_SLTI	nachos/code/bin/encode.h	22;"	d
+I_SLTIU	nachos/code/bin/encode.h	23;"	d
+I_SLTU	nachos/code/bin/encode.h	94;"	d
+I_SPECIAL	nachos/code/bin/encode.h	12;"	d
+I_SRA	nachos/code/bin/encode.h	63;"	d
+I_SRAV	nachos/code/bin/encode.h	67;"	d
+I_SRL	nachos/code/bin/encode.h	62;"	d
+I_SRLV	nachos/code/bin/encode.h	66;"	d
+I_SUB	nachos/code/bin/encode.h	86;"	d
+I_SUBU	nachos/code/bin/encode.h	87;"	d
+I_SW	nachos/code/bin/encode.h	44;"	d
+I_SWC0	nachos/code/bin/encode.h	53;"	d
+I_SWC1	nachos/code/bin/encode.h	54;"	d
+I_SWC2	nachos/code/bin/encode.h	55;"	d
+I_SWC3	nachos/code/bin/encode.h	56;"	d
+I_SWL	nachos/code/bin/encode.h	43;"	d
+I_SWR	nachos/code/bin/encode.h	46;"	d
+I_SYSCALL	nachos/code/bin/encode.h	71;"	d
+I_XOR	nachos/code/bin/encode.h	90;"	d
+I_XORI	nachos/code/bin/encode.h	26;"	d
+Idle	nachos/code/machine/interrupt.cc	/^Interrupt::Idle()$/;"	f	class:Interrupt
+IdleMode	nachos/code/machine/interrupt.h	/^enum MachineStatus {IdleMode, SystemMode, UserMode};$/;"	e	enum:MachineStatus
+IllegalInstrException	nachos/code/machine/machine.h	/^		     IllegalInstrException, \/\/ Unimplemented or reserved instr.$/;"	e	enum:ExceptionType
+IncomingPacket	nachos/code/network/post.cc	/^PostOffice::IncomingPacket()$/;"	f	class:PostOffice
+IndexToAddr	nachos/code/machine/mipssim.h	94;"	d
+InitRegisters	nachos/code/userprog/addrspace.cc	/^AddrSpace::InitRegisters ()$/;"	f	class:AddrSpace
+InitSocketName	nachos/code/machine/sysdep.cc	/^InitSocketName(struct sockaddr_un *uname, const char *name)$/;"	f	file:
+InitialArg	nachos/code/threads/switch.h	117;"	d
+InitialArg	nachos/code/threads/switch.h	152;"	d
+InitialArg	nachos/code/threads/switch.h	187;"	d
+InitialArg	nachos/code/threads/switch.h	218;"	d
+InitialArg	nachos/code/threads/switch.h	51;"	d
+InitialArg	nachos/code/threads/switch.h	82;"	d
+InitialArgState	nachos/code/threads/switch.h	123;"	d
+InitialArgState	nachos/code/threads/switch.h	159;"	d
+InitialArgState	nachos/code/threads/switch.h	182;"	d
+InitialArgState	nachos/code/threads/switch.h	213;"	d
+InitialArgState	nachos/code/threads/switch.h	58;"	d
+InitialArgState	nachos/code/threads/switch.h	88;"	d
+InitialPC	nachos/code/threads/switch.h	116;"	d
+InitialPC	nachos/code/threads/switch.h	151;"	d
+InitialPC	nachos/code/threads/switch.h	186;"	d
+InitialPC	nachos/code/threads/switch.h	217;"	d
+InitialPC	nachos/code/threads/switch.h	50;"	d
+InitialPC	nachos/code/threads/switch.h	81;"	d
+InitialPCState	nachos/code/threads/switch.h	122;"	d
+InitialPCState	nachos/code/threads/switch.h	158;"	d
+InitialPCState	nachos/code/threads/switch.h	181;"	d
+InitialPCState	nachos/code/threads/switch.h	212;"	d
+InitialPCState	nachos/code/threads/switch.h	57;"	d
+InitialPCState	nachos/code/threads/switch.h	87;"	d
+Initialize	nachos/code/threads/system.cc	/^Initialize (int argc, char **argv)$/;"	f
+Instruction	nachos/code/machine/machine.h	/^class Instruction {$/;"	c
+IntOff	nachos/code/machine/interrupt.h	/^enum IntStatus { IntOff, IntOn };$/;"	e	enum:IntStatus
+IntOn	nachos/code/machine/interrupt.h	/^enum IntStatus { IntOff, IntOn };$/;"	e	enum:IntStatus
+IntStatus	nachos/code/machine/interrupt.h	/^enum IntStatus { IntOff, IntOn };$/;"	g
+IntType	nachos/code/machine/interrupt.h	/^enum IntType { TimerInt, DiskInt, ConsoleWriteInt, ConsoleReadInt, $/;"	g
+Interrupt	nachos/code/machine/interrupt.cc	/^Interrupt::Interrupt()$/;"	f	class:Interrupt
+Interrupt	nachos/code/machine/interrupt.h	/^class Interrupt:dontcopythis {$/;"	c
+InterruptEnable	nachos/code/threads/thread.cc	/^InterruptEnable ()$/;"	f	file:
+IsEmpty	nachos/code/threads/list.cc	/^List::IsEmpty ()$/;"	f	class:List
+JFMT	nachos/code/machine/mipssim.h	109;"	d
+JUST_CREATED	nachos/code/threads/thread.h	/^{ JUST_CREATED, RUNNING, READY, BLOCKED };$/;"	e	enum:ThreadStatus
+Join	nachos/code/test/start.S	/^Join:$/;"	l
+LARGE	nachos/code/test/vsprintf.c	117;"	d	file:
+LD	nachos/code/bin/Makefile	/^LD=gcc$/;"	m
+LD	nachos/code/test/Makefile	/^LD	:=	$(GCCDIR)\/ld$/;"	m
+LDFLAGS	nachos/code/test/Makefile	/^LDFLAGS = -T script -N$/;"	m
+LEFT	nachos/code/test/vsprintf.c	115;"	d	file:
+LINESIZE	nachos/code/bin/disasm.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+LINESIZE	nachos/code/bin/main.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+LIST_H	nachos/code/threads/list.h	14;"	d
+LO	nachos/code/bin/execute.c	/^int HI, LO;			\/* mul\/div machine registers *\/$/;"	v
+LOADSECTION	nachos/code/bin/disasm.c	69;"	d	file:
+LOADSECTION	nachos/code/bin/main.c	112;"	d	file:
+LPR	nachos/code/Makefile	/^LPR	:=	enscript --columns=2  --borders -r --landscape \\$/;"	m
+LRD	nachos/code/bin/disasm.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+LRD	nachos/code/bin/main.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+Length	nachos/code/filesys/openfile.cc	/^OpenFile::Length() $/;"	f	class:OpenFile
+Length	nachos/code/filesys/openfile.h	/^    int Length() { Lseek(file, 0, SEEK_END); return Tell(file); }$/;"	f	class:OpenFile
+Length	nachos/code/threads/list.cc	/^List::Length (void)$/;"	f	class:List
+List	nachos/code/filesys/directory.cc	/^Directory::List()$/;"	f	class:Directory
+List	nachos/code/filesys/filesys.cc	/^FileSystem::List()$/;"	f	class:FileSystem
+List	nachos/code/threads/list.cc	/^List::List ()$/;"	f	class:List
+List	nachos/code/threads/list.h	/^class List:dontcopythis$/;"	c
+ListElement	nachos/code/threads/list.cc	/^ListElement::ListElement (void *itemPtr, long long sortKey)$/;"	f	class:ListElement
+ListElement	nachos/code/threads/list.h	/^class ListElement:dontcopythis$/;"	c
+LoReg	nachos/code/machine/machine.h	64;"	d
+LoadReg	nachos/code/machine/machine.h	68;"	d
+LoadValueReg	nachos/code/machine/machine.h	69;"	d
+Lock	nachos/code/threads/synch.cc	/^Lock::Lock (const char *debugName)$/;"	f	class:Lock
+Lock	nachos/code/threads/synch.h	/^class Lock:dontcopythis$/;"	c
+Lseek	nachos/code/machine/sysdep.cc	/^Lseek(int fd, int offset, int whence)$/;"	f
+MACHINE_H	nachos/code/machine/machine.h	22;"	d
+MAIN	nachos/code/bin/coff2flat.c	15;"	d	file:
+MAIN	nachos/code/bin/coff2flat.c	17;"	d	file:
+MAIN	nachos/code/bin/coff2noff.c	23;"	d	file:
+MAIN	nachos/code/bin/coff2noff.c	25;"	d	file:
+MAIN	nachos/code/bin/out.c	7;"	d	file:
+MAIN	nachos/code/bin/out.c	9;"	d	file:
+MAIN	nachos/code/threads/main.cc	15;"	d	file:
+MAIN	nachos/code/threads/main.cc	17;"	d	file:
+MAKE	nachos/code/Makefile	/^MAKE	:=	make$/;"	m
+MAXDATA	nachos/code/bin/out.c	34;"	d	file:
+MAXRELOCS	nachos/code/bin/out.c	31;"	d	file:
+MAXSCNS	nachos/code/bin/out.c	43;"	d	file:
+MAXSSPACE	nachos/code/bin/out.c	45;"	d	file:
+MAXSYMS	nachos/code/bin/out.c	44;"	d	file:
+MAX_STRING_SIZE	nachos/code/test/getstring.c	7;"	d	file:
+MAX_STRING_SIZE	nachos/code/threads/system.h	19;"	d
+MEMSIZE	nachos/code/bin/int.h	11;"	d
+MINFRAME	nachos/code/threads/switch.S	/^#define MINFRAME 256$/;"	d
+MIPSELMAGIC	nachos/code/bin/coff.h	15;"	d
+MIPSSIM_H	nachos/code/machine/mipssim.h	11;"	d
+Machine	nachos/code/machine/machine.cc	/^Machine::Machine(bool debug)$/;"	f	class:Machine
+Machine	nachos/code/machine/machine.h	/^class Machine:dontcopythis {$/;"	c
+MachineStateSize	nachos/code/threads/thread.h	52;"	d
+MachineStatus	nachos/code/machine/interrupt.h	/^enum MachineStatus {IdleMode, SystemMode, UserMode};$/;"	g
+MagicNumber	nachos/code/machine/disk.cc	23;"	d	file:
+MagicSize	nachos/code/machine/disk.cc	24;"	d	file:
+Mail	nachos/code/network/post.cc	/^Mail::Mail(PacketHeader pktH, MailHeader mailH, const void *msgData)$/;"	f	class:Mail
+Mail	nachos/code/network/post.h	/^class Mail {$/;"	c
+MailBox	nachos/code/network/post.cc	/^MailBox::MailBox()$/;"	f	class:MailBox
+MailBox	nachos/code/network/post.h	/^class MailBox:dontcopythis {$/;"	c
+MailBoxAddress	nachos/code/network/post.h	/^typedef int MailBoxAddress;$/;"	t
+MailHeader	nachos/code/network/post.h	/^class MailHeader {$/;"	c
+MailTest	nachos/code/network/nettest.cc	/^MailTest(int farAddr)$/;"	f
+Mapcar	nachos/code/threads/list.cc	/^List::Mapcar (VoidFunctionPtr func)$/;"	f	class:List
+Mapcar	nachos/code/threads/list.cc	/^List::Mapcar (VoidFunctionPtr2 func, void *arg)$/;"	f	class:List
+Mapcar	nachos/code/threads/synchlist.cc	/^SynchList::Mapcar (VoidFunctionPtr func)$/;"	f	class:SynchList
+Mark	nachos/code/userprog/bitmap.cc	/^BitMap::Mark (int which)$/;"	f	class:BitMap
+MaxFileSize	nachos/code/filesys/filehdr.h	21;"	d
+MaxMailSize	nachos/code/network/post.h	53;"	d
+MaxOpcode	nachos/code/machine/mipssim.h	88;"	d
+MaxPacketSize	nachos/code/machine/network.h	41;"	d
+MaxWireSize	nachos/code/machine/network.h	40;"	d
+MemorySize	nachos/code/machine/machine.h	36;"	d
+ModuloDiff	nachos/code/machine/disk.cc	/^Disk::ModuloDiff(int to, int from)$/;"	f	class:Disk
+Mult	nachos/code/machine/mipssim.cc	/^Mult(int a, int b, bool signedArith, int* hiPtr, int* loPtr)$/;"	f	file:
+N	nachos/code/test/sort.c	12;"	d	file:
+NACHOS_ARCH	nachos/code/bin/Makefile	/^NACHOS_ARCH := $(shell $(NACHOS_ROOT)\/bin\/nachos_arch)$/;"	m
+NACHOS_ARCH	nachos/code/test/Makefile	/^NACHOS_ARCH := $(shell $(NACHOS_ROOT)\/bin\/nachos_arch)$/;"	m
+NACHOS_ROOT	nachos/code/bin/Makefile	/^NACHOS_ROOT = ..\/..\/$/;"	m
+NACHOS_ROOT	nachos/code/test/Makefile	/^NACHOS_ROOT = ..\/..\/$/;"	m
+NACHOS_SYS	nachos/code/bin/Makefile	/^NACHOS_SYS := $(shell $(NACHOS_ROOT)\/bin\/nachos_sys)$/;"	m
+NACHOS_SYS	nachos/code/test/Makefile	/^NACHOS_SYS := $(shell $(NACHOS_ROOT)\/bin\/nachos_sys)$/;"	m
+NETWORK_H	nachos/code/machine/network.h	16;"	d
+NH	nachos/code/bin/execute.c	465;"	d	file:
+NNN	nachos/code/bin/execute.c	466;"	d	file:
+NNNN	nachos/code/bin/execute.c	555;"	d	file:
+NOFFMAGIC	nachos/code/bin/noff.h	10;"	d
+NONE	nachos/code/machine/mipssim.h	/^enum RegType { NONE, RS, RT, RD, EXTRA }; $/;"	e	enum:RegType
+NROWS	nachos/code/bin/disasm.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+NROWS	nachos/code/bin/main.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+NULL	nachos/code/bin/d.c	11;"	d	file:
+Network	nachos/code/machine/network.cc	/^Network::Network(NetworkAddress addr, double reliability,$/;"	f	class:Network
+Network	nachos/code/machine/network.h	/^class Network {$/;"	c
+NetworkAddress	nachos/code/machine/network.h	/^typedef int NetworkAddress;	 $/;"	t
+NetworkReadPoll	nachos/code/machine/network.cc	/^static void NetworkReadPoll(void *arg)$/;"	f	file:
+NetworkRecvInt	nachos/code/machine/interrupt.h	/^				NetworkSendInt, NetworkRecvInt};$/;"	e	enum:IntType
+NetworkSendDone	nachos/code/machine/network.cc	/^static void NetworkSendDone(void *arg)$/;"	f	file:
+NetworkSendInt	nachos/code/machine/interrupt.h	/^				NetworkSendInt, NetworkRecvInt};$/;"	e	enum:IntType
+NetworkTime	nachos/code/machine/stats.h	67;"	d
+NextPCReg	nachos/code/machine/machine.h	66;"	d
+NoException	nachos/code/machine/machine.h	/^enum ExceptionType { NoException,           \/\/ Everything ok!$/;"	e	enum:ExceptionType
+NoffHeader	nachos/code/bin/noff.h	/^} NoffHeader;$/;"	t	typeref:struct:noffHeader
+NumClear	nachos/code/userprog/bitmap.cc	/^BitMap::NumClear ()$/;"	f	class:BitMap
+NumDirEntries	nachos/code/filesys/filesys.cc	65;"	d	file:
+NumDirect	nachos/code/filesys/filehdr.h	20;"	d
+NumExceptionTypes	nachos/code/machine/machine.h	/^		     NumExceptionTypes$/;"	e	enum:ExceptionType
+NumGPRegs	nachos/code/machine/machine.h	62;"	d
+NumPages	nachos/code/userprog/addrspace.h	/^    unsigned NumPages() { return numPages; }$/;"	f	class:AddrSpace
+NumPhysPages	nachos/code/machine/machine.h	35;"	d
+NumSectors	nachos/code/machine/disk.h	52;"	d
+NumTotalRegs	nachos/code/machine/machine.h	72;"	d
+NumTracks	nachos/code/machine/disk.h	51;"	d
+OBJDUMP	nachos/code/test/Makefile	/^OBJDUMP	:=	$(GCCDIR)\/objdump$/;"	m
+OMAGIC	nachos/code/bin/coff.h	17;"	d
+OPENFILE_H	nachos/code/filesys/openfile.h	21;"	d
+OP_ADD	nachos/code/machine/mipssim.h	25;"	d
+OP_ADDI	nachos/code/machine/mipssim.h	26;"	d
+OP_ADDIU	nachos/code/machine/mipssim.h	27;"	d
+OP_ADDU	nachos/code/machine/mipssim.h	28;"	d
+OP_AND	nachos/code/machine/mipssim.h	29;"	d
+OP_ANDI	nachos/code/machine/mipssim.h	30;"	d
+OP_BEQ	nachos/code/machine/mipssim.h	31;"	d
+OP_BGEZ	nachos/code/machine/mipssim.h	32;"	d
+OP_BGEZAL	nachos/code/machine/mipssim.h	33;"	d
+OP_BGTZ	nachos/code/machine/mipssim.h	34;"	d
+OP_BLEZ	nachos/code/machine/mipssim.h	35;"	d
+OP_BLTZ	nachos/code/machine/mipssim.h	36;"	d
+OP_BLTZAL	nachos/code/machine/mipssim.h	37;"	d
+OP_BNE	nachos/code/machine/mipssim.h	38;"	d
+OP_DIV	nachos/code/machine/mipssim.h	40;"	d
+OP_DIVU	nachos/code/machine/mipssim.h	41;"	d
+OP_J	nachos/code/machine/mipssim.h	42;"	d
+OP_JAL	nachos/code/machine/mipssim.h	43;"	d
+OP_JALR	nachos/code/machine/mipssim.h	44;"	d
+OP_JR	nachos/code/machine/mipssim.h	45;"	d
+OP_LB	nachos/code/machine/mipssim.h	46;"	d
+OP_LBU	nachos/code/machine/mipssim.h	47;"	d
+OP_LH	nachos/code/machine/mipssim.h	48;"	d
+OP_LHU	nachos/code/machine/mipssim.h	49;"	d
+OP_LUI	nachos/code/machine/mipssim.h	50;"	d
+OP_LW	nachos/code/machine/mipssim.h	51;"	d
+OP_LWL	nachos/code/machine/mipssim.h	52;"	d
+OP_LWR	nachos/code/machine/mipssim.h	53;"	d
+OP_MFHI	nachos/code/machine/mipssim.h	55;"	d
+OP_MFLO	nachos/code/machine/mipssim.h	56;"	d
+OP_MTHI	nachos/code/machine/mipssim.h	58;"	d
+OP_MTLO	nachos/code/machine/mipssim.h	59;"	d
+OP_MULT	nachos/code/machine/mipssim.h	60;"	d
+OP_MULTU	nachos/code/machine/mipssim.h	61;"	d
+OP_NOR	nachos/code/machine/mipssim.h	62;"	d
+OP_OR	nachos/code/machine/mipssim.h	63;"	d
+OP_ORI	nachos/code/machine/mipssim.h	64;"	d
+OP_RES	nachos/code/machine/mipssim.h	87;"	d
+OP_RFE	nachos/code/machine/mipssim.h	65;"	d
+OP_SB	nachos/code/machine/mipssim.h	66;"	d
+OP_SH	nachos/code/machine/mipssim.h	67;"	d
+OP_SLL	nachos/code/machine/mipssim.h	68;"	d
+OP_SLLV	nachos/code/machine/mipssim.h	69;"	d
+OP_SLT	nachos/code/machine/mipssim.h	70;"	d
+OP_SLTI	nachos/code/machine/mipssim.h	71;"	d
+OP_SLTIU	nachos/code/machine/mipssim.h	72;"	d
+OP_SLTU	nachos/code/machine/mipssim.h	73;"	d
+OP_SRA	nachos/code/machine/mipssim.h	74;"	d
+OP_SRAV	nachos/code/machine/mipssim.h	75;"	d
+OP_SRL	nachos/code/machine/mipssim.h	76;"	d
+OP_SRLV	nachos/code/machine/mipssim.h	77;"	d
+OP_SUB	nachos/code/machine/mipssim.h	78;"	d
+OP_SUBU	nachos/code/machine/mipssim.h	79;"	d
+OP_SW	nachos/code/machine/mipssim.h	80;"	d
+OP_SWL	nachos/code/machine/mipssim.h	81;"	d
+OP_SWR	nachos/code/machine/mipssim.h	82;"	d
+OP_SYSCALL	nachos/code/machine/mipssim.h	85;"	d
+OP_UNIMP	nachos/code/machine/mipssim.h	86;"	d
+OP_XOR	nachos/code/machine/mipssim.h	83;"	d
+OP_XORI	nachos/code/machine/mipssim.h	84;"	d
+OneInstruction	nachos/code/machine/mipssim.cc	/^Machine::OneInstruction(Instruction *instr)$/;"	f	class:Machine
+OneTick	nachos/code/machine/interrupt.cc	/^Interrupt::OneTick()$/;"	f	class:Interrupt
+OpInfo	nachos/code/machine/mipssim.h	/^struct OpInfo {$/;"	s
+OpString	nachos/code/machine/mipssim.h	/^struct OpString {$/;"	s
+Open	nachos/code/filesys/filesys.cc	/^FileSystem::Open(const char *name)$/;"	f	class:FileSystem
+Open	nachos/code/filesys/filesys.h	/^    OpenFile* Open(const char *name) {$/;"	f	class:FileSystem
+Open	nachos/code/test/start.S	/^Open:$/;"	l
+OpenFile	nachos/code/filesys/openfile.cc	/^OpenFile::OpenFile(int sector)$/;"	f	class:OpenFile
+OpenFile	nachos/code/filesys/openfile.h	/^    OpenFile(int f) { file = f; currentOffset = 0; }	\/\/ open the file$/;"	f	class:OpenFile
+OpenFile	nachos/code/filesys/openfile.h	/^class OpenFile:dontcopythis {$/;"	c
+OpenFileId	nachos/code/userprog/syscall.h	/^typedef int OpenFileId;$/;"	t
+OpenForReadWrite	nachos/code/machine/sysdep.cc	/^OpenForReadWrite(const char *name, bool crashOnError)$/;"	f
+OpenForWrite	nachos/code/machine/sysdep.cc	/^OpenForWrite(const char *name)$/;"	f
+OpenSocket	nachos/code/machine/sysdep.cc	/^OpenSocket()$/;"	f
+OverflowException	nachos/code/machine/machine.h	/^		     OverflowException,     \/\/ Integer overflow in add or sub.$/;"	e	enum:ExceptionType
+P	nachos/code/threads/synch.cc	/^Semaphore::P ()$/;"	f	class:Semaphore
+PC	nachos/code/threads/switch.h	113;"	d
+PC	nachos/code/threads/switch.h	38;"	d
+PC	nachos/code/threads/switch.h	78;"	d
+PCReg	nachos/code/machine/machine.h	65;"	d
+PCState	nachos/code/threads/switch.h	121;"	d
+PCState	nachos/code/threads/switch.h	157;"	d
+PCState	nachos/code/threads/switch.h	179;"	d
+PCState	nachos/code/threads/switch.h	210;"	d
+PCState	nachos/code/threads/switch.h	55;"	d
+PCState	nachos/code/threads/switch.h	86;"	d
+PLUS	nachos/code/test/vsprintf.c	113;"	d	file:
+POST_H	nachos/code/network/post.h	29;"	d
+PROGS	nachos/code/test/Makefile	/^PROGS	:=	$(patsubst %.c,%,$(SOURCES))$/;"	m
+PROGTEST_H	nachos/code/userprog/progtest.h	14;"	d
+PacketHeader	nachos/code/machine/network.h	/^class PacketHeader {$/;"	c
+PacketSent	nachos/code/network/post.cc	/^PostOffice::PacketSent()$/;"	f	class:PostOffice
+PageFaultException	nachos/code/machine/machine.h	/^		     PageFaultException,    \/\/ No valid translation found$/;"	e	enum:ExceptionType
+PageSize	nachos/code/machine/machine.h	31;"	d
+PageTableRoom	nachos/code/machine/machine.cc	/^Machine::PageTableRoom(unsigned numPages, unsigned blocksize)$/;"	f	class:Machine
+PendingInterrupt	nachos/code/machine/interrupt.cc	/^PendingInterrupt::PendingInterrupt(VoidFunctionPtr func, void *param, long long time, $/;"	f	class:PendingInterrupt
+PendingInterrupt	nachos/code/machine/interrupt.h	/^class PendingInterrupt {$/;"	c
+PerformanceTest	nachos/code/filesys/fstest.cc	/^PerformanceTest()$/;"	f
+PollFile	nachos/code/machine/sysdep.cc	/^PollFile(int fd)$/;"	f
+PollSocket	nachos/code/machine/sysdep.cc	/^PollSocket(int sockID)$/;"	f
+PostOffice	nachos/code/network/post.cc	/^PostOffice::PostOffice(NetworkAddress addr, double reliability, int nBoxes)$/;"	f	class:PostOffice
+PostOffice	nachos/code/network/post.h	/^class PostOffice:dontcopythis {$/;"	c
+PostalDelivery	nachos/code/network/post.cc	/^PostOffice::PostalDelivery()$/;"	f	class:PostOffice
+PostalHelper	nachos/code/network/post.cc	/^static void PostalHelper(void *arg)$/;"	f	file:
+Prepend	nachos/code/threads/list.cc	/^List::Prepend (void *item)$/;"	f	class:List
+PrevPCReg	nachos/code/machine/machine.h	67;"	d
+Print	nachos/code/filesys/directory.cc	/^Directory::Print()$/;"	f	class:Directory
+Print	nachos/code/filesys/filehdr.cc	/^FileHeader::Print()$/;"	f	class:FileHeader
+Print	nachos/code/filesys/filesys.cc	/^FileSystem::Print()$/;"	f	class:FileSystem
+Print	nachos/code/filesys/fstest.cc	/^Print(char *name)$/;"	f
+Print	nachos/code/machine/stats.cc	/^Statistics::Print()$/;"	f	class:Statistics
+Print	nachos/code/threads/scheduler.cc	/^Scheduler::Print ()$/;"	f	class:Scheduler
+Print	nachos/code/threads/thread.h	/^    void Print ()$/;"	f	class:Thread
+Print	nachos/code/userprog/bitmap.cc	/^BitMap::Print ()$/;"	f	class:BitMap
+PrintHeader	nachos/code/network/post.cc	/^PrintHeader(PacketHeader pktHdr, MailHeader mailHdr)$/;"	f	file:
+PrintPending	nachos/code/machine/interrupt.cc	/^PrintPending(void *arg)$/;"	f	file:
+PrintSector	nachos/code/machine/disk.cc	/^PrintSector (bool writing, int sector, const void *data)$/;"	f	file:
+Put	nachos/code/network/post.cc	/^MailBox::Put(PacketHeader pktHdr, MailHeader mailHdr, const void *data)$/;"	f	class:MailBox
+PutChar	nachos/code/machine/console.cc	/^void Console::PutChar(int ch)$/;"	f	class:Console
+PutChar	nachos/code/test/start.S	/^PutChar:$/;"	l
+PutInt	nachos/code/test/start.S	/^PutInt:$/;"	l
+PutInt	nachos/code/userprog/synchconsole.cc	/^void SynchConsole::PutInt (int n) {$/;"	f	class:SynchConsole
+PutString	nachos/code/test/start.S	/^PutString:$/;"	l
+Putchar	nachos/code/test/putchar.c	/^Putchar(char c){$/;"	f
+Putchar	nachos/code/test/putchar_nohalt.c	/^Putchar(char c){$/;"	f
+R	nachos/code/bin/d.c	27;"	d	file:
+R0	nachos/code/threads/switch.h	130;"	d
+R1	nachos/code/threads/switch.h	131;"	d
+R10	nachos/code/threads/switch.h	140;"	d
+R11	nachos/code/threads/switch.h	141;"	d
+R12	nachos/code/threads/switch.h	142;"	d
+R13	nachos/code/threads/switch.h	143;"	d
+R14	nachos/code/threads/switch.h	144;"	d
+R15	nachos/code/threads/switch.h	145;"	d
+R16	nachos/code/threads/switch.h	146;"	d
+R17	nachos/code/threads/switch.h	147;"	d
+R18	nachos/code/threads/switch.h	148;"	d
+R2	nachos/code/threads/switch.h	132;"	d
+R3	nachos/code/threads/switch.h	133;"	d
+R31	nachos/code/machine/mipssim.h	97;"	d
+R4	nachos/code/threads/switch.h	134;"	d
+R5	nachos/code/threads/switch.h	135;"	d
+R6	nachos/code/threads/switch.h	136;"	d
+R7	nachos/code/threads/switch.h	137;"	d
+R8	nachos/code/threads/switch.h	138;"	d
+R9	nachos/code/threads/switch.h	139;"	d
+RAND	nachos/code/bin/disasm.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+RAND	nachos/code/bin/main.c	/^int NROWS=64, ASSOC=1, LINESIZE=4, RAND=0, LRD=0;$/;"	v
+RD	nachos/code/bin/execute.c	/^RD(i)$/;"	f
+RD	nachos/code/machine/mipssim.h	/^enum RegType { NONE, RS, RT, RD, EXTRA }; $/;"	e	enum:RegType
+READY	nachos/code/threads/thread.h	/^{ JUST_CREATED, RUNNING, READY, BLOCKED };$/;"	e	enum:ThreadStatus
+RFMT	nachos/code/machine/mipssim.h	110;"	d
+RS	nachos/code/bin/execute.c	/^RS(i)$/;"	f
+RS	nachos/code/machine/mipssim.h	/^enum RegType { NONE, RS, RT, RD, EXTRA }; $/;"	e	enum:RegType
+RT	nachos/code/bin/execute.c	/^RT(i)$/;"	f
+RT	nachos/code/machine/mipssim.h	/^enum RegType { NONE, RS, RT, RD, EXTRA }; $/;"	e	enum:RegType
+RUNNING	nachos/code/threads/thread.h	/^{ JUST_CREATED, RUNNING, READY, BLOCKED };$/;"	e	enum:ThreadStatus
+RaiseException	nachos/code/machine/machine.cc	/^Machine::RaiseException(ExceptionType which, int badVAddr)$/;"	f	class:Machine
+Random	nachos/code/machine/sysdep.cc	/^Random()$/;"	f
+RandomInit	nachos/code/machine/sysdep.cc	/^RandomInit(unsigned seed)$/;"	f
+Read	nachos/code/bin/coff2flat.c	/^void Read(int fd, void *buf, int nBytes)$/;"	f
+Read	nachos/code/bin/coff2noff.c	/^void Read(int fd, void *buf, int nBytes)$/;"	f
+Read	nachos/code/filesys/openfile.cc	/^OpenFile::Read(void *into, int numBytes)$/;"	f	class:OpenFile
+Read	nachos/code/filesys/openfile.h	/^    int Read(void *into, int numBytes) {$/;"	f	class:OpenFile
+Read	nachos/code/machine/sysdep.cc	/^Read(int fd, void *buffer, int nBytes)$/;"	f
+Read	nachos/code/test/start.S	/^Read:$/;"	l
+ReadAt	nachos/code/filesys/openfile.cc	/^OpenFile::ReadAt(void *into, int numBytes, int position)$/;"	f	class:OpenFile
+ReadAt	nachos/code/filesys/openfile.h	/^    int ReadAt(void *into, int numBytes, int position) { $/;"	f	class:OpenFile
+ReadAvailHandler	nachos/code/network/post.cc	/^static void ReadAvailHandler(void *arg)$/;"	f	file:
+ReadAvailHandler	nachos/code/userprog/progtest.cc	/^ReadAvailHandler (void *arg)$/;"	f	file:
+ReadAvailHandler	nachos/code/userprog/synchconsole.cc	/^static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }$/;"	f	file:
+ReadFromSocket	nachos/code/machine/sysdep.cc	/^ReadFromSocket(int sockID, void *buffer, int packetSize)$/;"	f
+ReadMem	nachos/code/machine/translate.cc	/^Machine::ReadMem(int addr, int size, int *value)$/;"	f	class:Machine
+ReadOnlyException	nachos/code/machine/machine.h	/^		     ReadOnlyException,     \/\/ Write attempted to page marked $/;"	e	enum:ExceptionType
+ReadPartial	nachos/code/machine/sysdep.cc	/^ReadPartial(int fd, void *buffer, int nBytes)$/;"	f
+ReadRegister	nachos/code/machine/machine.cc	/^int Machine::ReadRegister(int num)$/;"	f	class:Machine
+ReadRequest	nachos/code/machine/disk.cc	/^Disk::ReadRequest(int sectorNumber, void* data)$/;"	f	class:Disk
+ReadSector	nachos/code/filesys/synchdisk.cc	/^SynchDisk::ReadSector(int sectorNumber, void* data)$/;"	f	class:SynchDisk
+ReadStruct	nachos/code/bin/coff2flat.c	32;"	d	file:
+ReadStruct	nachos/code/bin/coff2noff.c	70;"	d	file:
+ReadyToRun	nachos/code/threads/scheduler.cc	/^Scheduler::ReadyToRun (Thread * thread)$/;"	f	class:Scheduler
+Receive	nachos/code/machine/network.cc	/^Network::Receive(void* data)$/;"	f	class:Network
+Receive	nachos/code/network/post.cc	/^PostOffice::Receive(int box, PacketHeader *pktHdr, $/;"	f	class:PostOffice
+Reg	nachos/code/bin/execute.c	/^int Reg[32];			\/* GPR's *\/$/;"	v
+RegType	nachos/code/machine/mipssim.h	/^enum RegType { NONE, RS, RT, RD, EXTRA }; $/;"	g
+Regtrace	nachos/code/bin/disasm.c	/^int TRACE, Traptrace, Regtrace;$/;"	v
+Regtrace	nachos/code/bin/main.c	/^int TRACE, Traptrace, Regtrace;$/;"	v
+Release	nachos/code/threads/synch.cc	/^Lock::Release ()$/;"	f	class:Lock
+Remove	nachos/code/filesys/directory.cc	/^Directory::Remove(const char *name)$/;"	f	class:Directory
+Remove	nachos/code/filesys/filesys.cc	/^FileSystem::Remove(const char *name)$/;"	f	class:FileSystem
+Remove	nachos/code/filesys/filesys.h	/^    bool Remove(const char *name) { return Unlink(name) == 0; }$/;"	f	class:FileSystem
+Remove	nachos/code/threads/list.cc	/^List::Remove ()$/;"	f	class:List
+Remove	nachos/code/threads/list.cc	/^List::Remove (void *item)$/;"	f	class:List
+Remove	nachos/code/threads/synchlist.cc	/^SynchList::Remove ()$/;"	f	class:SynchList
+RequestDone	nachos/code/filesys/synchdisk.cc	/^SynchDisk::RequestDone()$/;"	f	class:SynchDisk
+RestoreState	nachos/code/userprog/addrspace.cc	/^AddrSpace::RestoreState ()$/;"	f	class:AddrSpace
+RestoreUserState	nachos/code/threads/thread.cc	/^Thread::RestoreUserState ()$/;"	f	class:Thread
+RetAddrReg	nachos/code/machine/machine.h	61;"	d
+RotationTime	nachos/code/machine/stats.h	64;"	d
+Run	nachos/code/machine/mipssim.cc	/^Machine::Run()$/;"	f	class:Machine
+Run	nachos/code/threads/scheduler.cc	/^Scheduler::Run (Thread * nextThread)$/;"	f	class:Scheduler
+S0	nachos/code/threads/switch.h	29;"	d
+S0	nachos/code/threads/switch.h	97;"	d
+S1	nachos/code/threads/switch.h	30;"	d
+S1	nachos/code/threads/switch.h	98;"	d
+S10	nachos/code/threads/switch.h	107;"	d
+S11	nachos/code/threads/switch.h	108;"	d
+S12	nachos/code/threads/switch.h	109;"	d
+S13	nachos/code/threads/switch.h	110;"	d
+S14	nachos/code/threads/switch.h	111;"	d
+S15	nachos/code/threads/switch.h	112;"	d
+S2	nachos/code/threads/switch.h	31;"	d
+S2	nachos/code/threads/switch.h	99;"	d
+S3	nachos/code/threads/switch.h	100;"	d
+S3	nachos/code/threads/switch.h	32;"	d
+S4	nachos/code/threads/switch.h	101;"	d
+S4	nachos/code/threads/switch.h	33;"	d
+S5	nachos/code/threads/switch.h	102;"	d
+S5	nachos/code/threads/switch.h	34;"	d
+S6	nachos/code/threads/switch.h	103;"	d
+S6	nachos/code/threads/switch.h	35;"	d
+S7	nachos/code/threads/switch.h	104;"	d
+S7	nachos/code/threads/switch.h	36;"	d
+S8	nachos/code/threads/switch.h	105;"	d
+S9	nachos/code/threads/switch.h	106;"	d
+SCHEDULER_H	nachos/code/threads/scheduler.h	10;"	d
+SC_Close	nachos/code/userprog/syscall.h	31;"	d
+SC_Create	nachos/code/userprog/syscall.h	27;"	d
+SC_Exec	nachos/code/userprog/syscall.h	25;"	d
+SC_Exit	nachos/code/userprog/syscall.h	24;"	d
+SC_Fork	nachos/code/userprog/syscall.h	32;"	d
+SC_GetChar	nachos/code/userprog/syscall.h	35;"	d
+SC_GetInt	nachos/code/userprog/syscall.h	39;"	d
+SC_GetString	nachos/code/userprog/syscall.h	37;"	d
+SC_Halt	nachos/code/userprog/syscall.h	23;"	d
+SC_Join	nachos/code/userprog/syscall.h	26;"	d
+SC_Open	nachos/code/userprog/syscall.h	28;"	d
+SC_PutChar	nachos/code/userprog/syscall.h	34;"	d
+SC_PutInt	nachos/code/userprog/syscall.h	38;"	d
+SC_PutString	nachos/code/userprog/syscall.h	36;"	d
+SC_Read	nachos/code/userprog/syscall.h	29;"	d
+SC_Write	nachos/code/userprog/syscall.h	30;"	d
+SC_Yield	nachos/code/userprog/syscall.h	33;"	d
+SIGN	nachos/code/test/vsprintf.c	112;"	d	file:
+SIGN_BIT	nachos/code/machine/mipssim.h	96;"	d
+SIZE_1	nachos/code/test/getint.c	3;"	d	file:
+SIZE_1	nachos/code/test/getstring.c	3;"	d	file:
+SIZE_2	nachos/code/test/getint.c	4;"	d	file:
+SIZE_2	nachos/code/test/getstring.c	4;"	d	file:
+SIZE_3	nachos/code/test/getint.c	5;"	d	file:
+SIZE_3	nachos/code/test/getint.c	6;"	d	file:
+SIZE_3	nachos/code/test/getstring.c	5;"	d	file:
+SIZE_3	nachos/code/test/getstring.c	6;"	d	file:
+SOMAGIC	nachos/code/bin/coff.h	18;"	d
+SOURCES	nachos/code/test/Makefile	/^SOURCES	=	$(filter-out vsprintf.c, $(wildcard *.c))$/;"	m
+SP	nachos/code/threads/switch.h	28;"	d
+SP	nachos/code/threads/switch.h	96;"	d
+SPACE	nachos/code/test/vsprintf.c	114;"	d	file:
+SPECIAL	nachos/code/machine/mipssim.h	105;"	d
+SPECIAL	nachos/code/test/vsprintf.c	116;"	d	file:
+STACK_ALIGN	nachos/code/threads/switch.S	/^#define STACK_ALIGN	32L$/;"	d
+STACK_FENCEPOST	nachos/code/threads/thread.cc	28;"	d	file:
+STATS_H	nachos/code/machine/stats.h	12;"	d
+SWITCH	nachos/code/threads/switch.S	/^#define SWITCH _SWITCH$/;"	d
+SWITCH	nachos/code/threads/switch.S	/^SWITCH$/;"	l
+SWITCH	nachos/code/threads/switch.S	/^SWITCH:	$/;"	l
+SWITCH	nachos/code/threads/switch.S	/^SWITCH:$/;"	l
+SWITCH_H	nachos/code/threads/switch.h	18;"	d
+SYNCHCONSOLE_H	nachos/code/userprog/synchconsole.h	3;"	d
+SYNCHDISK_H	nachos/code/filesys/synchdisk.h	12;"	d
+SYNCHLIST_H	nachos/code/threads/synchlist.h	12;"	d
+SYNCH_H	nachos/code/threads/synch.h	18;"	d
+SYSCALLS_H	nachos/code/userprog/syscall.h	14;"	d
+SYSDEP_H	nachos/code/machine/sysdep.h	12;"	d
+SYSTEM_H	nachos/code/threads/system.h	9;"	d
+SaveState	nachos/code/userprog/addrspace.cc	/^AddrSpace::SaveState ()$/;"	f	class:AddrSpace
+SaveUserState	nachos/code/threads/thread.cc	/^Thread::SaveUserState ()$/;"	f	class:Thread
+Schedule	nachos/code/machine/interrupt.cc	/^Interrupt::Schedule(VoidFunctionPtr handler, void *arg, long long fromNow, IntType type)$/;"	f	class:Interrupt
+Scheduler	nachos/code/threads/scheduler.cc	/^Scheduler::Scheduler ()$/;"	f	class:Scheduler
+Scheduler	nachos/code/threads/scheduler.h	/^class Scheduler:dontcopythis$/;"	c
+SectorSize	nachos/code/machine/disk.h	49;"	d
+SectorsPerTrack	nachos/code/machine/disk.h	50;"	d
+Seek	nachos/code/filesys/openfile.cc	/^OpenFile::Seek(int position)$/;"	f	class:OpenFile
+SeekTime	nachos/code/machine/stats.h	65;"	d
+Segment	nachos/code/bin/noff.h	/^} Segment;$/;"	t	typeref:struct:segment
+Semaphore	nachos/code/threads/synch.cc	/^Semaphore::Semaphore (const char *debugName, int initialValue)$/;"	f	class:Semaphore
+Semaphore	nachos/code/threads/synch.h	/^class Semaphore:dontcopythis$/;"	c
+Send	nachos/code/machine/network.cc	/^Network::Send(PacketHeader hdr, const void* data)$/;"	f	class:Network
+Send	nachos/code/network/post.cc	/^PostOffice::Send(PacketHeader pktHdr, MailHeader mailHdr, const void* data)$/;"	f	class:PostOffice
+SendDone	nachos/code/machine/network.cc	/^Network::SendDone()$/;"	f	class:Network
+SendToSocket	nachos/code/machine/sysdep.cc	/^SendToSocket(int sockID, const void *buffer, int packetSize, const char *toName)$/;"	f
+SetBold	nachos/code/threads/utility.cc	/^SetBold (FILE *output)$/;"	f
+SetColor	nachos/code/threads/utility.cc	/^SetColor (FILE *output, enum AnsiColor color)$/;"	f
+SetLevel	nachos/code/machine/interrupt.cc	/^Interrupt::SetLevel(IntStatus now)$/;"	f	class:Interrupt
+SetupThreadState	nachos/code/threads/thread.cc	/^SetupThreadState ()$/;"	f
+ShortToHost	nachos/code/bin/coff2noff.c	/^ShortToHost(unsigned short shortword) {$/;"	f
+ShortToHost	nachos/code/machine/translate.cc	/^ShortToHost(unsigned short shortword) {$/;"	f
+ShortToMachine	nachos/code/machine/translate.cc	/^ShortToMachine(unsigned short shortword) { return ShortToHost(shortword); }$/;"	f
+Signal	nachos/code/threads/synch.cc	/^Condition::Signal (Lock * conditionLock)$/;"	f	class:Condition
+SimpleThread	nachos/code/threads/threadtest.cc	/^SimpleThread (void *arg)$/;"	f
+Sleep	nachos/code/threads/thread.cc	/^Thread::Sleep ()$/;"	f	class:Thread
+SortedInsert	nachos/code/threads/list.cc	/^List::SortedInsert (void *item, long long sortKey)$/;"	f	class:List
+SortedRemove	nachos/code/threads/list.cc	/^List::SortedRemove (long long *keyPtr)$/;"	f	class:List
+SpaceId	nachos/code/userprog/syscall.h	/^typedef int SpaceId;$/;"	t
+StackAllocate	nachos/code/threads/thread.cc	/^Thread::StackAllocate (VoidFunctionPtr func, void *arg)$/;"	f	class:Thread
+StackReg	nachos/code/machine/machine.h	60;"	d
+StackSize	nachos/code/bin/coff2flat.c	31;"	d	file:
+StackSize	nachos/code/threads/thread.h	57;"	d
+Start	nachos/code/threads/thread.cc	/^Thread::Start (VoidFunctionPtr func, void *arg)$/;"	f	class:Thread
+StartProcess	nachos/code/userprog/progtest.cc	/^void StartProcess (char *filename) {$/;"	f
+StartupPC	nachos/code/threads/switch.h	119;"	d
+StartupPC	nachos/code/threads/switch.h	154;"	d
+StartupPC	nachos/code/threads/switch.h	189;"	d
+StartupPC	nachos/code/threads/switch.h	220;"	d
+StartupPC	nachos/code/threads/switch.h	53;"	d
+StartupPC	nachos/code/threads/switch.h	84;"	d
+StartupPCState	nachos/code/threads/switch.h	125;"	d
+StartupPCState	nachos/code/threads/switch.h	161;"	d
+StartupPCState	nachos/code/threads/switch.h	184;"	d
+StartupPCState	nachos/code/threads/switch.h	215;"	d
+StartupPCState	nachos/code/threads/switch.h	60;"	d
+StartupPCState	nachos/code/threads/switch.h	90;"	d
+Statistics	nachos/code/machine/stats.cc	/^Statistics::Statistics()$/;"	f	class:Statistics
+Statistics	nachos/code/machine/stats.h	/^class Statistics {$/;"	c
+SwapHeader	nachos/code/userprog/addrspace.cc	/^SwapHeader (NoffHeader * noffH)$/;"	f	file:
+SynchConsole	nachos/code/userprog/synchconsole.cc	/^SynchConsole::SynchConsole(const char *readFile, const char *writeFile) {$/;"	f	class:SynchConsole
+SynchConsole	nachos/code/userprog/synchconsole.h	/^class SynchConsole:dontcopythis {$/;"	c
+SynchConsoleTest	nachos/code/userprog/progtest.cc	/^void SynchConsoleTest (const char * in, const char * out) {$/;"	f
+SynchDisk	nachos/code/filesys/synchdisk.cc	/^SynchDisk::SynchDisk(const char* name)$/;"	f	class:SynchDisk
+SynchDisk	nachos/code/filesys/synchdisk.h	/^class SynchDisk:dontcopythis {$/;"	c
+SynchGetChar	nachos/code/userprog/synchconsole.cc	/^int SynchConsole::SynchGetChar() {$/;"	f	class:SynchConsole
+SynchGetString	nachos/code/userprog/synchconsole.cc	/^void SynchConsole::SynchGetString(char *s, int n) { \/\/Fgets$/;"	f	class:SynchConsole
+SynchList	nachos/code/threads/synchlist.cc	/^SynchList::SynchList ()$/;"	f	class:SynchList
+SynchList	nachos/code/threads/synchlist.h	/^class SynchList:dontcopythis$/;"	c
+SynchPutChar	nachos/code/userprog/synchconsole.cc	/^void SynchConsole::SynchPutChar(int ch) {$/;"	f	class:SynchConsole
+SynchPutString	nachos/code/userprog/synchconsole.cc	/^void SynchConsole::SynchPutString(const char s[]) {$/;"	f	class:SynchConsole
+SyscallException	nachos/code/machine/machine.h	/^		     SyscallException,      \/\/ A program executed a system call.$/;"	e	enum:ExceptionType
+SystemMode	nachos/code/machine/interrupt.h	/^enum MachineStatus {IdleMode, SystemMode, UserMode};$/;"	e	enum:MachineStatus
+SystemTick	nachos/code/machine/stats.h	63;"	d
+THREAD_H	nachos/code/threads/thread.h	38;"	d
+TIMER_H	nachos/code/machine/timer.h	21;"	d
+TLBSize	nachos/code/machine/machine.h	37;"	d
+TLB_H	nachos/code/machine/translate.h	19;"	d
+TRACE	nachos/code/bin/disasm.c	/^int TRACE, Traptrace, Regtrace;$/;"	v
+TRACE	nachos/code/bin/main.c	/^int TRACE, Traptrace, Regtrace;$/;"	v
+TRUE	nachos/code/threads/bool.h	11;"	d
+Tell	nachos/code/machine/sysdep.cc	/^Tell(int fd)$/;"	f
+Test	nachos/code/userprog/bitmap.cc	/^BitMap::Test (int which)$/;"	f	class:BitMap
+Thread	nachos/code/threads/thread.cc	/^Thread::Thread (const char *threadName)$/;"	f	class:Thread
+Thread	nachos/code/threads/thread.h	/^class Thread:dontcopythis$/;"	c
+ThreadFinish	nachos/code/threads/thread.cc	/^ThreadFinish ()$/;"	f	file:
+ThreadList	nachos/code/threads/thread.cc	/^List ThreadList;$/;"	v
+ThreadPrint	nachos/code/threads/thread.cc	/^ThreadPrint (void *arg)$/;"	f
+ThreadRoot	nachos/code/threads/switch.S	/^#define ThreadRoot _ThreadRoot$/;"	d
+ThreadRoot	nachos/code/threads/switch.S	/^ThreadRoot$/;"	l
+ThreadRoot	nachos/code/threads/switch.S	/^ThreadRoot:	$/;"	l
+ThreadRoot	nachos/code/threads/switch.S	/^ThreadRoot:$/;"	l
+ThreadStatus	nachos/code/threads/thread.h	/^enum ThreadStatus$/;"	g
+ThreadTest	nachos/code/threads/threadtest.cc	/^ThreadTest ()$/;"	f
+TimeOfNextInterrupt	nachos/code/machine/timer.cc	/^Timer::TimeOfNextInterrupt() $/;"	f	class:Timer
+TimeToSeek	nachos/code/machine/disk.cc	/^Disk::TimeToSeek(int newSector, int *rotation) $/;"	f	class:Disk
+Timer	nachos/code/machine/timer.cc	/^Timer::Timer(VoidFunctionPtr timerHandler, void *callArg, bool doRandom)$/;"	f	class:Timer
+Timer	nachos/code/machine/timer.h	/^class Timer {$/;"	c
+TimerExpired	nachos/code/machine/timer.cc	/^Timer::TimerExpired() $/;"	f	class:Timer
+TimerHandler	nachos/code/machine/timer.cc	/^static void TimerHandler(void *arg)$/;"	f	file:
+TimerInt	nachos/code/machine/interrupt.h	/^enum IntType { TimerInt, DiskInt, ConsoleWriteInt, ConsoleReadInt, $/;"	e	enum:IntType
+TimerInterruptHandler	nachos/code/threads/system.cc	/^TimerInterruptHandler (void *dummy)$/;"	f	file:
+TimerTicks	nachos/code/machine/stats.h	68;"	d
+TransferSize	nachos/code/filesys/fstest.cc	24;"	d	file:
+Translate	nachos/code/machine/translate.cc	/^Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)$/;"	f	class:Machine
+TranslationEntry	nachos/code/machine/translate.h	/^class TranslationEntry {$/;"	c
+Traptrace	nachos/code/bin/disasm.c	/^int TRACE, Traptrace, Regtrace;$/;"	v
+Traptrace	nachos/code/bin/main.c	/^int TRACE, Traptrace, Regtrace;$/;"	v
+TypeToReg	nachos/code/machine/mipssim.cc	/^TypeToReg(RegType reg, Instruction *instr)$/;"	f	file:
+USER_START_ADDRESS	nachos/code/userprog/syscall.h	18;"	d
+UTILITY_H	nachos/code/threads/utility.h	24;"	d
+UnBlockUserAbort	nachos/code/machine/sysdep.cc	/^UnBlockUserAbort(void)$/;"	f
+Unlink	nachos/code/machine/sysdep.cc	/^Unlink(const char *name)$/;"	f
+UpdateLast	nachos/code/machine/disk.cc	/^Disk::UpdateLast(int newSector)$/;"	f	class:Disk
+UpdatePC	nachos/code/userprog/exception.cc	/^static void UpdatePC () {$/;"	f	file:
+UserMode	nachos/code/machine/interrupt.h	/^enum MachineStatus {IdleMode, SystemMode, UserMode};$/;"	e	enum:MachineStatus
+UserStacksAreaSize	nachos/code/userprog/addrspace.h	22;"	d
+UserTick	nachos/code/machine/stats.h	62;"	d
+V	nachos/code/threads/synch.cc	/^Semaphore::V ()$/;"	f	class:Semaphore
+VALGRIND_H	nachos/code/machine/valgrind.h	9;"	d
+VALGRIND_STACK_DEREGISTER	nachos/code/machine/valgrind.h	20;"	d
+VALGRIND_STACK_REGISTER	nachos/code/machine/valgrind.h	16;"	d
+VoidFunctionPtr	nachos/code/threads/utility.h	/^typedef void (*VoidFunctionPtr) (void *arg);$/;"	t
+VoidFunctionPtr2	nachos/code/threads/utility.h	/^typedef void (*VoidFunctionPtr2) (void *arg, void *arg2);$/;"	t
+VoidNoArgFunctionPtr	nachos/code/threads/utility.h	/^typedef void (*VoidNoArgFunctionPtr) ();$/;"	t
+Wait	nachos/code/threads/synch.cc	/^Condition::Wait (Lock * conditionLock)$/;"	f	class:Condition
+WhenDonePC	nachos/code/threads/switch.h	118;"	d
+WhenDonePC	nachos/code/threads/switch.h	153;"	d
+WhenDonePC	nachos/code/threads/switch.h	188;"	d
+WhenDonePC	nachos/code/threads/switch.h	219;"	d
+WhenDonePC	nachos/code/threads/switch.h	52;"	d
+WhenDonePC	nachos/code/threads/switch.h	83;"	d
+WhenDonePCState	nachos/code/threads/switch.h	124;"	d
+WhenDonePCState	nachos/code/threads/switch.h	160;"	d
+WhenDonePCState	nachos/code/threads/switch.h	183;"	d
+WhenDonePCState	nachos/code/threads/switch.h	214;"	d
+WhenDonePCState	nachos/code/threads/switch.h	59;"	d
+WhenDonePCState	nachos/code/threads/switch.h	89;"	d
+WordToHost	nachos/code/bin/coff2noff.c	/^WordToHost(unsigned int word) {$/;"	f
+WordToHost	nachos/code/machine/translate.cc	/^WordToHost(unsigned int word) {$/;"	f
+WordToMachine	nachos/code/machine/translate.cc	/^WordToMachine(unsigned int word) { return WordToHost(word); }$/;"	f
+Write	nachos/code/bin/coff2flat.c	/^void Write(int fd, void *buf, int nBytes)$/;"	f
+Write	nachos/code/bin/coff2noff.c	/^void Write(int fd, void *buf, int nBytes)$/;"	f
+Write	nachos/code/filesys/openfile.cc	/^OpenFile::Write(const void *into, int numBytes)$/;"	f	class:OpenFile
+Write	nachos/code/filesys/openfile.h	/^    int Write(const void *from, int numBytes) {$/;"	f	class:OpenFile
+Write	nachos/code/test/start.S	/^Write:$/;"	l
+WriteAt	nachos/code/filesys/openfile.cc	/^OpenFile::WriteAt(const void *from, int numBytes, int position)$/;"	f	class:OpenFile
+WriteAt	nachos/code/filesys/openfile.h	/^    int WriteAt(const void *from, int numBytes, int position) { $/;"	f	class:OpenFile
+WriteBack	nachos/code/filesys/directory.cc	/^Directory::WriteBack(OpenFile *file)$/;"	f	class:Directory
+WriteBack	nachos/code/filesys/filehdr.cc	/^FileHeader::WriteBack(int sector)$/;"	f	class:FileHeader
+WriteBack	nachos/code/userprog/bitmap.cc	/^BitMap::WriteBack (OpenFile * file)$/;"	f	class:BitMap
+WriteDone	nachos/code/machine/console.cc	/^Console::WriteDone()$/;"	f	class:Console
+WriteDoneHandler	nachos/code/network/post.cc	/^static void WriteDoneHandler(void *arg)$/;"	f	file:
+WriteDoneHandler	nachos/code/userprog/progtest.cc	/^WriteDoneHandler (void *arg)$/;"	f	file:
+WriteDoneHandler	nachos/code/userprog/synchconsole.cc	/^static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }$/;"	f	file:
+WriteFile	nachos/code/machine/sysdep.cc	/^WriteFile(int fd, const void *buffer, int nBytes)$/;"	f
+WriteMem	nachos/code/machine/translate.cc	/^Machine::WriteMem(int addr, int size, int value)$/;"	f	class:Machine
+WriteRegister	nachos/code/machine/machine.cc	/^void Machine::WriteRegister(int num, int value)$/;"	f	class:Machine
+WriteRequest	nachos/code/machine/disk.cc	/^Disk::WriteRequest(int sectorNumber, const void* data)$/;"	f	class:Disk
+WriteSector	nachos/code/filesys/synchdisk.cc	/^SynchDisk::WriteSector(int sectorNumber, const void* data)$/;"	f	class:SynchDisk
+Yield	nachos/code/test/start.S	/^Yield:$/;"	l
+Yield	nachos/code/threads/thread.cc	/^Thread::Yield ()$/;"	f	class:Thread
+YieldOnReturn	nachos/code/machine/interrupt.cc	/^Interrupt::YieldOnReturn()$/;"	f	class:Interrupt
+ZEROPAD	nachos/code/test/vsprintf.c	111;"	d	file:
+_EAX	nachos/code/threads/switch.h	169;"	d
+_EBP	nachos/code/threads/switch.h	173;"	d
+_EBX	nachos/code/threads/switch.h	170;"	d
+_ECX	nachos/code/threads/switch.h	171;"	d
+_EDI	nachos/code/threads/switch.h	175;"	d
+_EDX	nachos/code/threads/switch.h	172;"	d
+_ESI	nachos/code/threads/switch.h	174;"	d
+_ESP	nachos/code/threads/switch.h	168;"	d
+_NOFF_H	nachos/code/bin/noff.h	9;"	d
+_PC	nachos/code/threads/switch.h	176;"	d
+_PC	nachos/code/threads/switch.h	207;"	d
+_R12	nachos/code/threads/switch.h	203;"	d
+_R13	nachos/code/threads/switch.h	204;"	d
+_R14	nachos/code/threads/switch.h	205;"	d
+_R15	nachos/code/threads/switch.h	206;"	d
+_RAX	nachos/code/threads/switch.h	196;"	d
+_RBP	nachos/code/threads/switch.h	200;"	d
+_RBX	nachos/code/threads/switch.h	197;"	d
+_RCX	nachos/code/threads/switch.h	198;"	d
+_RDI	nachos/code/threads/switch.h	202;"	d
+_RDX	nachos/code/threads/switch.h	199;"	d
+_RSI	nachos/code/threads/switch.h	201;"	d
+_RSP	nachos/code/threads/switch.h	195;"	d
+__main	nachos/code/test/start.S	/^__main:$/;"	l
+__start	nachos/code/test/start.S	/^__start:$/;"	l
+_bool_h	nachos/code/threads/bool.h	7;"	d
+a0	nachos/code/threads/switch.S	/^#define a0      $4      \/* argument registers *\/$/;"	d
+a1	nachos/code/threads/switch.S	/^#define a1      $5$/;"	d
+active	nachos/code/machine/disk.h	/^    bool active;     			\/\/ Is a disk operation in progress?$/;"	m	class:Disk
+addtable	nachos/code/bin/execute.c	/^int addtable[33][33];$/;"	v
+amark	nachos/code/bin/int.h	15;"	d
+aouthdr	nachos/code/bin/coff.h	/^typedef struct aouthdr {$/;"	s
+aouthdr	nachos/code/bin/out.c	/^struct aouthdr aouthdr;$/;"	v	typeref:struct:aouthdr
+arch1cycles	nachos/code/bin/execute.c	/^int arch1cycles;$/;"	v
+arg	nachos/code/machine/interrupt.h	/^    void *arg;                  \/\/ The argument to the function.$/;"	m	class:PendingInterrupt
+arg	nachos/code/machine/timer.h	/^    void *arg;			\/\/ argument to pass to interrupt handler$/;"	m	class:Timer
+args	nachos/code/machine/mipssim.h	/^    RegType args[3];$/;"	m	struct:OpString
+b31	nachos/code/bin/execute.c	31;"	d	file:
+boxes	nachos/code/network/post.h	/^    MailBox *boxes;		\/\/ Table of mail boxes to hold incoming mail$/;"	m	class:PostOffice
+bsize	nachos/code/bin/coff.h	/^        int     bsize;          \/* uninitialized data "   "             *\/$/;"	m	struct:aouthdr
+bss_start	nachos/code/bin/coff.h	/^        int     bss_start;      \/* base of bss used for this file       *\/$/;"	m	struct:aouthdr
+bsshead	nachos/code/bin/disasm.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+bsshead	nachos/code/bin/main.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+bufferInit	nachos/code/machine/disk.h	/^    int bufferInit;			\/\/ When the track buffer started $/;"	m	class:Disk
+cc_add	nachos/code/bin/execute.c	34;"	d	file:
+cc_logic	nachos/code/bin/execute.c	48;"	d	file:
+cc_mulscc	nachos/code/bin/execute.c	54;"	d	file:
+cc_sub	nachos/code/bin/execute.c	40;"	d	file:
+cfetch	nachos/code/bin/int.h	22;"	d
+chanceToWork	nachos/code/machine/network.h	/^    double chanceToWork;	\/\/ Likelihood packet will be dropped$/;"	m	class:Network
+code	nachos/code/bin/noff.h	/^   Segment code;		\/* executable code segment *\/ $/;"	m	struct:noffHeader
+column	nachos/code/bin/out.c	/^static column = 1;$/;"	v	file:
+console	nachos/code/userprog/progtest.cc	/^static Console *console;$/;"	v	file:
+console	nachos/code/userprog/synchconsole.h	/^        Console *console;$/;"	m	class:SynchConsole
+copyStringFromMachine	nachos/code/userprog/synchconsole.cc	/^int SynchConsole::copyStringFromMachine(int from, char *to, unsigned size) {$/;"	f	class:SynchConsole
+copyStringToMachine	nachos/code/userprog/synchconsole.cc	/^int SynchConsole::copyStringToMachine(int to, char *from, unsigned int size) {$/;"	f	class:SynchConsole
+copyright	nachos/code/threads/copyright.h	/^static const char *copyright =$/;"	v
+cprmask	nachos/code/bin/coff.h	/^        int     cprmask[4];     \/* co-processor register masks          *\/$/;"	m	struct:aouthdr
+cstore	nachos/code/bin/int.h	29;"	d
+currentOffset	nachos/code/filesys/openfile.h	/^    int currentOffset;$/;"	m	class:OpenFile
+currentThread	nachos/code/threads/system.cc	/^Thread *currentThread;		\/\/ the thread we are running now$/;"	v
+data	nachos/code/bin/out.c	/^  long data[MAXDATA];$/;"	m	struct:data	file:
+data	nachos/code/bin/out.c	/^struct data {$/;"	s	file:
+data	nachos/code/network/post.h	/^     char data[MaxMailSize];	\/\/ Payload -- message data$/;"	m	class:Mail
+dataSectors	nachos/code/filesys/filehdr.h	/^    int dataSectors[NumDirect];		\/\/ Disk sector numbers for each data $/;"	m	class:FileHeader
+data_start	nachos/code/bin/coff.h	/^        int     data_start;     \/* base of data used for this file      *\/$/;"	m	struct:aouthdr
+datahead	nachos/code/bin/disasm.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+datahead	nachos/code/bin/main.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+directoryFile	nachos/code/filesys/filesys.h	/^   OpenFile* directoryFile;		\/\/ "Root" directory -- list of $/;"	m	class:FileSystem
+dirty	nachos/code/machine/translate.h	/^    bool dirty;         \/\/ This bit is set by the hardware every time the$/;"	m	class:TranslationEntry
+dis1	nachos/code/bin/disasm.c	/^dis1(xpc)$/;"	f
+disasm	nachos/code/bin/disasm.c	/^disasm(startpc, argc, argv)$/;"	f
+disk	nachos/code/filesys/synchdisk.h	/^    Disk *disk;		  		\/\/ Raw disk device$/;"	m	class:SynchDisk
+divRoundDown	nachos/code/threads/utility.h	39;"	d
+divRoundUp	nachos/code/threads/utility.h	40;"	d
+do_div	nachos/code/test/vsprintf.c	119;"	d	file:
+dontcopythis	nachos/code/threads/utility.h	/^		dontcopythis() {};$/;"	f	class:dontcopythis
+dontcopythis	nachos/code/threads/utility.h	/^class dontcopythis {$/;"	c
+dsize	nachos/code/bin/coff.h	/^        int     dsize;          \/* initialized data "  "                *\/$/;"	m	struct:aouthdr
+dump_ascii	nachos/code/bin/d.c	/^dump_ascii(instruction, pc)$/;"	f
+dump_reg	nachos/code/bin/execute.c	/^dump_reg()$/;"	f
+enableFlags	nachos/code/threads/utility.cc	/^static const char *enableFlags = NULL;	\/\/ controls which DEBUG messages are printed $/;"	v	file:
+entry	nachos/code/bin/coff.h	/^        int     entry;          \/* entry pt.                            *\/$/;"	m	struct:aouthdr
+exceptionNames	nachos/code/machine/machine.cc	/^static const char* exceptionNames[] = { "no exception", "syscall", $/;"	v	file:
+extend	nachos/code/bin/instr.h	21;"	d
+extra	nachos/code/machine/machine.h	/^    unsigned int extra;$/;"	m	class:Instruction
+f_flags	nachos/code/bin/coff.h	/^        unsigned short  f_flags;        \/* flags *\/$/;"	m	struct:filehdr
+f_magic	nachos/code/bin/coff.h	/^        unsigned short  f_magic;        \/* magic number *\/$/;"	m	struct:filehdr
+f_nscns	nachos/code/bin/coff.h	/^        unsigned short  f_nscns;        \/* number of sections *\/$/;"	m	struct:filehdr
+f_nsyms	nachos/code/bin/coff.h	/^        int             f_nsyms;        \/* sizeof(symbolic hdr) *\/$/;"	m	struct:filehdr
+f_opthdr	nachos/code/bin/coff.h	/^        unsigned short  f_opthdr;       \/* sizeof(optional hdr) *\/$/;"	m	struct:filehdr
+f_symptr	nachos/code/bin/coff.h	/^        int             f_symptr;       \/* file pointer to symbolic header *\/$/;"	m	struct:filehdr
+f_timdat	nachos/code/bin/coff.h	/^        int             f_timdat;       \/* time & date stamp *\/$/;"	m	struct:filehdr
+false	nachos/code/bin/execute.c	16;"	d	file:
+fetch	nachos/code/bin/int.h	19;"	d
+file	nachos/code/filesys/openfile.h	/^    int file;$/;"	m	class:OpenFile
+fileSystem	nachos/code/threads/system.cc	/^FileSystem *fileSystem;$/;"	v
+filehdr	nachos/code/bin/coff.h	/^struct filehdr {$/;"	s
+filehdr	nachos/code/bin/out.c	/^struct filehdr filehdr;$/;"	v	typeref:struct:filehdr
+filename	nachos/code/bin/disasm.c	/^static char filename[1000] = "a.out";	\/* default a.out file *\/$/;"	v	file:
+filename	nachos/code/bin/main.c	/^static char filename[1000] = "a.out";	\/* default a.out file *\/$/;"	v	file:
+fileno	nachos/code/machine/disk.h	/^    int fileno;				\/\/ UNIX file number for simulated disk $/;"	m	class:Disk
+first	nachos/code/threads/list.h	/^    ListElement *first;		\/\/ Head of the list, NULL if list is empty$/;"	m	class:List
+fmt	nachos/code/bin/execute.c	/^char fmt[] = "%6d";$/;"	v
+fmt2	nachos/code/bin/execute.c	/^char fmt2[] = "------";$/;"	v
+format	nachos/code/machine/mipssim.h	/^    int format;		\/* Format type (IFMT or JFMT or RFMT) *\/$/;"	m	struct:OpInfo
+fp	nachos/code/bin/disasm.c	/^static FILE *fp;$/;"	v	file:
+fp	nachos/code/bin/main.c	/^static FILE *fp;$/;"	v	file:
+fp	nachos/code/threads/switch.S	/^#define fp      $30     \/* frame pointer *\/$/;"	d
+freeMapFile	nachos/code/filesys/filesys.h	/^   OpenFile* freeMapFile;		\/\/ Bit map of free disk blocks,$/;"	m	class:FileSystem
+from	nachos/code/machine/network.h	/^    NetworkAddress from;	\/\/ source machine ID$/;"	m	class:PacketHeader
+from	nachos/code/network/post.h	/^    MailBoxAddress from;	\/\/ Mail box to reply to$/;"	m	class:MailHeader
+getLevel	nachos/code/machine/interrupt.h	/^    IntStatus getLevel() {return level;}\/\/ Return whether interrupts$/;"	f	class:Interrupt
+getName	nachos/code/threads/synch.h	/^    const char *getName ()$/;"	f	class:Condition
+getName	nachos/code/threads/synch.h	/^    const char *getName ()$/;"	f	class:Lock
+getName	nachos/code/threads/synch.h	/^    const char *getName ()$/;"	f	class:Semaphore
+getName	nachos/code/threads/thread.h	/^    const char *getName ()$/;"	f	class:Thread
+getStatus	nachos/code/machine/interrupt.h	/^    MachineStatus getStatus() { return status; } \/\/ idle, kernel, user$/;"	f	class:Interrupt
+get_RGB	nachos/code/machine/machine.cc	/^get_RGB(unsigned char value, unsigned char *r, unsigned char *g, unsigned char *b)$/;"	f	file:
+gp_value	nachos/code/bin/coff.h	/^        int     gp_value;       \/* the gp value used for this object    *\/$/;"	m	struct:aouthdr
+gprmask	nachos/code/bin/coff.h	/^        int     gprmask;        \/* general purpose register mask        *\/$/;"	m	struct:aouthdr
+halted	nachos/code/threads/scheduler.h	/^    bool halted;		\/\/ Whether we should prevent context switches$/;"	m	class:Scheduler
+handler	nachos/code/machine/disk.h	/^    VoidFunctionPtr handler;		\/\/ Interrupt handler, to be invoked $/;"	m	class:Disk
+handler	nachos/code/machine/interrupt.h	/^    VoidFunctionPtr handler;    \/\/ The function (in the hardware device$/;"	m	class:PendingInterrupt
+handler	nachos/code/machine/timer.h	/^    VoidFunctionPtr handler;	\/\/ timer interrupt handler $/;"	m	class:Timer
+handlerArg	nachos/code/machine/console.h	/^    void *handlerArg;			\/\/ argument to be passed to the $/;"	m	class:Console
+handlerArg	nachos/code/machine/disk.h	/^    void *handlerArg;			\/\/ Argument to interrupt handler $/;"	m	class:Disk
+handlerArg	nachos/code/machine/network.h	/^    void *handlerArg;		\/\/ Argument to be passed to interrupt handler$/;"	m	class:Network
+hdr	nachos/code/filesys/openfile.h	/^    FileHeader *hdr;			\/\/ Header for this file $/;"	m	class:OpenFile
+henter	nachos/code/bin/execute.c	/^henter(n)$/;"	f
+henters	nachos/code/bin/execute.c	/^void henters(n, hist)$/;"	f
+hist	nachos/code/bin/execute.c	/^static int hist[NNNN];$/;"	v	file:
+hists	nachos/code/bin/execute.c	/^static int hists[NH][NNN];$/;"	v	file:
+hoflo	nachos/code/bin/execute.c	/^int hoflo[NH], htotal[NH];$/;"	v
+hprint	nachos/code/bin/execute.c	/^hprint()$/;"	f
+htotal	nachos/code/bin/execute.c	/^int hoflo[NH], htotal[NH];$/;"	v
+ident	nachos/code/machine/network.h	/^    NetworkAddress ident;	\/\/ This machine's network address$/;"	m	class:Network
+idleTicks	nachos/code/machine/stats.h	/^  long long idleTicks;       	\/\/ Time spent idle (no threads to run)$/;"	m	class:Statistics
+ifetch	nachos/code/bin/int.h	18;"	d
+ilog2	nachos/code/bin/execute.c	/^ilog2(i)$/;"	f
+imark	nachos/code/bin/int.h	16;"	d
+immed	nachos/code/bin/instr.h	15;"	d
+inFileAddr	nachos/code/bin/noff.h	/^  int inFileAddr;		\/* location of segment in this file *\/$/;"	m	struct:segment
+inHandler	nachos/code/machine/interrupt.h	/^    bool inHandler;		\/\/ TRUE if we are running an interrupt handler$/;"	m	class:Interrupt
+inHdr	nachos/code/machine/network.h	/^    PacketHeader inHdr;		\/\/ Information about arrived packet$/;"	m	class:Network
+inUse	nachos/code/filesys/directory.h	/^    bool inUse;				\/\/ Is this directory entry in use?$/;"	m	class:DirectoryEntry
+inbox	nachos/code/machine/network.h	/^    char inbox[MaxPacketSize];  \/\/ Data for arrived packet$/;"	m	class:Network
+incoming	nachos/code/machine/console.h	/^    int incoming;    			\/\/ Contains the character to be read,$/;"	m	class:Console
+initData	nachos/code/bin/noff.h	/^   Segment initData;		\/* initialized data segment *\/$/;"	m	struct:noffHeader
+intLevelNames	nachos/code/machine/interrupt.cc	/^static const char *intLevelNames[] = { "off", "on"};$/;"	v	file:
+intTypeNames	nachos/code/machine/interrupt.cc	/^static const char *intTypeNames[] = { "timer", "disk", "console write", $/;"	v	file:
+interrupt	nachos/code/threads/system.cc	/^Interrupt *interrupt;		\/\/ interrupt status$/;"	v
+is_digit	nachos/code/test/vsprintf.c	100;"	d	file:
+isdigit	nachos/code/test/vsprintf.c	/^int isdigit( int arg ) {$/;"	f
+islower	nachos/code/test/vsprintf.c	/^int islower( int character ) {$/;"	f
+isxdigit	nachos/code/test/vsprintf.c	/^int isxdigit ( int arg ) {$/;"	f
+item	nachos/code/threads/list.h	/^    void *item;			\/\/ pointer to item on the list$/;"	m	class:ListElement
+key	nachos/code/threads/list.h	/^    long long key;			\/\/ priority, for a sorted list$/;"	m	class:ListElement
+last	nachos/code/threads/list.h	/^    ListElement *last;		\/\/ Last element of list$/;"	m	class:List
+lastSector	nachos/code/machine/disk.h	/^    int lastSector;			\/\/ The previous disk request $/;"	m	class:Disk
+ldptr	nachos/code/bin/disasm.c	/^static LDFILE *ldptr;$/;"	v	file:
+ldptr	nachos/code/bin/main.c	/^static LDFILE *ldptr;$/;"	v	file:
+length	nachos/code/bin/out.c	/^  int length;$/;"	m	struct:data	file:
+length	nachos/code/machine/network.h	/^    unsigned length;	 	\/\/ bytes of packet data, excluding the $/;"	m	class:PacketHeader
+length	nachos/code/network/post.h	/^    unsigned length;		\/\/ Bytes of message data (excluding the $/;"	m	class:MailHeader
+level	nachos/code/machine/interrupt.h	/^    IntStatus level;		\/\/ are interrupts enabled or disabled?$/;"	m	class:Interrupt
+list	nachos/code/threads/synchlist.h	/^      List * list;		\/\/ the unsynchronized list$/;"	m	class:SynchList
+listEmpty	nachos/code/threads/synchlist.h	/^    Condition *listEmpty;	\/\/ wait in Remove if the list is empty$/;"	m	class:SynchList
+load_program	nachos/code/bin/disasm.c	/^load_program(filename)$/;"	f
+load_program	nachos/code/bin/main.c	/^load_program(filename)$/;"	f
+load_section	nachos/code/bin/disasm.c	/^load_section(hd)$/;"	f
+lock	nachos/code/filesys/synchdisk.h	/^    Lock *lock;		  		\/\/ Only one read\/write request$/;"	m	class:SynchDisk
+lock	nachos/code/threads/synchlist.h	/^    Lock *lock;			\/\/ enforce mutual exclusive access to the list$/;"	m	class:SynchList
+longdis	nachos/code/bin/d.c	/^int longdis = 1;$/;"	v
+m_alloc	nachos/code/bin/disasm.c	/^int *m_alloc(n)$/;"	f
+m_alloc	nachos/code/bin/main.c	/^int *m_alloc(n)$/;"	f
+machine	nachos/code/threads/system.cc	/^Machine *machine;		\/\/ user program memory and registers$/;"	v
+machineState	nachos/code/threads/thread.h	/^    unsigned long machineState[MachineStateSize];	\/\/ all registers except for stackTop$/;"	m	class:Thread
+magic	nachos/code/bin/coff.h	/^        short   magic;          \/* see above                            *\/$/;"	m	struct:aouthdr
+mailHdr	nachos/code/network/post.h	/^     MailHeader mailHdr;	\/\/ Header appended by PostOffice$/;"	m	class:Mail
+main	nachos/code/bin/coff2flat.c	/^main (int argc, char **argv)$/;"	f
+main	nachos/code/bin/coff2noff.c	/^int main (int argc, char **argv)$/;"	f
+main	nachos/code/bin/disasm.c	/^main(argc, argv)$/;"	f
+main	nachos/code/bin/main.c	/^main(argc, argv)$/;"	f
+main	nachos/code/bin/out.c	/^main(argc,argv)$/;"	f
+main	nachos/code/test/getchar.c	/^int main(void) {$/;"	f
+main	nachos/code/test/getint.c	/^int main(void) {$/;"	f
+main	nachos/code/test/getstring.c	/^main() {$/;"	f
+main	nachos/code/test/halt.c	/^main ()$/;"	f
+main	nachos/code/test/matmult.c	/^main ()$/;"	f
+main	nachos/code/test/putchar.c	/^int main() {$/;"	f
+main	nachos/code/test/putchar_nohalt.c	/^int main() {$/;"	f
+main	nachos/code/test/putint.c	/^int main() {$/;"	f
+main	nachos/code/test/putstring.c	/^int main() {  $/;"	f
+main	nachos/code/test/shell.c	/^main ()$/;"	f
+main	nachos/code/test/sort.c	/^main ()$/;"	f
+main	nachos/code/test/testvsprintf.c	/^int main () {\/*$/;"	f
+main	nachos/code/threads/main.cc	/^int main (int argc, char **argv) {$/;"	f
+mainMemory	nachos/code/machine/machine.h	/^    char *mainMemory;		\/\/ physical memory to store user program,$/;"	m	class:Machine
+map	nachos/code/userprog/bitmap.h	/^    unsigned int *map;		\/\/ bit storage$/;"	m	class:BitMap
+max	nachos/code/threads/utility.h	36;"	d
+mem	nachos/code/bin/disasm.c	/^char mem[MEMSIZE];		\/* main memory. use malloc later *\/$/;"	v
+mem	nachos/code/bin/main.c	/^char mem[MEMSIZE];		\/* main memory. use malloc later *\/$/;"	v
+memoffset	nachos/code/bin/int.h	12;"	d
+messageAvailable	nachos/code/network/post.h	/^    Semaphore *messageAvailable;\/\/ V'ed when message has arrived from network$/;"	m	class:PostOffice
+messageSent	nachos/code/network/post.h	/^    Semaphore *messageSent;	\/\/ V'ed when next message can be sent to network$/;"	m	class:PostOffice
+messages	nachos/code/network/post.h	/^    SynchList *messages;	\/\/ A mailbox is just a list of arrived messages$/;"	m	class:MailBox
+min	nachos/code/threads/utility.h	35;"	d
+myprintf	nachos/code/bin/out.c	/^myprintf(va_alist)$/;"	f
+mysetfile	nachos/code/bin/out.c	/^mysetfile(f)$/;"	f
+mytab	nachos/code/bin/out.c	/^mytab(n)$/;"	f
+name	nachos/code/filesys/directory.h	/^    char name[FileNameMaxLen + 1];	\/\/ Text name for file, with +1 for $/;"	m	class:DirectoryEntry
+name	nachos/code/threads/synch.h	/^    const char *name;		\/\/ for debugging$/;"	m	class:Lock
+name	nachos/code/threads/synch.h	/^    const char *name;		\/\/ useful for debugging$/;"	m	class:Semaphore
+name	nachos/code/threads/synch.h	/^    const char *name;$/;"	m	class:Condition
+name	nachos/code/threads/thread.h	/^    const char *name;$/;"	m	class:Thread
+netAddr	nachos/code/network/post.h	/^    NetworkAddress netAddr;	\/\/ Network address of this machine$/;"	m	class:PostOffice
+network	nachos/code/network/post.h	/^    Network *network;		\/\/ Physical network connection$/;"	m	class:PostOffice
+next	nachos/code/threads/list.h	/^    ListElement *next;		\/\/ next element on list, $/;"	m	class:ListElement
+noffFileName	nachos/code/bin/coff2noff.c	/^char *noffFileName = NULL;$/;"	v
+noffH	nachos/code/userprog/addrspace.h	/^    NoffHeader noffH;		\/\/ Program layout$/;"	m	class:AddrSpace
+noffHeader	nachos/code/bin/noff.h	/^typedef struct noffHeader {$/;"	s
+noffMagic	nachos/code/bin/noff.h	/^   int noffMagic;		\/* should be NOFFMAGIC *\/$/;"	m	struct:noffHeader
+normalops	nachos/code/bin/opstrings.c	/^char *normalops[] = {$/;"	v
+numBits	nachos/code/userprog/bitmap.h	/^    int numBits;		\/\/ number of bits in the bitmap$/;"	m	class:BitMap
+numBoxes	nachos/code/network/post.h	/^    int numBoxes;		\/\/ Number of mail boxes$/;"	m	class:PostOffice
+numBytes	nachos/code/filesys/filehdr.h	/^    int numBytes;			\/\/ Number of bytes in the file$/;"	m	class:FileHeader
+numConsoleCharsRead	nachos/code/machine/stats.h	/^    int numConsoleCharsRead;	\/\/ number of characters read from the keyboard$/;"	m	class:Statistics
+numConsoleCharsWritten	nachos/code/machine/stats.h	/^    int numConsoleCharsWritten; \/\/ number of characters written to the display$/;"	m	class:Statistics
+numDiskReads	nachos/code/machine/stats.h	/^    int numDiskReads;		\/\/ number of disk read requests$/;"	m	class:Statistics
+numDiskWrites	nachos/code/machine/stats.h	/^    int numDiskWrites;		\/\/ number of disk write requests$/;"	m	class:Statistics
+numPacketsRecvd	nachos/code/machine/stats.h	/^    int numPacketsRecvd;	\/\/ number of packets received over the network$/;"	m	class:Statistics
+numPacketsSent	nachos/code/machine/stats.h	/^    int numPacketsSent;		\/\/ number of packets sent over the network$/;"	m	class:Statistics
+numPageFaults	nachos/code/machine/stats.h	/^    int numPageFaults;		\/\/ number of virtual memory page faults$/;"	m	class:Statistics
+numPages	nachos/code/userprog/addrspace.h	/^    unsigned int numPages;	\/\/ Number of pages in the page table$/;"	m	class:AddrSpace
+numSectors	nachos/code/filesys/filehdr.h	/^    int numSectors;			\/\/ Number of data sectors in the file$/;"	m	class:FileHeader
+numWords	nachos/code/userprog/bitmap.h	/^    int numWords;		\/\/ number of words of bitmap storage$/;"	m	class:BitMap
+numadds	nachos/code/bin/execute.c	/^int numadds=1, numsubs=1, numsuccesses, numcarries;$/;"	v
+number	nachos/code/test/vsprintf.c	/^static char * number(char * str, long num, int base, int size, int precision$/;"	f	file:
+numcarries	nachos/code/bin/execute.c	/^int numadds=1, numsubs=1, numsuccesses, numcarries;$/;"	v
+numjmpls	nachos/code/bin/execute.c	/^int numjmpls;$/;"	v
+numsubs	nachos/code/bin/execute.c	/^int numadds=1, numsubs=1, numsuccesses, numcarries;$/;"	v
+numsuccesses	nachos/code/bin/execute.c	/^int numadds=1, numsubs=1, numsuccesses, numcarries;$/;"	v
+ny	nachos/code/bin/execute.c	/^ny()$/;"	f
+off16	nachos/code/bin/instr.h	19;"	d
+off26	nachos/code/bin/instr.h	17;"	d
+opCode	nachos/code/machine/machine.h	/^    unsigned char opCode;$/;"	m	class:Instruction
+opCode	nachos/code/machine/mipssim.h	/^    int opCode;		\/* Translated op code. *\/$/;"	m	struct:OpInfo
+opStrings	nachos/code/machine/mipssim.h	/^static struct OpString opStrings[] = {$/;"	v	typeref:struct:OpString
+opTable	nachos/code/machine/mipssim.h	/^static OpInfo opTable[] = {$/;"	v
+outfile	nachos/code/bin/out.c	/^static FILE *outfile = stdout;$/;"	v	file:
+packetAvail	nachos/code/machine/network.h	/^    bool packetAvail;		\/\/ Packet has arrived, can be pulled off of$/;"	m	class:Network
+pageTable	nachos/code/machine/machine.h	/^    TranslationEntry *pageTable;$/;"	m	class:Machine
+pageTable	nachos/code/userprog/addrspace.h	/^    TranslationEntry * pageTable; \/\/ Page table$/;"	m	class:AddrSpace
+pageTableSize	nachos/code/machine/machine.h	/^    unsigned int pageTableSize;$/;"	m	class:Machine
+patable	nachos/code/bin/execute.c	/^patable(tab)$/;"	f
+pc	nachos/code/bin/disasm.c	/^int pc;$/;"	v
+pending	nachos/code/machine/interrupt.h	/^    List *pending;		\/\/ the list of interrupts scheduled$/;"	m	class:Interrupt
+physicalPage	nachos/code/machine/translate.h	/^    unsigned int physicalPage; 	\/\/ The page number in real memory (relative to the$/;"	m	class:TranslationEntry
+pktHdr	nachos/code/network/post.h	/^     PacketHeader pktHdr;	\/\/ Header appended by Network$/;"	m	class:Mail
+postOffice	nachos/code/threads/system.cc	/^PostOffice *postOffice;$/;"	v
+print	nachos/code/test/putchar_nohalt.c	/^void print(char c, int n) {$/;"	f
+print	nachos/code/test/putint.c	/^void print(int n) {$/;"	f
+print1	nachos/code/test/putchar.c	/^void print1(char c, int n) {$/;"	f
+print2	nachos/code/test/putchar.c	/^void print2(char c, int n) {$/;"	f
+print_reloc	nachos/code/bin/out.c	/^print_reloc(vaddr,i,j)$/;"	f
+print_section	nachos/code/bin/out.c	/^print_section(i)$/;"	f
+printf	nachos/code/bin/out.c	190;"	d	file:
+printhist	nachos/code/bin/execute.c	/^printhist()$/;"	f
+printstatistics	nachos/code/bin/execute.c	/^printstatistics()$/;"	f
+putBusy	nachos/code/machine/console.h	/^    bool putBusy;    			\/\/ Is a PutChar operation in progress?$/;"	m	class:Console
+queue	nachos/code/threads/synch.h	/^    List *queue;		\/\/ threads waiting in P() for the value to be > 0$/;"	m	class:Semaphore
+ra	nachos/code/threads/switch.S	/^#define ra      $31     \/* return address *\/$/;"	d
+randomize	nachos/code/machine/timer.h	/^    bool randomize;		\/\/ set if we need to use a random timeout delay$/;"	m	class:Timer
+rd	nachos/code/bin/instr.h	11;"	d
+rd	nachos/code/machine/machine.h	/^    unsigned char rs, rt, rd;$/;"	m	class:Instruction
+rdatahead	nachos/code/bin/disasm.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+rdatahead	nachos/code/bin/main.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+readAvail	nachos/code/userprog/progtest.cc	/^static Semaphore *readAvail;$/;"	v	file:
+readAvail	nachos/code/userprog/synchconsole.cc	/^static Semaphore *readAvail;$/;"	v	file:
+readFileNo	nachos/code/machine/console.h	/^    int readFileNo;			\/\/ UNIX file emulating the keyboard $/;"	m	class:Console
+readHandler	nachos/code/machine/console.h	/^    VoidFunctionPtr readHandler; 	\/\/ Interrupt handler to call when $/;"	m	class:Console
+readHandler	nachos/code/machine/network.h	/^    VoidFunctionPtr readHandler;  \/\/ Interrupt handler, signalling packet has $/;"	m	class:Network
+readOnly	nachos/code/machine/translate.h	/^    bool readOnly;	\/\/ If this bit is set, the user program is not allowed$/;"	m	class:TranslationEntry
+read_struct	nachos/code/bin/out.c	29;"	d	file:
+readyList	nachos/code/threads/scheduler.h	/^    List * readyList;		\/\/ queue of threads that are ready to run,$/;"	m	class:Scheduler
+registers	nachos/code/machine/machine.h	/^    int registers[NumTotalRegs]; \/\/ CPU registers, for executing user programs$/;"	m	class:Machine
+regstrings	nachos/code/bin/d.c	/^char *regstrings[] =$/;"	v
+reloc	nachos/code/bin/out.c	/^  struct reloc reloc[MAXRELOCS];$/;"	m	struct:data	typeref:struct:data::reloc	file:
+reloc_type	nachos/code/bin/out.c	/^char *reloc_type[] = {$/;"	v
+relocs	nachos/code/bin/out.c	/^  int relocs;$/;"	m	struct:data	file:
+rs	nachos/code/bin/instr.h	13;"	d
+rs	nachos/code/machine/machine.h	/^    unsigned char rs, rt, rd;$/;"	m	class:Instruction
+rt	nachos/code/bin/instr.h	12;"	d
+rt	nachos/code/machine/machine.h	/^    unsigned char rs, rt, rd;$/;"	m	class:Instruction
+runUntilTime	nachos/code/machine/machine.h	/^    int runUntilTime;		\/\/ drop back into the debugger when simulated$/;"	m	class:Machine
+runprogram	nachos/code/bin/execute.c	/^runprogram(startpc, argc, argv)$/;"	f
+s0	nachos/code/threads/switch.S	/^#define s0      $16     \/* callee saved *\/$/;"	d
+s1	nachos/code/threads/switch.S	/^#define s1      $17$/;"	d
+s2	nachos/code/threads/switch.S	/^#define s2      $18$/;"	d
+s3	nachos/code/threads/switch.S	/^#define s3      $19$/;"	d
+s4	nachos/code/threads/switch.S	/^#define s4      $20$/;"	d
+s5	nachos/code/threads/switch.S	/^#define s5      $21$/;"	d
+s6	nachos/code/threads/switch.S	/^#define s6      $22$/;"	d
+s7	nachos/code/threads/switch.S	/^#define s7      $23$/;"	d
+s_flags	nachos/code/bin/coff.h	/^        int             s_flags;        \/* flags *\/$/;"	m	struct:scnhdr
+s_lnnoptr	nachos/code/bin/coff.h	/^        int             s_lnnoptr;      \/* file ptr to gp histogram *\/$/;"	m	struct:scnhdr
+s_name	nachos/code/bin/coff.h	/^        char            s_name[8];      \/* section name *\/$/;"	m	struct:scnhdr
+s_nlnno	nachos/code/bin/coff.h	/^        unsigned short  s_nlnno;        \/* number of gp histogram entries *\/$/;"	m	struct:scnhdr
+s_nreloc	nachos/code/bin/coff.h	/^        unsigned short  s_nreloc;       \/* number of relocation entries *\/$/;"	m	struct:scnhdr
+s_paddr	nachos/code/bin/coff.h	/^        int             s_paddr;        \/* physical address, aliased s_nlib *\/$/;"	m	struct:scnhdr
+s_relptr	nachos/code/bin/coff.h	/^        int             s_relptr;       \/* file ptr to relocation *\/$/;"	m	struct:scnhdr
+s_scnptr	nachos/code/bin/coff.h	/^        int             s_scnptr;       \/* file ptr to raw data for section *\/$/;"	m	struct:scnhdr
+s_size	nachos/code/bin/coff.h	/^        int             s_size;         \/* section size *\/$/;"	m	struct:scnhdr
+s_vaddr	nachos/code/bin/coff.h	/^        int             s_vaddr;        \/* virtual address *\/$/;"	m	struct:scnhdr
+sbsshead	nachos/code/bin/disasm.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+sbsshead	nachos/code/bin/main.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+scheduler	nachos/code/threads/system.cc	/^Scheduler *scheduler;		\/\/ the ready list$/;"	v
+scnhdr	nachos/code/bin/coff.h	/^struct scnhdr {$/;"	s
+scnhdr	nachos/code/bin/out.c	/^struct scnhdr scnhdr[MAXSCNS];$/;"	v	typeref:struct:scnhdr
+sdatahead	nachos/code/bin/disasm.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+sdatahead	nachos/code/bin/main.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+section	nachos/code/bin/out.c	/^struct data section[MAXSCNS];$/;"	v	typeref:struct:data
+section_name	nachos/code/bin/out.c	/^char *section_name[] = {$/;"	v
+sector	nachos/code/filesys/directory.h	/^    int sector;				\/\/ Location on disk to find the $/;"	m	class:DirectoryEntry
+seekPosition	nachos/code/filesys/openfile.h	/^    int seekPosition;			\/\/ Current position within the file$/;"	m	class:OpenFile
+segment	nachos/code/bin/noff.h	/^typedef struct segment {$/;"	s
+self	nachos/code/bin/disasm.c	/^static char self[256];			\/* name of invoking program *\/$/;"	v	file:
+self	nachos/code/bin/main.c	/^static char self[256];			\/* name of invoking program *\/$/;"	v	file:
+semaphore	nachos/code/filesys/synchdisk.h	/^    Semaphore *semaphore; 		\/\/ To synchronize requesting thread $/;"	m	class:SynchDisk
+sendBusy	nachos/code/machine/network.h	/^    bool sendBusy;		\/\/ Packet is being sent.$/;"	m	class:Network
+sendLock	nachos/code/network/post.h	/^    Lock *sendLock;		\/\/ Only one outgoing message at a time$/;"	m	class:PostOffice
+setStatus	nachos/code/machine/interrupt.h	/^    void setStatus(MachineStatus st) { status = st; }$/;"	f	class:Interrupt
+setStatus	nachos/code/threads/thread.h	/^    void setStatus (ThreadStatus st)$/;"	f	class:Thread
+sfetch	nachos/code/bin/int.h	20;"	d
+shamt	nachos/code/bin/instr.h	14;"	d
+simple_strtol	nachos/code/test/vsprintf.c	/^long simple_strtol(const char *cp,char **endp,unsigned int base)$/;"	f
+simple_strtoul	nachos/code/test/vsprintf.c	/^unsigned long simple_strtoul(const char *cp,char **endp,unsigned int base)$/;"	f
+singleStep	nachos/code/machine/machine.h	/^    bool singleStep;		\/\/ drop back into the debugger after each$/;"	m	class:Machine
+size	nachos/code/bin/noff.h	/^  int size;			\/* size of segment *\/$/;"	m	struct:segment
+skip_atoi	nachos/code/test/vsprintf.c	/^static int skip_atoi(const char **s)$/;"	f	file:
+sock	nachos/code/machine/network.h	/^    int sock;			\/\/ UNIX socket number for incoming packets$/;"	m	class:Network
+sockName	nachos/code/machine/network.h	/^    char sockName[32];		\/\/ File name corresponding to UNIX socket$/;"	m	class:Network
+sp	nachos/code/threads/switch.S	/^#define sp      $29     \/* stack pointer *\/$/;"	d
+space	nachos/code/threads/thread.h	/^    AddrSpace *space;		\/\/ User code this thread is running.$/;"	m	class:Thread
+specialTable	nachos/code/machine/mipssim.h	/^static int specialTable[] = {$/;"	v
+specialops	nachos/code/bin/opstrings.c	/^char *specialops[] = {$/;"	v
+sprintf	nachos/code/test/vsprintf.c	/^int sprintf(char * buf, const char *fmt, ...)$/;"	f
+sptr	nachos/code/bin/d.c	/^int sptr;$/;"	v
+sspace	nachos/code/bin/out.c	/^char sspace[20000];$/;"	v
+sstore	nachos/code/bin/int.h	27;"	d
+stack	nachos/code/threads/thread.h	/^    unsigned long *stack;	\/\/ Bottom of the stack $/;"	m	class:Thread
+stackTop	nachos/code/threads/thread.h	/^    unsigned long *stackTop;		\/\/ the current stack pointer$/;"	m	class:Thread
+stats	nachos/code/threads/system.cc	/^Statistics *stats;		\/\/ performance metrics$/;"	v
+status	nachos/code/machine/interrupt.h	/^    MachineStatus status;	\/\/ idle, kernel mode, user mode$/;"	m	class:Interrupt
+status	nachos/code/threads/thread.h	/^    ThreadStatus status;	\/\/ ready, running or blocked$/;"	m	class:Thread
+stdin_busy	nachos/code/machine/console.cc	/^int Console::stdin_busy;$/;"	m	class:Console	file:
+stdin_busy	nachos/code/machine/console.h	/^    static int stdin_busy;		\/\/ Whether stdin is already read from$/;"	m	class:Console
+storage_class	nachos/code/bin/out.c	/^char *storage_class[] = {$/;"	v
+store	nachos/code/bin/int.h	25;"	d
+string	nachos/code/bin/main.c	/^char *string(s)$/;"	f
+string	nachos/code/machine/mipssim.h	/^    const char *string;	\/\/ Printed version of instruction$/;"	m	struct:OpString
+strnlen	nachos/code/test/vsprintf.c	/^int strnlen(const char *s, int maxlen){$/;"	f
+subtable	nachos/code/bin/execute.c	/^int subtable[33][33];$/;"	v
+symbol_type	nachos/code/bin/out.c	/^char *symbol_type[] = {$/;"	v
+symbols	nachos/code/bin/out.c	/^EXTR symbols[MAXSYMS];$/;"	v
+symhdr	nachos/code/bin/out.c	/^HDRR symhdr;$/;"	v
+synchDisk	nachos/code/threads/system.cc	/^SynchDisk *synchDisk;$/;"	v
+synchconsole	nachos/code/threads/system.cc	/^SynchConsole * synchconsole;$/;"	v
+systemTicks	nachos/code/machine/stats.h	/^  long long systemTicks;	\/\/ Time spent executing system code$/;"	m	class:Statistics
+system_break	nachos/code/bin/system.c	/^system_break()$/;"	f
+system_trap	nachos/code/bin/system.c	/^system_trap()$/;"	f
+table	nachos/code/filesys/directory.h	/^    DirectoryEntry *table;		\/\/ Table of pairs: $/;"	m	class:Directory
+tableSize	nachos/code/filesys/directory.h	/^    int tableSize;			\/\/ Number of directory entries$/;"	m	class:Directory
+text_start	nachos/code/bin/coff.h	/^        int     text_start;     \/* base of text used for this file      *\/$/;"	m	struct:aouthdr
+texthead	nachos/code/bin/disasm.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+texthead	nachos/code/bin/main.c	/^static SCNHDR texthead, rdatahead, datahead, sdatahead, sbsshead, bsshead;$/;"	v	file:
+threadToBeDestroyed	nachos/code/threads/system.cc	/^Thread *threadToBeDestroyed;	\/\/ the thread that just finished$/;"	v
+timer	nachos/code/threads/system.cc	/^Timer *timer;			\/\/ the hardware timer device,$/;"	v
+tlb	nachos/code/machine/machine.h	/^    TranslationEntry *tlb;		\/\/ this pointer should be considered $/;"	m	class:Machine
+to	nachos/code/machine/network.h	/^    NetworkAddress to;		\/\/ Destination machine ID$/;"	m	class:PacketHeader
+to	nachos/code/network/post.h	/^    MailBoxAddress to;		\/\/ Destination mail box$/;"	m	class:MailHeader
+top4	nachos/code/bin/instr.h	18;"	d
+totalTicks	nachos/code/machine/stats.h	/^  long long totalTicks;      	\/\/ Total time running Nachos$/;"	m	class:Statistics
+toupper	nachos/code/test/vsprintf.c	/^int toupper( int character ) {$/;"	f
+true	nachos/code/bin/execute.c	15;"	d	file:
+tsize	nachos/code/bin/coff.h	/^        int     tsize;          \/* text size in bytes, padded to DW bdry*\/$/;"	m	struct:aouthdr
+type	nachos/code/machine/interrupt.h	/^    IntType type;		\/\/ for debugging$/;"	m	class:PendingInterrupt
+u	nachos/code/bin/execute.c	/^u()				\/* unimplemented *\/$/;"	f
+u_to_int_addr	nachos/code/bin/system.c	/^char *u_to_int_addr(ptr)$/;"	f
+u_to_int_fd	nachos/code/bin/system.c	/^u_to_int_fd(fd)$/;"	f
+ucfetch	nachos/code/bin/int.h	23;"	d
+uninitData	nachos/code/bin/noff.h	/^   Segment uninitData;		\/* uninitialized data segment --$/;"	m	struct:noffHeader
+use	nachos/code/machine/translate.h	/^    bool use;           \/\/ This bit is set by the hardware every time the$/;"	m	class:TranslationEntry
+userRegisters	nachos/code/threads/thread.h	/^    int userRegisters[NumTotalRegs];	\/\/ user-level CPU register state$/;"	m	class:Thread
+userTicks	nachos/code/machine/stats.h	/^  long long userTicks;       	\/\/ Time spent executing user code$/;"	m	class:Statistics
+usfetch	nachos/code/bin/int.h	21;"	d
+valgrind_id	nachos/code/threads/thread.h	/^    unsigned int valgrind_id;	\/\/ valgrind ID for the stack$/;"	m	class:Thread
+valid	nachos/code/machine/translate.h	/^    bool valid;         \/\/ If this bit is cleared, the translation is ignored.$/;"	m	class:TranslationEntry
+value	nachos/code/machine/machine.h	/^    unsigned int value; \/\/ binary representation of the instruction$/;"	m	class:Instruction
+value	nachos/code/threads/synch.h	/^    int value;			\/\/ semaphore value, always >= 0$/;"	m	class:Semaphore
+virtualAddr	nachos/code/bin/noff.h	/^  int virtualAddr;		\/* location of segment in virt addr space *\/$/;"	m	struct:segment
+virtualPage	nachos/code/machine/translate.h	/^    unsigned int virtualPage;  	\/\/ The page number in virtual memory, only when$/;"	m	class:TranslationEntry
+vsprintf	nachos/code/test/vsprintf.c	/^int vsprintf(char *buf, const char *fmt, va_list args)$/;"	f
+vstamp	nachos/code/bin/coff.h	/^        short   vstamp;         \/* version stamp                        *\/$/;"	m	struct:aouthdr
+when	nachos/code/machine/interrupt.h	/^    long long when;		\/\/ When the interrupt is supposed to fire$/;"	m	class:PendingInterrupt
+writeDone	nachos/code/userprog/progtest.cc	/^static Semaphore *writeDone;$/;"	v	file:
+writeDone	nachos/code/userprog/synchconsole.cc	/^static Semaphore *writeDone;$/;"	v	file:
+writeFileNo	nachos/code/machine/console.h	/^    int writeFileNo;			\/\/ UNIX file emulating the display$/;"	m	class:Console
+writeHandler	nachos/code/machine/console.h	/^    VoidFunctionPtr writeHandler; 	\/\/ Interrupt handler to call when $/;"	m	class:Console
+writeHandler	nachos/code/machine/network.h	/^    VoidFunctionPtr writeHandler; \/\/ Interrupt handler, signalling next packet $/;"	m	class:Network
+yieldOnReturn	nachos/code/machine/interrupt.h	/^    bool yieldOnReturn; 	\/\/ TRUE if we are to context switch$/;"	m	class:Interrupt
+z	nachos/code/threads/switch.S	/^#define z       $0      \/* zero register *\/$/;"	d
+~AddrSpace	nachos/code/userprog/addrspace.cc	/^AddrSpace::~AddrSpace ()$/;"	f	class:AddrSpace
+~BitMap	nachos/code/userprog/bitmap.cc	/^BitMap::~BitMap ()$/;"	f	class:BitMap
+~Condition	nachos/code/threads/synch.cc	/^Condition::~Condition ()$/;"	f	class:Condition
+~Console	nachos/code/machine/console.cc	/^Console::~Console()$/;"	f	class:Console
+~Directory	nachos/code/filesys/directory.cc	/^Directory::~Directory()$/;"	f	class:Directory
+~Disk	nachos/code/machine/disk.cc	/^Disk::~Disk()$/;"	f	class:Disk
+~Interrupt	nachos/code/machine/interrupt.cc	/^Interrupt::~Interrupt()$/;"	f	class:Interrupt
+~List	nachos/code/threads/list.cc	/^List::~List ()$/;"	f	class:List
+~Lock	nachos/code/threads/synch.cc	/^Lock::~Lock ()$/;"	f	class:Lock
+~Machine	nachos/code/machine/machine.cc	/^Machine::~Machine()$/;"	f	class:Machine
+~MailBox	nachos/code/network/post.cc	/^MailBox::~MailBox()$/;"	f	class:MailBox
+~Network	nachos/code/machine/network.cc	/^Network::~Network()$/;"	f	class:Network
+~OpenFile	nachos/code/filesys/openfile.cc	/^OpenFile::~OpenFile()$/;"	f	class:OpenFile
+~OpenFile	nachos/code/filesys/openfile.h	/^    ~OpenFile() { Close(file); }			\/\/ close the file$/;"	f	class:OpenFile
+~PostOffice	nachos/code/network/post.cc	/^PostOffice::~PostOffice()$/;"	f	class:PostOffice
+~Scheduler	nachos/code/threads/scheduler.cc	/^Scheduler::~Scheduler ()$/;"	f	class:Scheduler
+~Semaphore	nachos/code/threads/synch.cc	/^Semaphore::~Semaphore ()$/;"	f	class:Semaphore
+~SynchConsole	nachos/code/userprog/synchconsole.cc	/^SynchConsole::~SynchConsole() {$/;"	f	class:SynchConsole
+~SynchDisk	nachos/code/filesys/synchdisk.cc	/^SynchDisk::~SynchDisk()$/;"	f	class:SynchDisk
+~SynchList	nachos/code/threads/synchlist.cc	/^SynchList::~SynchList ()$/;"	f	class:SynchList
+~Thread	nachos/code/threads/thread.cc	/^Thread::~Thread ()$/;"	f	class:Thread
+~Timer	nachos/code/machine/timer.h	/^    ~Timer() {}$/;"	f	class:Timer
