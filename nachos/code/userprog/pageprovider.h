@@ -1,5 +1,4 @@
 
-#ifdef CHANGED
 // PageProvider.h
 //      Data structures to keep track of executing user programs
 //      (address spaces).
@@ -16,12 +15,20 @@
 #define PAGEPROVIDER_H
 
 #include "bitmap.h"
+#include "translate.h"
+
 
 class PageProvider : dontcopythis
 {
     public:
-        TranslationEntry getEmptyPage();
-        void ReleasePage(TranslationEntry * page);
+        PageProvider(unsigned long size);
+        ~PageProvider();
+        int getEmptyPage();
+        void ReleasePage(int page_pos);
         size_t NumAvailPage();
+    
+    private:
+        BitMap * pageMap;
         
-}
+};
+#endif  //PAGEPROVIDER_H

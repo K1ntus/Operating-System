@@ -49,6 +49,8 @@
 #define SC_P                33
 #define SC_SemaphoreInit    34
 
+#define SC_FORK_EXEC        40
+
 #endif //CHANGED
 #ifdef IN_USER_MODE
 

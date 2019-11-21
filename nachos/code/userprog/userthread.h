@@ -29,6 +29,8 @@ public:
     static void UserSemaphore_P(int id);
     static void do_SemaphoreInit(sem_t sem_id, int initial_value);
 
+    static int ForkExec(const char * s);
+
 private:
     static Semaphore *getSemaphoreFromElement(ListElement *elem)
     {

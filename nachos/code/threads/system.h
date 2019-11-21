@@ -56,8 +56,12 @@ extern PostOffice *postOffice;
 #ifdef CHANGED
 #ifdef USER_PROGRAM
 #include "synchconsole.h"
+#include "pageprovider.h"
+
 extern SynchConsole * synchconsole;
-#endif
+extern PageProvider * pageProvider;
+#endif //USER_PROGRAM
 #endif //CHANGED
+
 
 #endif // SYSTEM_H

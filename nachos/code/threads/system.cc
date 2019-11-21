@@ -41,6 +41,7 @@ PostOffice *postOffice;
 
 #ifdef USER_PROGRAM
 SynchConsole * synchconsole;
+PageProvider * pageProvider;
 #endif
 
 
@@ -180,8 +181,13 @@ Initialize (int argc, char **argv)
     interrupt->Enable ();
     CallOnUserAbort (Cleanup);	// if user hits ctl-C
 
+
+
 #ifdef USER_PROGRAM
     machine = new Machine (debugUserProg);	// this must come first
+    #ifdef CHANGED
+    pageProvider = new PageProvider(NumPhysPages);
+    #endif //CHANGED
 #endif
 
 #ifdef FILESYS
@@ -230,12 +236,15 @@ Cleanup ()
     synchDisk = NULL;
 #endif
 
-
+#ifdef CHANGED
 #ifdef USER_PROGRAM
     delete synchconsole;
     synchconsole = NULL;
-#endif
 
+    delete pageProvider;
+    pageProvider = NULL;
+#endif //USER_PROGRAM
+#endif //CHANGED
 
     delete timer;
     timer = NULL;

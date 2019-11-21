@@ -263,6 +263,18 @@ void ExceptionHandler (ExceptionType which) {
 						machine->WriteRegister(CALL_CODE, DEFAULT_RETURN_VALUE);
 						break;
 					}
+
+
+
+					case SC_FORK_EXEC:
+					{
+						DEBUG ('s', "ForkExec, initiated by user program.\n");
+
+						int from_address = machine->ReadRegister(CALL_ARG1);
+						char filename[MAX_STRING_SIZE];
+						synchconsole->copyStringFromMachine(from_address, filename, MAX_STRING_SIZE);
+						break;
+					}
 					#endif	//CHANGED
 
 

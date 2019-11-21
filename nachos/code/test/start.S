@@ -249,6 +249,17 @@ V:
 	syscall
 	j	$31
 	.end V
+
+
+
+
+	.global ForkExec
+	.ent	ForkExec
+Fork_Exec:
+	addiu $2,$0,SC_FORK_EXEC
+	syscall
+	j	$31
+	.end ForkExec
 #endif //CHANGED
 
 

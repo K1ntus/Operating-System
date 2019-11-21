@@ -119,4 +119,46 @@ void UserThread::UserSemaphore_P(int sem) {
     //     sem->V();
 }
 
+
+
+int UserThread::ForkExec(const char * filename) {
+    Thread * fork_thread = new Thread(filename);
+    ASSERT(fork_thread);
+
+
+    OpenFile *executable = fileSystem->Open (filename);
+    ASSERT(executable);
+    AddrSpace *space;
+
+    if (executable == NULL)
+    {
+        SetColor (stdout, ColorRed);
+        SetBold (stdout);
+        printf ("Unable to open file %s\n", filename);
+        ClearColor (stdout);
+        return -1;
+    }
+    space = new AddrSpace (executable);
+    ASSERT(space);
+    fork_thread->space = space;
+
+    delete executable;		// close file
+
+    space->InitRegisters ();	// set the initial register values
+    space->RestoreState ();	// load page table register
+
+    //machine->DumpMem ("memory.svg");
+    machine->Run ();	// jump to the user progam
+    ASSERT (FALSE);		// machine->Run never returns;
+    
+
+    interrupt->Halt();
+    // the address space exits
+    // by doing the syscall "exit"
+
+
+
+    return 0;
+}
+
 #endif  //CHANGED

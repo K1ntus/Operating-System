@@ -100,6 +100,21 @@ AddrSpace::AddrSpace(OpenFile *executable)
           numPages, size);
     // first, set up the translation
     pageTable = new TranslationEntry[numPages];
+    #ifdef CHANGED        
+
+    for (i = 0; i < numPages; i++)
+    {
+        int id = pageProvider->getEmptyPage();
+        pageTable[i].physicalPage = id; // for now, phys page # = virtual page #
+        pageTable[i].valid = TRUE;
+        pageTable[i].use = FALSE;
+        pageTable[i].dirty = FALSE;
+        pageTable[i].readOnly = FALSE; // if the code segment was entirely on
+                                       // a separate page, we could set its
+                                       // pages to be read-only
+    }
+
+    #else
     for (i = 0; i < numPages; i++)
     {
         pageTable[i].physicalPage = i + 1; // for now, phys page # = virtual page #
@@ -110,6 +125,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
                                        // a separate page, we could set its
                                        // pages to be read-only
     }
+    #endif //CHANGED
 
     // then, copy in the code and data segments into memory
     if (noffH.code.size > 0)
@@ -157,6 +173,8 @@ AddrSpace::AddrSpace(OpenFile *executable)
 
 
     threadMapManager = new BitMap(UserStacksAreaSize);
+
+    // machine->DumpMem("fork.svg");
 }
 
 //----------------------------------------------------------------------
@@ -168,6 +186,10 @@ AddrSpace::~AddrSpace()
 {
     // LB: Missing [] for delete
     // delete pageTable;
+    for (int i = 0; i < numPages; i++)
+    {
+        pageProvider->ReleasePage(i);
+    }
     delete[] pageTable;
     // End of modification
 
